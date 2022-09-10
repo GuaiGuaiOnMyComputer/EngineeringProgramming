@@ -19,24 +19,24 @@ struct Stats
 
 int main()
 {
-    int count = 0;
+    int count = 0; //number of user inputs
     double input_x, input_y;
     double shortestDist;
-    int shortestRound;
-    const int x0 = 0, y0 = 0;
+    int shortestRound; //index of the user input resulting the shortest distance
+    const int x0 = 0, y0 = 0; //coordinance of the origin
     std::vector<Stats> record(5);
     std::cout << "Delivery person takes unlimited orders until input 0 0" << std::endl;
 
     while (getUserInput(input_x, input_y)) {
         double distance = sqrt(pow(input_x - x0, 2) + pow(input_y - y0, 2));
         std::cout << "\tThe distance from origin (0, 0) to (" << input_x << ", " << input_y << ") is " << distance << std::endl;
-        Stats userInput = {count, input_x, input_y, distance};
-        record.push_back(userInput);
-        if(count == 0){
+        Stats userInput = {count, input_x, input_y, distance}; //store the user inputs, its index and the resulting distance in a custom struce
+        record.push_back(userInput); //put the struct into an growing array
+        if(count == 0){ //put the zeroth user input into comparison for the later ones
             shortestDist = distance;
             shortestRound = count;
-        }else{
-            if(distance < shortestDist){
+        }else{ 
+            if(distance < shortestDist){ //comparint the latest user input to the one with currently the shortest distance
                 shortestDist = distance;
                 shortestRound = count;
             }
