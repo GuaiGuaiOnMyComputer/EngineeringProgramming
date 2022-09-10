@@ -4,6 +4,9 @@
 
 bool getUserInput(double &out_x, double &out_y)
 {
+    //get user input and store into out_x and out_y by reference
+    //returns false when user input is 0 0
+    //otherwise returns true
     std::cout << "Input the coordinates of the destination" << std::endl;
     std::cin >> out_x >> out_y;
     return !(out_x == 0 && out_y==0);
@@ -27,7 +30,7 @@ int main()
     std::vector<Stats> record(5);
     std::cout << "Delivery person takes unlimited orders until input 0 0" << std::endl;
 
-    while (getUserInput(input_x, input_y)) {
+    while (getUserInput(input_x, input_y)) { //condition is false when user input is 0 0 and loop stops
         double distance = sqrt(pow(input_x - x0, 2) + pow(input_y - y0, 2));
         std::cout << "\tThe distance from origin (0, 0) to (" << input_x << ", " << input_y << ") is " << distance << std::endl;
         Stats userInput = {count, input_x, input_y, distance}; //store the user inputs, its index and the resulting distance in a custom struce
