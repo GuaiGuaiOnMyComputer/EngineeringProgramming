@@ -55,3 +55,25 @@ int main()
     std::cout << "The shortest distance is " << shortestDist << " from (" << record[shortestRound].in_x << ", " << record[shortestRound].in_y << ")" << std::endl;
     return 0;
 }
+
+
+/*
+OUTPUT:
+
+Delivery person takes unlimited orders until input 0 0
+Input the coordinates of the destination
+23 44
+        The distance from origin (0, 0) to (23, 44) is 49.6488
+Input the coordinates of the destination
+349 88
+        The distance from origin (0, 0) to (349, 88) is 359.924
+Input the coordinates of the destination
+2393465 2323443
+        The distance from origin (0, 0) to (2.39346e+006, 2.32344e+006) is 3.33573e+006
+Input the coordinates of the destination
+3 4
+        The distance from origin (0, 0) to (3, 4) is 5
+Input the coordinates of the destination
+0 0
+The shortest distance is 5 from (3, 4)
+*/
