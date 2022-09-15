@@ -27,18 +27,23 @@ int main()
     double shortestDist;
     int shortestRound; //index of the user input resulting the shortest distance
     const int x0 = 0, y0 = 0; //coordinance of the origin
-    std::vector<Stats> record(5);
+    std::vector<Stats> record;
     std::cout << "Delivery person takes unlimited orders until input 0 0" << std::endl;
 
     while (getUserInput(input_x, input_y)) { //condition is false when user input is 0 0 and loop stops
         double distance = sqrt(pow(input_x - x0, 2) + pow(input_y - y0, 2));
         std::cout << "\tThe distance from origin (0, 0) to (" << input_x << ", " << input_y << ") is " << distance << std::endl;
-        Stats userInput = {count, input_x, input_y, distance}; //store the user inputs, its index and the resulting distance in a custom struce
+        Stats userInput; //store the user inputs, its index and the resulting distance in a custom struce
+        userInput.count = count;
+        userInput.distance = distance;
+        userInput.in_x = input_x;
+        userInput.in_y = input_y;
         record.push_back(userInput); //put the struct into an growing array
         if(count == 0){ //put the zeroth user input into comparison for the later ones
             shortestDist = distance;
             shortestRound = count;
-        }else{ 
+        }
+        else{ 
             if(distance < shortestDist){ //comparint the latest user input to the one with currently the shortest distance
                 shortestDist = distance;
                 shortestRound = count;
