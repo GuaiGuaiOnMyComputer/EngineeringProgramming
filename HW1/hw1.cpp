@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <cmath>     //pow(), sqrt()
+#include <cmath>       //pow(), sqrt()
 
 bool getUserInput(float *out_sides);
 float getArea(const float* sides);
@@ -39,3 +39,14 @@ bool getUserInput(float* out_sides)
     std::cin >> out_sides[0] >> out_sides[1] >> out_sides[2];
     return !(out_sides == 0 && out_sides[1] == 0 && out_sides[2] == 0);
 }
+
+class InputLogSort
+{
+public:
+    InputLogSort(std::vector<Inputs>* sessionLog)
+    {
+        _sessionLog = sessionLog;
+    }
+private:
+    std::vector<Inputs>* _sessionLog = nullptr;
+};
