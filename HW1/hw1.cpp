@@ -4,6 +4,7 @@
 
 bool getUserInput(float *out_sides);
 float getArea(const float* sides);
+class InputLogSort;
 
 struct Inputs
 {
@@ -19,10 +20,22 @@ int main()
     float sides[3];
 
     while(getUserInput(&sides[0])){
+        if(inputCount == 0 && sides[0] == 0 && sides[1] == 0 && sides[2] == 0){
+            //prevent the user from breaking the program by entering 0, 0, 0 at the 0th input, segfaultting the program
+            std::cout << "You didn't input any valid values before terminating the program" << std::endl;
+            return 0;
+        }
         float area = getArea(&sides[0]);
         inputLog.push_back(Inputs{inputCount, *sides, area});
         inputCount ++;
     }
+    test(&inputLog);
+    return 0;
+}
+
+void test(std::vector<Inputs>* input)
+{
+
 }
 
 float getArea(const float* sides)
@@ -66,8 +79,10 @@ private:
     {
         int i = 0, j = 0;
         for(i = 0; i<_nRecords-1; i++){
-            while(j<_nRecords-i-1 && _sessionLog[j].area>_sessionLog[j+1].area)
+            while(j<_nRecords-i-1 && _sessionLog[j].area>_sessionLog[j+1].area){
                 _swap(i, j);
+                j++;
+            }
         }
     }
 };
