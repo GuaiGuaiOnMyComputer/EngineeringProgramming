@@ -43,10 +43,31 @@ bool getUserInput(float* out_sides)
 class InputLogSort
 {
 public:
-    InputLogSort(std::vector<Inputs>* sessionLog)
+    InputLogSort(std::vector<Inputs>* sessionLog_ptr)
     {
-        _sessionLog = sessionLog;
+        _sessionLog_ptr = sessionLog_ptr;  
+        _sessionLog = *_sessionLog_ptr;
+        _nRecords = sessionLog_ptr->capacity();
+        _bubbleSort();
     }
 private:
-    std::vector<Inputs>* _sessionLog = nullptr;
+    std::vector<Inputs>* _sessionLog_ptr = nullptr;
+    std::vector<Inputs> _sessionLog;
+    int _nRecords;
+    
+    void _swap(int idxA, int idxB)
+    {
+        Inputs tmp = _sessionLog[idxA];
+        _sessionLog[idxA] = _sessionLog[idxB];
+        _sessionLog[idxB] = _sessionLog[idxA];
+    }
+
+    void _bubbleSort()
+    {
+        int i = 0, j = 0;
+        for(i = 0; i<_nRecords-1; i++){
+            while(j<_nRecords-i-1 && _sessionLog[j].area>_sessionLog[j+1].area)
+                _swap(i, j);
+        }
+    }
 };
