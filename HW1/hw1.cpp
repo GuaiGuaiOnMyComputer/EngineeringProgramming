@@ -11,52 +11,46 @@ void printSortedResult(const std::vector<Inputs>& sessionLog);
 class Inputs
 {
 public:
+    int _inputIdx ,_sideA ,_sideB ,_sideC;
+    float _area;
     Inputs(int inputIdx, int sideA, int sideB, int sideC, float area):
         _inputIdx(inputIdx),
         _sideA(sideA),
         _sideB(sideB),
         _sideC(sideC),
         _area(area)
-    {
-        this->_inputIdx = inputIdx;
-        this->_sideA = sideA;
-        this->_sideB = sideB;
-        this->_sideC = sideC;
-        this->_area = area;
-    }
-
-    int _inputIdx;
-    int _sideA;
-    int _sideB;
-    int _sideC;
-    float _area;
+        {}
 
     Inputs() = delete;
 };
 
 int main()
 {
-    int inputCount = 0;
-    std::vector<Inputs> inputLog(10);
+    int count = 0;
+    std::vector<Inputs*> inputLog(10);
     int sideA, sideB, sideC;
 
     while(getUserInput(sideA, sideB, sideC)){
         float area = getArea(sideA, sideB, sideC);
-        // inputLog.push_back();
-        inputCount ++;
+        inputLog.push_back(new Inputs(count, sideA, sideB, sideC, area));
+        count ++;
     }
 
     //bubble sort
     int i = 0, j = 0;
-    for(i = 0; i<inputCount-1; i++){
-        while(j<inputCount-i-1 && inputLog[j]._area>inputLog[j+1]._area){
-            auto tmp = inputLog[j];
-            inputLog[j] = inputLog[i];
-            inputLog[i] = inputLog[j];
+    for(i = 0; i<count-1; i++){
+        while(j<count-i-1 && inputLog[j]->_area > inputLog[j+1]->_area){
+            Inputs tmp = *inputLog[j];
+            *inputLog[j] = *inputLog[i];
+            *inputLog[i] = *inputLog[j];
             j++;
         }
     }
-    printSortedResult(inputLog);    
+
+    std::cout << "The triangle with the smallest area is " << inputLog[0]->_area << "with sides" << '(' << inputLog[0]->_sideA << ", " << inputLog[0]->_sideB << ", " << inputLog[0]->_sideC << ")" << std::endl;
+    std::cout << "And the triangle with the largest area is" << inputLog[count-1]->_area << "with sides" << "( " << inputLog[count-1]->_sideA << ", " << inputLog[count -1]->_sideB << ", "  << inputLog[count-1]->_sideC << ')' << std::endl;
+    for(auto ptr : inputLog) //delete all heap pointers to prevent memory leak
+        delete ptr;
     return 0;
 }
 
@@ -81,11 +75,3 @@ bool getUserInput(int& out_sideA, int& out_sideB, int& out_sideC)
     }
     return true;
 }
-
-void printSortedResult(const std::vector<Inputs>& sessionLog)
-{
-    const int count = sessionLog.capacity();
-    std::cout << "The triangle with the smallest area is " << sessionLog[0]._area << "with sides" << '(' << sessionLog[0]._sideA << ", " << sessionLog[0]._sideB << ", " << sessionLog[0]._sideC << ")" << std::endl;
-    std::cout << "And the triangle with the largest area is" << sessionLog[count-1]._area << "with sides" << "( " << sessionLog[count-1]._sideA << ", " << sessionLog[count -1]._sideB << ", "  << sessionLog[count-1]._sideC << ')' << std::endl;
-}
-
