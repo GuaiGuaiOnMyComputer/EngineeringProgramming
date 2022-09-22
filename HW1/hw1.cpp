@@ -29,14 +29,14 @@ int main()
         inputLog.push_back(Inputs{inputCount, *sides, area});
         inputCount ++;
     }
-    test(&inputLog);
+
+    InputLogSort sortSessionLog = InputLogSort(&inputLog);
+    sortSessionLog.bubbleSort();
+
+    printSortedResult(&inputLog);    
     return 0;
 }
 
-void test(std::vector<Inputs>* input)
-{
-
-}
 
 float getArea(const float* sides)
 {   //takes in the pointer to the first element of array and offset using index
@@ -53,36 +53,45 @@ bool getUserInput(float* out_sides)
     return !(out_sides == 0 && out_sides[1] == 0 && out_sides[2] == 0);
 }
 
+void printSortedResult(const std::vector<Inputs>* sessionLog)
+{
+    const std::vector<Inputs> __sessionLog = *sessionLog;
+    const int count = sessionLog->capacity();
+    std::cout << "The triangle with the smallest area is " << __sessionLog[0].area << "with sides" << '(' << __sessionLog[0].sides[0] << ", " << __sessionLog[0].sides[1] << ", " << __sessionLog[0].sides[2] << ")" << std::endl;
+    std::cout << "And the triangle with the largest area is" << __sessionLog[count-1].area << "with sides" << "( " << __sessionLog[count-1].sides[0] << ", " << __sessionLog[count -1].sides[1] << ", "  << __sessionLog[count-1].sides[2] << ')' << std::endl;
+}
+
+
 class InputLogSort
 {
 public:
     InputLogSort(std::vector<Inputs>* sessionLog_ptr)
-    {
-        _sessionLog_ptr = sessionLog_ptr;  
-        _sessionLog = *_sessionLog_ptr;
-        _nRecords = sessionLog_ptr->capacity();
-        _bubbleSort();
-    }
-private:
-    std::vector<Inputs>* _sessionLog_ptr = nullptr;
-    std::vector<Inputs> _sessionLog;
-    int _nRecords;
-    
-    void _swap(int idxA, int idxB)
-    {
-        Inputs tmp = _sessionLog[idxA];
-        _sessionLog[idxA] = _sessionLog[idxB];
-        _sessionLog[idxB] = _sessionLog[idxA];
+    { 
+        __sessionLog = *sessionLog_ptr;
+        __nRecords = __sessionLog_ptr->capacity();
+        bubbleSort();
     }
 
-    void _bubbleSort()
+    void bubbleSort()
     {
         int i = 0, j = 0;
-        for(i = 0; i<_nRecords-1; i++){
-            while(j<_nRecords-i-1 && _sessionLog[j].area>_sessionLog[j+1].area){
-                _swap(i, j);
+        for(i = 0; i<__nRecords-1; i++){
+            while(j<__nRecords-i-1 && __sessionLog[j].area>__sessionLog[j+1].area){
+                __swap(i, j);
                 j++;
             }
         }
+    }
+
+private:
+    std::vector<Inputs>* __sessionLog_ptr = nullptr;
+    std::vector<Inputs> __sessionLog;
+    int __nRecords;
+    
+    void __swap(int idxA, int idxB)
+    {
+        Inputs tmp = __sessionLog[idxA];
+        __sessionLog[idxA] = __sessionLog[idxB];
+        __sessionLog[idxB] = __sessionLog[idxA];
     }
 };
