@@ -4,7 +4,7 @@
 
 class Inputs;
 bool getUserInput(int& out_sideA, int& out_sideB, int& out_sideC);
-float getArea(const int& sideA, const int& sideB, const int sideC);
+float getArea(const int& sideA, const int& sideB, const int& sideC);
 void printSortedResult(const std::vector<Inputs>& sessionLog);
 
 
@@ -35,15 +35,22 @@ int main()
         inputLog.push_back(new Inputs(count, sideA, sideB, sideC, area));
         count ++;
     }
+    if(count == 0){
+        //Prevent segfault if user terminates the program on the 0th input
+        std::cout << "You didn't input any valid values" << std::endl;
+        return 0;
+    }
 
-    //bubble sort
-    int i = 0, j = 0;
+    //bubble sort inputLog according to the area of each triangle in ascending order
+    int i, j;
     for(i = 0; i<count-1; i++){
-        while(j<count-i-1 && inputLog[j]->_area > inputLog[j+1]->_area){
-            Inputs tmp = *inputLog[j];
-            *inputLog[j] = *inputLog[i];
-            *inputLog[i] = *inputLog[j];
-            j++;
+        for(j=0; j<count-i-1; j++){
+            inputLog[j]->_area > inputLog[j+1]->_area; //this works fine 
+            if(inputLog[j]->_area > inputLog[j+1]->_area){ //this segfaults? WTF?
+                Inputs tmp = *inputLog[j];
+                *inputLog[j] = *inputLog[j+1];
+                *inputLog[j+1] = tmp;
+            }
         }
     }
 
@@ -55,9 +62,9 @@ int main()
 }
 
 
-float getArea(const int& sideA, const int& sideB, const int sideC)
+float getArea(const int& sideA, const int& sideB, const int& sideC)
 {   //takes in the pointer to the first element of array and offset using index
-    float halfPerimeter = (sideA + sideB + sideC) / 2;
+    float halfPerimeter = (sideA + sideB + sideC) / 2.0;
     float area = sqrt(pow(sideA-halfPerimeter, 2) * pow(sideB-halfPerimeter, 2) * pow(sideC-halfPerimeter, 2));
     std::cout << '\t' << "The area of this triangle is " <<  area << std::endl;
     return area;
@@ -65,12 +72,16 @@ float getArea(const int& sideA, const int& sideB, const int sideC)
 
 bool getUserInput(int& out_sideA, int& out_sideB, int& out_sideC)
 {
-    //takes in a pointer to an float array to store user inputs
-    //returns false and breaks loop when input is 0, 0, 0
+    //takes in an int reference to store user inputs
+    //returns false and breaks loop when input is (0, 0, 0), receives negative numbers or a triangle cannot be formed
     std::cout << "Please input three values as the length of three sides" <<std::endl;
     std::cin >> out_sideA >> out_sideB >> out_sideC;
     if(out_sideA <= 0 || out_sideB <= 0 || out_sideC <= 0){
         std::cout << "At least one side is smaller or equal to 0, terminating program." << std::endl;
+        return false;
+    }
+    if(out_sideA+out_sideB<out_sideC || out_sideB+out_sideC<out_sideA || out_sideA+out_sideC<out_sideB){
+        std::cout << "Incorrect side lengths for a triangle, terminating program" << std::endl;
         return false;
     }
     return true;
