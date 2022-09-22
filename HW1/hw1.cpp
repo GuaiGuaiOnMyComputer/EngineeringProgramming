@@ -2,14 +2,17 @@
 #include <vector>
 #include <cmath>       //pow(), sqrt()
 
-bool getUserInput(float *out_sides);
-float getArea(const float* sides);
+bool getUserInput(int& out_sideA, int& out_sideB, int& out_sideC);
+float getArea(const int& sideA, const int& sideB, const int sideC);
 class InputLogSort;
 
-struct Inputs
+class Inputs
 {
+public:
     int inputIdx;
-    float sides[3];
+    int sideA;
+    int sideB;
+    int sideC;
     float area;
 };
 
@@ -17,16 +20,15 @@ int main()
 {
     int inputCount = 0;
     std::vector<Inputs> inputLog(10);
-    float sides[3];
+    int sideA, sideB, sideC;
 
-    while(getUserInput(&sides[0])){
-        if(inputCount == 0 && sides[0] == 0 && sides[1] == 0 && sides[2] == 0){
-            //prevent the user from breaking the program by entering 0, 0, 0 at the 0th input, segfaultting the program
-            std::cout << "You didn't input any valid values before terminating the program" << std::endl;
-            return 0;
-        }
-        float area = getArea(&sides[0]);
-        inputLog.push_back(Inputs{inputCount, *sides, area});
+    while(getUserInput(sideA, sideB, sideC){
+        float area = getArea(sideA, sideB, sideC);
+        Inputs currentInput;
+        currentInput.inputIdx = inputCount;
+        currentInput.sides = *sides;
+
+        inputLog.push_back(currentInput);
         inputCount ++;
     }
 
@@ -38,19 +40,19 @@ int main()
 }
 
 
-float getArea(const float* sides)
+float getArea(const int& sideA, const int& sideB, const int sideC)
 {   //takes in the pointer to the first element of array and offset using index
-    float halfPerimeter = (sides[0] + sides[1] + sides[2]) / 2;
-    return sqrt(pow(sides[0]-halfPerimeter, 2) * pow(sides[1]-halfPerimeter, 2) * pow(sides[2]-halfPerimeter, 2));
+    float halfPerimeter = (sideA + sideB + sideC) / 2;
+    return sqrt(pow(sideA-halfPerimeter, 2) * pow(sideB-halfPerimeter, 2) * pow(sideC-halfPerimeter, 2));
 }
 
-bool getUserInput(float* out_sides)
+bool getUserInput(int& out_sideA, int& out_sideB, int& out_sideC)
 {
     //takes in a pointer to an float array to store user inputs
     //returns false and breaks loop when input is 0, 0, 0
     std::cout << "Please input three values as the length of three sides" <<std::endl;
-    std::cin >> out_sides[0] >> out_sides[1] >> out_sides[2];
-    return !(out_sides == 0 && out_sides[1] == 0 && out_sides[2] == 0);
+    std::cin >> out_sideA >> out_sideB >> out_sideC;
+    return !(out_sideA == 0 && out_sideB == 0 && out_sideC == 0);
 }
 
 void printSortedResult(const std::vector<Inputs>* sessionLog)
