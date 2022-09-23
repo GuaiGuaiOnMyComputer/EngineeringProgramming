@@ -1,6 +1,7 @@
-#include <iostream>
-#include <vector>
+#include <stdio.h>     //prinf()
 #include <cmath>       //pow(), sqrt()
+#include <iostream>    //system("pause")
+#include <vector>
 
 class Inputs;
 bool getUserInput(int& out_sideA, int& out_sideB, int& out_sideC);
@@ -44,6 +45,7 @@ int main()
     if(count == 0){
         //Prevent segfault if user terminates the program on the 0th input
         std::cout << "You didn't input any valid values" << std::endl;
+        system("pause");
         return 0;
     }
     //bubble sort inputLog according to the area of each triangle in ascending order
@@ -58,8 +60,9 @@ int main()
         }
     }
 
-    std::cout << "\tThe triangle with the smallest area is " << inputLog[0]->_area << " with sides " << '(' << inputLog[0]->_sideA << ", " << inputLog[0]->_sideB << ", " << inputLog[0]->_sideC << ")" << std::endl;
-    std::cout << "\tAnd the triangle with the largest area is " << inputLog[count-1]->_area << " with sides " << '(' << inputLog[count-1]->_sideA << ", " << inputLog[count -1]->_sideB << ", "  << inputLog[count-1]->_sideC << ')' << std::endl;
+    printf("\tThe largest triangle's area is %.2f with sides (%d, %d, %d)\n", inputLog[0]->_area, inputLog[0]->_sideA, inputLog[0]->_sideB, inputLog[0]->_sideC);
+    printf("\tThe smallest triangle's area is %.2f with sides (%d, %d, %d)\n", inputLog[count-1]->_area, inputLog[count-1]->_sideA, inputLog[count-1]->_sideB, inputLog[count-1]->_sideC);
+    
     for(auto ptr : inputLog) //delete all heap pointers to prevent memory leak
         delete ptr;
     system("pause"); //press any key to continue
