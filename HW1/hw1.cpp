@@ -14,14 +14,12 @@ class Inputs
 public:
     int _inputIdx ,_sideA ,_sideB ,_sideC;
     float _area;
-    Inputs(int inputIdx, int sideA, int sideB, int sideC, float area):
-        _inputIdx(inputIdx),
+    Inputs(int sideA, int sideB, int sideC, float area):
         _sideA(sideA),
         _sideB(sideB),
         _sideC(sideC),
         _area(area)
         {
-            this->_inputIdx = inputIdx;
             this->_sideA = sideA;
             this->_sideB = sideB;
             this->_sideC = sideC;
@@ -36,10 +34,11 @@ int main()
     int count = 0;
     std::vector<Inputs*> inputLog;
     int sideA, sideB, sideC;
+    std::cout << "Student B10831020" << std::endl;
 
     while(getUserInput(sideA, sideB, sideC)){
         float area = getArea(sideA, sideB, sideC);
-        inputLog.push_back(new Inputs(count, sideA, sideB, sideC, area));
+        inputLog.push_back(new Inputs(sideA, sideB, sideC, area));
         count ++;
     }
     if(count == 0){
