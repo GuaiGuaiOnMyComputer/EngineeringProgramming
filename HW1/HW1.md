@@ -44,5 +44,3 @@
 >for(auto ptr : inputLog){ //print all inputs in this session
 >        printf("\tInput #%d: sides(%d, %d, %d) with area %.2f\n", ptr->inputIdx, ptr->sideA, ptr->sideB, ptr->sideC, ptr->area);
 >```
-
-## Task3：外送員
