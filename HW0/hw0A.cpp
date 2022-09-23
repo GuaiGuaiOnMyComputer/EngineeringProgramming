@@ -8,6 +8,7 @@ bool getUserInput(double &out_x, double &out_y)
     //returns false when user input is 0 0
     //otherwise returns true
     std::cout << "Input the coordinates of the destination" << std::endl;
+    std::cout << '\t';
     std::cin >> out_x >> out_y;
     return !(out_x == 0 && out_y==0);
 }
@@ -18,8 +19,6 @@ struct Stats
     double in_x, in_y, distance;
 };
 
-
-
 int main()
 {
     int count = 0; //number of user inputs
@@ -28,10 +27,11 @@ int main()
     int shortestRound; //index of the user input resulting the shortest distance
     const int x0 = 0, y0 = 0; //coordinance of the origin
     std::vector<Stats> record;
+    std::cout << "Student B10831020" << std::endl;
     std::cout << "Delivery person takes unlimited orders until input 0 0" << std::endl;
 
     while (getUserInput(input_x, input_y)) { //condition is false when user input is 0 0 and loop stops
-        double distance = sqrt(pow(input_x - x0, 2) + pow(input_y - y0, 2));
+        double distance = abs(input_x - x0) + abs(input_y - y0);
         std::cout << "\tThe distance from origin (0, 0) to (" << input_x << ", " << input_y << ") is " << distance << std::endl;
         Stats userInput; //store the user inputs, its index and the resulting distance in a custom struce
         userInput.count = count;
@@ -62,20 +62,21 @@ Replit: https://replit.com/join/qlsxzvdqlm-b10831020
 
 OUTPUT:
 
+Student B10831020
 Delivery person takes unlimited orders until input 0 0
 Input the coordinates of the destination
-23 44
-        The distance from origin (0, 0) to (23, 44) is 49.6488
+    23 54
+    The distance from origin (0, 0) to (23, 54) is 77
 Input the coordinates of the destination
-349 88
-        The distance from origin (0, 0) to (349, 88) is 359.924
+    56 23
+    The distance from origin (0, 0) to (56, 23) is 79
 Input the coordinates of the destination
-2393465 2323443
-        The distance from origin (0, 0) to (2.39346e+006, 2.32344e+006) is 3.33573e+006
+    545 67
+    The distance from origin (0, 0) to (545, 67) is 612
 Input the coordinates of the destination
-3 4
-        The distance from origin (0, 0) to (3, 4) is 5
+    23 2
+    The distance from origin (0, 0) to (23, 2) is 25
 Input the coordinates of the destination
-0 0
-The shortest distance is 5 from (3, 4)
+    0 0
+The shortest distance is 25 from (23, 2)
 */
