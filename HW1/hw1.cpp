@@ -58,8 +58,8 @@ int main()
         }
     }
 
-    std::cout << "The triangle with the smallest area is " << inputLog[0]->_area << "with sides" << '(' << inputLog[0]->_sideA << ", " << inputLog[0]->_sideB << ", " << inputLog[0]->_sideC << ")" << std::endl;
-    std::cout << "And the triangle with the largest area is" << inputLog[count-1]->_area << "with sides" << "( " << inputLog[count-1]->_sideA << ", " << inputLog[count -1]->_sideB << ", "  << inputLog[count-1]->_sideC << ')' << std::endl;
+    std::cout << "\tThe triangle with the smallest area is " << inputLog[0]->_area << " with sides " << '(' << inputLog[0]->_sideA << ", " << inputLog[0]->_sideB << ", " << inputLog[0]->_sideC << ")" << std::endl;
+    std::cout << "\tAnd the triangle with the largest area is " << inputLog[count-1]->_area << " with sides " << '(' << inputLog[count-1]->_sideA << ", " << inputLog[count -1]->_sideB << ", "  << inputLog[count-1]->_sideC << ')' << std::endl;
     for(auto ptr : inputLog) //delete all heap pointers to prevent memory leak
         delete ptr;
     return 0;
@@ -79,6 +79,7 @@ bool getUserInput(int& out_sideA, int& out_sideB, int& out_sideC)
     //takes in an int reference to store user inputs
     //returns false and breaks loop when input is (0, 0, 0), receives negative numbers or a triangle cannot be formed
     std::cout << "Please input three values as the length of three sides" <<std::endl;
+    std::cout << '\t' << std::endl;
     std::cin >> out_sideA >> out_sideB >> out_sideC;
     if(out_sideA <= 0 || out_sideB <= 0 || out_sideC <= 0){
         std::cout << "At least one side is smaller or equal to 0, terminating program." << std::endl;
