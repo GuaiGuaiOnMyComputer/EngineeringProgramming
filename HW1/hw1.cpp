@@ -1,10 +1,13 @@
 #include <stdio.h>     //prinf()
 #include <cmath>       //pow(), sqrt()
 #include <iostream>    //system("pause")
+#include <chrono>      //time.now()
+#include <cstdlib>     //rand() srand()
 #include <vector>
 
 class Inputs;
-bool getUserInput(int& out_sideA, int& out_sideB, int& out_sideC);
+bool getInput(int& out_sideA, int& out_sideB, int& out_sideC, bool autoRandom);
+bool checkInput(const int& sideA, const int& sideB, const int& sideC);
 float getArea(const int& sideA, const int& sideB, const int& sideC);
 void printSortedResult(const std::vector<Inputs>& sessionLog);
 
@@ -12,18 +15,18 @@ void printSortedResult(const std::vector<Inputs>& sessionLog);
 class Inputs
 {
 public:
-    int _inputIdx ,_sideA ,_sideB ,_sideC;
-    float _area;
-    Inputs(int sideA, int sideB, int sideC, float area):
-        _sideA(sideA),
-        _sideB(sideB),
-        _sideC(sideC),
-        _area(area)
+    int inputIdx ,sideA ,sideB ,sideC;
+    float area;
+    Inputs(int _sideA, int _sideB, int _sideC, float _area):
+        sideA(_sideA),
+        sideB(_sideB),
+        sideC(_sideC),
+        area(_area)
         {
-            this->_sideA = sideA;
-            this->_sideB = sideB;
-            this->_sideC = sideC;
-            this->_area = area;
+            this->sideA = _sideA;
+            this->sideB = _sideB;
+            this->sideC = _sideC;
+            this->area = _area;
         }
 
     Inputs() = delete;
@@ -34,9 +37,13 @@ int main()
     int count = 0;
     std::vector<Inputs*> inputLog;
     int sideA, sideB, sideC;
-    std::cout << "Student B10831020" << std::endl;
+    int autoRandom;
 
-    while(getUserInput(sideA, sideB, sideC)){
+    std::cout << "Student B10831020" << std::endl;
+    std::cout << "Please choose whether to use automatically generated numbers as input?(1:Yes, 0:No)\t";
+    std::cin >> autoRandom;
+
+    while(getInput(sideA, sideB, sideC, autoRandom)){
         float area = getArea(sideA, sideB, sideC);
         inputLog.push_back(new Inputs(sideA, sideB, sideC, area));
         count ++;
@@ -51,7 +58,7 @@ int main()
     int i, j;
     for(i = 0; i<count-1; i++){
         for(j=0; j<count-i-1; j++){
-            if(inputLog[j]->_area > inputLog[j+1]->_area){ //this segfaults? WTF?
+            if(inputLog[j]->area > inputLog[j+1]->area){ //this segfaults? WTF?
                 Inputs tmp = *inputLog[j];
                 *inputLog[j] = *inputLog[j+1];
                 *inputLog[j+1] = tmp;
@@ -59,8 +66,8 @@ int main()
         }
     }
 
-    printf("\tThe largest triangle's area is %.2f with sides (%d, %d, %d)\n", inputLog[0]->_area, inputLog[0]->_sideA, inputLog[0]->_sideB, inputLog[0]->_sideC);
-    printf("\tThe smallest triangle's area is %.2f with sides (%d, %d, %d)\n", inputLog[count-1]->_area, inputLog[count-1]->_sideA, inputLog[count-1]->_sideB, inputLog[count-1]->_sideC);
+    printf("\tThe largest triangle's area is %.2f with sides (%d, %d, %d)\n", inputLog[0]->area, inputLog[0]->sideA, inputLog[0]->sideB, inputLog[0]->sideC);
+    printf("\tThe smallest triangle's area is %.2f with sides (%d, %d, %d)\n", inputLog[count-1]->area, inputLog[count-1]->sideA, inputLog[count-1]->sideB, inputLog[count-1]->sideC);
     
     for(auto ptr : inputLog) //delete all heap pointers to prevent memory leak
         delete ptr;
@@ -77,18 +84,33 @@ float getArea(const int& sideA, const int& sideB, const int& sideC)
     return area;
 }
 
-bool getUserInput(int& out_sideA, int& out_sideB, int& out_sideC)
+bool getInput(int& out_sideA, int& out_sideB, int& out_sideC, bool autoRandom)
 {
-    //takes in an int reference to store user inputs
-    //returns false and breaks loop when input is (0, 0, 0), receives negative numbers or a triangle cannot be formed
-    std::cout << "Please input three values as the length of three sides" <<std::endl;
-    std::cout << '\t';
-    std::cin >> out_sideA >> out_sideB >> out_sideC;
-    if(out_sideA <= 0 || out_sideB <= 0 || out_sideC <= 0){
+    //returns false and breaks lop when input is (0, 0, 0), program receives negative numbers or a triangle cannot be formed
+    if(!autoRandom){
+        std::cout << "Please input three values as the length of three sides" <<std::endl;
+        std::cout << '\t';
+        std::cin >> out_sideA >> out_sideB >> out_sideC;
+    }else{
+        std::cout << "Generating side lengths from random numbers" << std::endl;
+        std::cout << '\t';
+        auto currentTimeStamp = std::chrono::steady_clock::now().time_since_epoch().count();
+        srand((uint64_t)currentTimeStamp);
+        out_sideA = abs(rand() % 10);
+        out_sideB = abs(rand() % 10);
+        out_sideC = abs(rand() % 10);
+        printf("The sides are (%d, %d, %d)", out_sideA, out_sideB, out_sideC);
+    }
+    return checkInput(out_sideA, out_sideB, out_sideC);
+}
+
+bool checkInput(const int& sideA, const int& sideB, const int& sideC)
+{
+    if(sideA <= 0 || sideB <= 0 || sideC <= 0){
         std::cout << "At least one side is smaller or equal to 0, terminating program." << std::endl;
         return false;
     }
-    if(out_sideA+out_sideB<=out_sideC || out_sideB+out_sideC<=out_sideA || out_sideA+out_sideC<=out_sideB){
+    if(sideA+sideB<=sideC || sideB+sideC<=sideA || sideA+sideC<=sideB){
         std::cout << "Incorrect side lengths for a triangle, terminating program" << std::endl;
         return false;
     }
