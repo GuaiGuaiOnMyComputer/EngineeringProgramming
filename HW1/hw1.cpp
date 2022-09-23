@@ -116,3 +116,39 @@ bool checkInput(const int& sideA, const int& sideB, const int& sideC)
     }
     return true;
 }
+
+
+
+/*Replit https://replit.com/join/aemuvrnzpi-b10831020
+Output MANUAL mode:
+Student B10831020
+Please choose whether to use automatically generated numbers as input?(1:Yes,
+0:No)  0 Please input three values as the length of three sides 9 3 7 The area
+of this triangle is 8.125 Please input three values as the length of three sides
+    11 22 15
+    The area of this triangle is 234
+Please input three values as the length of three sides
+    8 7 6
+    The area of this triangle is 39.375
+Please input three values as the length of three sides
+    76 87 93
+    The area of this triangle is 74620
+Please input three values as the length of three sides
+    -1 8 2
+At least one side is smaller or equal to 0, terminating program.
+    The largest triangle's area is 8.12 with sides (9, 3, 7)
+    The smallest triangle's area is 74620.00 with sides (76, 87, 93)
+sh: 1: pause: not found
+
+AUTOMODE:
+Student B10831020
+Please choose whether to use automatically generated numbers as input?(1:Yes,
+0:No)    1 Generating side lengths from random numbers The sides are (4, 4, 3)
+The area of this triangle is 5.625 Generating side lengths from random numbers
+    The sides are (4, 3, 3) The area of this triangle is 4
+Generating side lengths from random numbers
+    The sides are (0, 0, 4)At least one side is smaller or equal to 0,
+terminating program. The largest triangle's area is 4.00 with sides (4, 3, 3)
+    The smallest triangle's area is 5.62 with sides (4, 4, 3)
+sh: 1: pause: not found
+*/
