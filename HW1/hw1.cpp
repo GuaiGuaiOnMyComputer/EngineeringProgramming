@@ -19,7 +19,13 @@ public:
         _sideB(sideB),
         _sideC(sideC),
         _area(area)
-        {}
+        {
+            this->_inputIdx = inputIdx;
+            this->_sideA = sideA;
+            this->_sideB = sideB;
+            this->_sideC = sideC;
+            this->_area = area;
+        }
 
     Inputs() = delete;
 };
@@ -27,7 +33,7 @@ public:
 int main()
 {
     int count = 0;
-    std::vector<Inputs*> inputLog(10);
+    std::vector<Inputs*> inputLog;
     int sideA, sideB, sideC;
 
     while(getUserInput(sideA, sideB, sideC)){
@@ -40,12 +46,10 @@ int main()
         std::cout << "You didn't input any valid values" << std::endl;
         return 0;
     }
-
     //bubble sort inputLog according to the area of each triangle in ascending order
     int i, j;
     for(i = 0; i<count-1; i++){
         for(j=0; j<count-i-1; j++){
-            inputLog[j]->_area > inputLog[j+1]->_area; //this works fine 
             if(inputLog[j]->_area > inputLog[j+1]->_area){ //this segfaults? WTF?
                 Inputs tmp = *inputLog[j];
                 *inputLog[j] = *inputLog[j+1];
