@@ -11,11 +11,17 @@
 >[Replit網址](https://replit.com/join/aemuvrnzpi-b10831020)
 
 >手動輸入三邊長之終端機輸出
->![手動輸入三邊長](/HW1/manual_console_output.png) 
->* 自動判斷三邊長是否合適。若三邊長為0、負數或長度無法組成三角形，程式終止
+>![手動輸入三邊長](../HW1/manual_console_output.png) 
+>* 自動判斷三邊長是否合適。若三邊長其中一者為0、負數或三者長度無法組成三角形，程式終止
 >* 當三邊長可組成三角形，計算並顯示其面積
 >* 可以接收無限多筆輸入
 >* 使用```while loop```
+>* 自定義函式採```void pass by reference```及```pass by value```多種形式。若函式不須修改變數值，採```void pass by const reference```提升效能，避免複製變數值占用記憶體空間
+> ```c++
+> bool getInput(int& out_sideA, int& out_sideB, int& out_sideC, bool autoRandom);
+> bool checkInput(const int& sideA, const int& sideB, const int& sideC);
+> float getArea(const int& sideA, const int& sideB, const int& sideC);
+> ```
 
 
 ## Task２：使用```vector```儲存數據
@@ -44,3 +50,8 @@
 >for(auto ptr : inputLog){ //print all inputs in this session
 >        printf("\tInput #%d: sides(%d, %d, %d) with area %.2f\n", ptr->inputIdx, ptr->sideA, ptr->sideB, ptr->sideC, ptr->area);
 >```
+
+## 心得
+> 這份作業試圖使用pointer以及pass by reference等技巧，將vector```inputLog```傳進自定義的函式，然而過程相當不順利。查看網路上許多相關教學，似乎這樣做不應該出任何問題，親自嘗試時debugger卻產生看不懂的錯誤訊息。無論是pass by reference或pass by value，都產生compile time error。由於需準時繳交作業，只好暫時放棄把vector傳進函式。希望之後能夠釐清自己的錯誤，學會使用相關技巧提升程式效能。
+
+> 很高興終於理解C++中```*```以及```&```的意義，看到別人的程式碼時將不再會毫無頭緒不知所措。過去在寫python script缺乏pointer觀念，利用pointer程式很容易產生segfault以及各種莫名奇妙的bug。經過訓練，希望可以更熟練。
