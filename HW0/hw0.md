@@ -1,14 +1,14 @@
-# Homework 0
+# Homework 0 曼哈頓距離
 
 | 班級     |    學號   | 姓名    |
 | :---:    |   :---:   | :---:  | 
 | 四機械四乙| B10831020 | 吳宇昕  |
 >日期 9/24/2022
 ## Task3：外送員
->[Sorce Code](/hw0/hw0A.cpp)以及[Replit網址]()
+>[Sorce Code](hw0A.cpp)以及[Replit網址](https://replit.com/join/qlsxzvdqlm-b10831020)
 >
 >* 手動輸入座標終端機輸出
->![外送員終端機輸出](/HW0/delivery_person_console_output.png)
+>![外送員終端機輸出](pictures/delivery_person_console_output.png)
 > * 自定義```struct Stats```存放每筆輸入資料
 > ```c++
 >struct Stats
@@ -32,3 +32,19 @@
 >    return !(out_x == 0 && out_y==0);
 >}
 > ```
+> * 以```while(getUserInput(x, y))```持續接收使用者輸入。當使用者輸入0 0，```getUserInput```函式將return false中止while迴圈。
+## 心得
+> 嘗試使用struct存放每一筆輸入值，然而對其用法相當不熟悉。原本想call它的default constructor，初始化struct
+> ```c++
+> userInput thisInput = userInput(x, y, count, distance)
+> ```
+> 卻產生錯誤。只好一個個attribute個別賦值，寫出相當冗贅的程式。
+> ```c++
+> thisInput.x = x;
+> thisInput.y = y;
+> thisInput.count = count;
+> thisInput.distance = distance;
+> ```
+> struct的用法似乎跟class仍不盡相同，或是其實我在這之中寫錯了有所誤會。開始寫c++後才漸漸理解為何現今多個程式語言朝物件導向的語法發展。畢竟像c一樣的語法實在不太平易近人。
+> 
+> 很高興自己事先已經會操作vscode，設置開發環境與compiler。Vscode實在是很方便使用的文字編輯器，除了寫程式，寫markdown也很輕鬆。

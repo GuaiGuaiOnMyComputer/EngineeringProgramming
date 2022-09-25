@@ -2,7 +2,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>Homework 1</title>
+        <title>Homework 0 &#x66fc;&#x54c8;&#x9813;&#x8ddd;&#x96e2;</title>
         <style>
 /* From extension vscode.github */
 /*---------------------------------------------------------------------------------------------
@@ -721,7 +721,7 @@ hue-6-2: #e6c07b
         
     </head>
     <body class="vscode-body vscode-light">
-        <h1 id="homework-1">Homework 1</h1>
+        <h1 id="homework-0-曼哈頓距離">Homework 0 曼哈頓距離</h1>
 <table>
 <thead>
 <tr>
@@ -741,74 +741,53 @@ hue-6-2: #e6c07b
 <blockquote>
 <p>日期 9/24/2022</p>
 </blockquote>
-<h2 id="task-1三角形">Task 1：三角形</h2>
+<h2 id="task3外送員">Task3：外送員</h2>
 <blockquote>
-<p><a href="hw1.cpp">Sorce Code</a>以及
-<a href="https://replit.com/join/aemuvrnzpi-b10831020">Replit網址</a></p>
-</blockquote>
-<blockquote>
+<p><a href="hw0A.cpp">Sorce Code</a>以及<a href="https://replit.com/join/qlsxzvdqlm-b10831020">Replit網址</a></p>
 <ul>
-<li>手動輸入三邊長之終端機輸出
-<img src="file:///f:\NTUST_Not_Sync\EngineeringProgramming\code\EngineeringProgramming\HW1\pictures\manual_console_output.png" alt="手動輸入三邊長"></li>
-<li>自動判斷三邊長是否合適。若三邊長其中一者為0、負數或三者長度無法組成三角形，程式終止</li>
-<li>當三邊長可組成三角形，計算並顯示其面積</li>
-<li>可以接收無限多筆輸入</li>
-<li>使用<code>while loop</code></li>
-<li>自定義函式採<code>void pass by reference</code>及<code>pass by value</code>多種形式。若函式不須修改變數值，採<code>void pass by const reference</code>提升效能，避免複製變數值占用記憶體空間</li>
+<li>手動輸入座標終端機輸出
+<img src="file:///f:\NTUST_Not_Sync\EngineeringProgramming\code\EngineeringProgramming\HW0\pictures\delivery_person_console_output.png" alt="外送員終端機輸出"></li>
+<li>自定義<code>struct Stats</code>存放每筆輸入資料</li>
 </ul>
-<pre><code class="language-c++"><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">getInput</span><span class="hljs-params">(<span class="hljs-keyword">int</span>&amp; out_sideA, <span class="hljs-keyword">int</span>&amp; out_sideB, <span class="hljs-keyword">int</span>&amp; out_sideC, <span class="hljs-keyword">bool</span> autoRandom)</span></span>;
-<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">checkInput</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>&amp; sideA, <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>&amp; sideB, <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>&amp; sideC)</span></span>;
-<span class="hljs-function"><span class="hljs-keyword">float</span> <span class="hljs-title">getArea</span><span class="hljs-params">(<span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>&amp; sideA, <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>&amp; sideB, <span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span>&amp; sideC)</span></span>;
-</div></code></pre>
-</blockquote>
-<h2 id="task２使用vector儲存數據">Task２：使用<code>vector</code>儲存數據</h2>
-<blockquote>
-<ul>
-<li>自動產生亂數作為三邊長</li>
-<li>自定義<code>class Inputs</code>儲存單筆輸入之三邊長與其三角形面積，並以<code>vector&lt;Inputs*&gt;</code>儲存各比輸入</li>
-</ul>
-<pre><code class="language-c++"><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Inputs</span>
+<pre><code class="language-c++"><div><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Stats</span>
 {</span>
-<span class="hljs-keyword">public</span>:
-   <span class="hljs-keyword">int</span> inputIdx ,sideA ,sideB ,sideC;
-   <span class="hljs-keyword">float</span> area;
-   <span class="hljs-built_in">Inputs</span>(<span class="hljs-keyword">int</span> _inputIdx, <span class="hljs-keyword">int</span> _sideA, <span class="hljs-keyword">int</span> _sideB, <span class="hljs-keyword">int</span> _sideC, <span class="hljs-keyword">float</span> _area):
-       <span class="hljs-built_in">inputIdx</span>(_inputIdx),
-       <span class="hljs-built_in">sideA</span>(_sideA),
-       <span class="hljs-built_in">sideB</span>(_sideB),
-       <span class="hljs-built_in">sideC</span>(_sideC),
-       <span class="hljs-built_in">area</span>(_area)
-       {}
-
-   <span class="hljs-built_in">Inputs</span>() = <span class="hljs-keyword">delete</span>;
+   <span class="hljs-keyword">int</span> count;
+   <span class="hljs-keyword">double</span> in_x, in_y, distance;
 };
-
 </div></code></pre>
 <ul>
-<li>使用<code>for loop</code>與‵<code>auto</code>印出所有資料</li>
+<li>用<code>vector&lt;Stats&gt;</code>儲存每筆輸入與距離，可以容納無數筆輸入</li>
+<li>當輸入為<code>0 0</code>結束程式並顯示最短距離與出發座標</li>
+<li>利用pass by reference從函式輸出變數值</li>
 </ul>
-<pre><code class="language-cpp"><div><span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> ptr : inputLog){ <span class="hljs-comment">//print all inputs in this session</span>
-       <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;\tInput #%d: sides(%d, %d, %d) with area %.2f\n&quot;</span>, ptr-&gt;inputIdx, ptr-&gt;sideA, ptr-&gt;sideB, ptr-&gt;sideC, ptr-&gt;area);
+<pre><code class="language-c++"><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">getUserInput</span><span class="hljs-params">(<span class="hljs-keyword">double</span> &amp;out_x, <span class="hljs-keyword">double</span> &amp;out_y)</span>
+</span>{
+   <span class="hljs-comment">//get user input and store into out_x and out_y by reference</span>
+   <span class="hljs-comment">//returns false when user input is 0 0</span>
+   <span class="hljs-comment">//otherwise returns true</span>
+   std::cout &lt;&lt; <span class="hljs-string">&quot;Input the coordinates of the destination&quot;</span> &lt;&lt; std::endl;
+   std::cout &lt;&lt; <span class="hljs-string">&#x27;\t&#x27;</span>;
+   std::cin &gt;&gt; out_x &gt;&gt; out_y;
+   <span class="hljs-keyword">return</span> !(out_x == <span class="hljs-number">0</span> &amp;&amp; out_y==<span class="hljs-number">0</span>);
+}
 </div></code></pre>
 <ul>
-<li>利用<code>srand()</code>與<code>rand()</code>函式自動產生亂數作為三邊長輸入</li>
+<li>以<code>while(getUserInput(x, y))</code>持續接收使用者輸入。當使用者輸入0 0，<code>getUserInput</code>函式將return false中止while迴圈。</li>
 </ul>
-<pre><code class="language-c++"><div>std::cout &lt;&lt; <span class="hljs-string">&quot;Generating side lengths from random numbers&quot;</span> &lt;&lt; std::endl;
-std::cout &lt;&lt; <span class="hljs-string">&#x27;\t&#x27;</span>;
-<span class="hljs-keyword">auto</span> currentTimeStamp = std::chrono::steady_clock::<span class="hljs-built_in">now</span>().<span class="hljs-built_in">time_since_epoch</span>().<span class="hljs-built_in">count</span>();
-<span class="hljs-built_in">srand</span>((<span class="hljs-keyword">uint64_t</span>)currentTimeStamp);
-out_sideA = <span class="hljs-built_in">abs</span>(<span class="hljs-built_in">rand</span>() % <span class="hljs-number">10</span>);
-out_sideB = <span class="hljs-built_in">abs</span>(<span class="hljs-built_in">rand</span>() % <span class="hljs-number">10</span>);
-out_sideC = <span class="hljs-built_in">abs</span>(<span class="hljs-built_in">rand</span>() % <span class="hljs-number">10</span>);
-<span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;The sides are (%d, %d, %d)&quot;</span>, out_sideA, out_sideB, out_sideC);
-</div></code></pre>
 </blockquote>
 <h2 id="心得">心得</h2>
 <blockquote>
-<p>這份作業試圖使用pointer以及pass by reference等技巧，將vector<code>inputLog</code>傳進自定義的函式，然而過程相當不順利。查看網路上許多相關教學，似乎這樣做不應該出任何問題，親自嘗試時debugger卻產生看不懂的錯誤訊息。無論是pass by reference或pass by value，都產生compile time error。由於需準時繳交作業，只好暫時放棄把vector傳進函式。希望之後能夠釐清自己的錯誤，學會使用相關技巧提升程式效能。</p>
-</blockquote>
-<blockquote>
-<p>很高興終於理解C++中<code>*</code>以及<code>&amp;</code>的意義，看到別人的程式碼時將不再會毫無頭緒不知所措。過去在寫python script缺乏pointer觀念，利用pointer程式很容易產生segfault以及各種莫名奇妙的bug。經過訓練，希望可以更熟練。</p>
+<p>嘗試使用struct存放每一筆輸入值，然而對其用法相當不熟悉。原本想call它的default constructor，初始化struct</p>
+<pre><code class="language-c++"><div>userInput thisInput = <span class="hljs-built_in">userInput</span>(x, y, count, distance)
+</div></code></pre>
+<p>卻產生錯誤。只好一個個attribute個別賦值，寫出相當冗贅的程式。</p>
+<pre><code class="language-c++"><div>thisInput.x = x;
+thisInput.y = y;
+thisInput.count = count;
+thisInput.distance = distance;
+</div></code></pre>
+<p>struct的用法似乎跟class仍不盡相同，或是其實我在這之中寫錯了有所誤會。開始寫c++後才漸漸理解為何現今多個程式語言朝物件導向的語法發展。畢竟像c一樣的語法實在不太平易近人。</p>
+<p>很高興自己事先已經會操作vscode，設置開發環境與compiler。Vscode實在是很方便使用的文字編輯器，除了寫程式，寫markdown也很輕鬆。</p>
 </blockquote>
 
         

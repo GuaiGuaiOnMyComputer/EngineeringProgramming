@@ -7,11 +7,11 @@
 >日期 9/24/2022
 
 ## Task 1：三角形
->[Sorce Code](/HW1/hw1.cpp)以及
+>[Sorce Code](hw1.cpp)以及
 >[Replit網址](https://replit.com/join/aemuvrnzpi-b10831020)
 
 >* 手動輸入三邊長之終端機輸出
->![手動輸入三邊長](../HW1/pictures/manual_console_output.png) 
+>![手動輸入三邊長](pictures/manual_console_output.png) 
 >* 自動判斷三邊長是否合適。若三邊長其中一者為0、負數或三者長度無法組成三角形，程式終止
 >* 當三邊長可組成三角形，計算並顯示其面積
 >* 可以接收無限多筆輸入
