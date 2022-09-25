@@ -60,8 +60,8 @@ int main()
         }
     }
 
-    printf("\tThe largest triangle's area is %.2f with sides (%d, %d, %d)\n", inputLog[0]->area, inputLog[0]->sideA, inputLog[0]->sideB, inputLog[0]->sideC);
-    printf("\tThe smallest triangle's area is %.2f with sides (%d, %d, %d)\n", inputLog[count-1]->area, inputLog[count-1]->sideA, inputLog[count-1]->sideB, inputLog[count-1]->sideC);
+    printf("\tThe smallest triangle's area is %.2f with sides (%d, %d, %d)\n", inputLog[0]->area, inputLog[0]->sideA, inputLog[0]->sideB, inputLog[0]->sideC);
+    printf("\tThe largest triangle's area is %.2f with sides (%d, %d, %d)\n", inputLog[count-1]->area, inputLog[count-1]->sideA, inputLog[count-1]->sideB, inputLog[count-1]->sideC);
     
 
     printf("Printing all inputs in this session\n=======================================================\n");
