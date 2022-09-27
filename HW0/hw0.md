@@ -3,7 +3,7 @@
 | 班級     |    學號   | 姓名    |
 | :---:    |   :---:   | :---:  | 
 | 四機械四乙| B10831020 | 吳宇昕  |
->日期 9/24/2022
+>日期 9/27/2022
 ## Task3：外送員
 >[Sorce Code](CODE\hw0A.cpp)以及[Replit網址](https://replit.com/join/qlsxzvdqlm-b10831020)
 >
