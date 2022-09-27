@@ -94,6 +94,8 @@ bool getInput(int& out_sideA, int& out_sideB, int& out_sideC, bool autoRandom)
         std::cout << "Generating side lengths from random numbers" << std::endl;
         std::cout << '\t';
         auto currentTimeStamp = std::chrono::steady_clock::now().time_since_epoch().count();
+        //current time stamp time resolution too low
+        //repetitive inputs
         srand((uint64_t)currentTimeStamp);
         out_sideA = abs(rand() % 10);
         out_sideB = abs(rand() % 10);
