@@ -90,6 +90,7 @@ bool getInput(int& out_sideA, int& out_sideB, int& out_sideC, bool autoRandom)
         std::cout << '\t';
         std::cin >> out_sideA >> out_sideB >> out_sideC;
     }else{
+        static int randomCount = 0;
         std::cout << "Generating side lengths from random numbers" << std::endl;
         std::cout << '\t';
         auto currentTimeStamp = std::chrono::steady_clock::now().time_since_epoch().count();
@@ -98,6 +99,10 @@ bool getInput(int& out_sideA, int& out_sideB, int& out_sideC, bool autoRandom)
         out_sideB = abs(rand() % 10);
         out_sideC = abs(rand() % 10);
         printf("The sides are (%d, %d, %d)", out_sideA, out_sideB, out_sideC);
+        if(autoRandom && randomCount< 6 && !checkInput(out_sideA, out_sideB, out_sideC)){
+            getInput(out_sideA, out_sideB, out_sideC, autoRandom);
+            randomCount++;
+        }
     }
     return checkInput(out_sideA, out_sideB, out_sideC);
 }
@@ -105,11 +110,11 @@ bool getInput(int& out_sideA, int& out_sideB, int& out_sideC, bool autoRandom)
 bool checkInput(const int& sideA, const int& sideB, const int& sideC)
 {
     if(sideA <= 0 || sideB <= 0 || sideC <= 0){
-        std::cout << "At least one side is smaller or equal to 0, terminating program." << std::endl;
+        std::cout << "At least one side is smaller or equal to 0." << std::endl;
         return false;
     }
     if(sideA+sideB<=sideC || sideB+sideC<=sideA || sideA+sideC<=sideB){
-        std::cout << "Incorrect side lengths for a triangle, terminating program" << std::endl;
+        std::cout << "Incorrect side lengths for a triangle" << std::endl;
         return false;
     }
     return true;
