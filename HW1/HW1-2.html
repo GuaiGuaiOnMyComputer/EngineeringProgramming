@@ -739,7 +739,7 @@ hue-6-2: #e6c07b
 </tbody>
 </table>
 <blockquote>
-<p>日期 9/25/2022</p>
+<p>日期 9/27/2022</p>
 </blockquote>
 <h2 id="差異int與int">差異int[]與int*</h2>
 <h3 id="q1---宣告int-a或int-aa--100及--int-t1t2t3或int-t1t2t3-觀察以下3種情況是否出錯">Q1 - 宣告[int a或int* a]，a = 100及 [ int t1,t2,t3或int* t1,t2,t3 ]，觀察以下3種情況是否出錯</h3>
@@ -750,13 +750,13 @@ hue-6-2: #e6c07b
 </ul>
 <h3 id="1-宣告int-a">1. 宣告<code>int a</code></h3>
 <blockquote>
-<p><img src="file:///f:\NTUST_Not_Sync\EngineeringProgramming\code\EngineeringProgramming\HW1\pictures\q1-1.png" alt="test code and error"></p>
+<p><img src="file:///d:\NTUST_Not_Sync\EngineeringProgramming\code\EngineeringProgramming\HW1\IMG\q1-1.png" alt="test code and error"></p>
 <p>第二行錯誤，因為其試圖取a的記憶體位置，偏移1 byte，並將偏移後的憶體位置賦予t2。然而t2並非pointer，不能直接儲存記憶體位置</p>
 <p>第三行錯誤，因為*在等號右側的意義是dereference，應作用於pointer上取該記憶體位置的值。a並非pointer，無法被dereference</p>
 </blockquote>
 <h3 id="2-宣告int-a">2. 宣告<code>int* a</code></h3>
 <blockquote>
-<p><img src="file:///f:\NTUST_Not_Sync\EngineeringProgramming\code\EngineeringProgramming\HW1\pictures\q1-2.png" alt="test code and error"></p>
+<p><img src="file:///d:\NTUST_Not_Sync\EngineeringProgramming\code\EngineeringProgramming\HW1\IMG\q1-2.png" alt="test code and error"></p>
 <p><code>a</code>是個pointer，指向某個整數的記憶體位置</p>
 </blockquote>
 <blockquote>
@@ -770,22 +770,24 @@ hue-6-2: #e6c07b
 <h3 id="3-int與int差異">3. <code>int[]</code>與<code>int*</code>差異</h3>
 <blockquote>
 <p><code>int[]</code>用於陣列indexing。陣列是一段連續的記憶體空間，每個元素體積相同。因此使用<code>[]</code>索引元素，電腦可以自行推斷應從該陣列的開始處，偏移多少個byte找到該元素。例如</p>
+</blockquote>
 <pre><code class="language-c++"><div><span class="hljs-keyword">int</span> a[<span class="hljs-number">5</span>] = {<span class="hljs-number">0</span>};
 a[<span class="hljs-number">3</span>];
 </div></code></pre>
+<blockquote>
 <p><code>a[3]</code>電腦會從陣列<code>a</code>記憶體片段開始處偏移3*4個byte，找到index為3的元素。</p>
 <p><code>[]</code>只能偏移某type之記憶體大小的整數倍個byte，而<code>*</code>可以任意決定偏移數量。例如</p>
+</blockquote>
 <pre><code class="language-c++"><div><span class="hljs-keyword">int</span> b = <span class="hljs-number">0</span>;
 <span class="hljs-keyword">int</span>* a = &amp;b;
 a = a+<span class="hljs-number">999</span>;
 </div></code></pre>
+<blockquote>
 <p>可以自行決定原指向<code>b</code>記憶體位置的pointer <code>a</code>偏移999個byte。</p>
 </blockquote>
 <h3 id="q2---w3講義第一頁的swap2a及swap2b-有甚麼差異">Q2 - W3講義第一頁的swap2A及swap2B 有甚麼差異?</h3>
 <blockquote>
 <p><code>swap2A</code>與<code>swap2B</code>將會輸出同樣的結果，但是兩者使用的原理不同。</p>
-</blockquote>
-<blockquote>
 <p><code>swap2A</code>輸入<code>px</code>與<code>py</code>兩個pointer，個別dereference取值後交換變數值。<code>swqp2B</code>則是利用<code>[]</code>運算子對輸入的pointer偏移0個byte，並且取值交換。</p>
 </blockquote>
 

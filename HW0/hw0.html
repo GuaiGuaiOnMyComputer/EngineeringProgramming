@@ -739,27 +739,30 @@ hue-6-2: #e6c07b
 </tbody>
 </table>
 <blockquote>
-<p>日期 9/24/2022</p>
+<p>日期 9/27/2022</p>
 </blockquote>
 <h2 id="task3外送員">Task3：外送員</h2>
 <blockquote>
-<p><a href="hw0A.cpp">Sorce Code</a>以及<a href="https://replit.com/join/qlsxzvdqlm-b10831020">Replit網址</a></p>
+<p><a href="CODE/hw0A.cpp">Sorce Code</a>以及<a href="https://replit.com/join/qlsxzvdqlm-b10831020">Replit網址</a></p>
 <ul>
 <li>手動輸入座標終端機輸出
-<img src="file:///f:\NTUST_Not_Sync\EngineeringProgramming\code\EngineeringProgramming\HW0\pictures\delivery_person_console_output.png" alt="外送員終端機輸出"></li>
+<img src="file:///d:\NTUST_Not_Sync\EngineeringProgramming\code\EngineeringProgramming\HW0\IMG\delivery_person_console_output.png" alt="外送員終端機輸出"></li>
 <li>自定義<code>struct Stats</code>存放每筆輸入資料</li>
 </ul>
+</blockquote>
 <pre><code class="language-c++"><div><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">Stats</span>
 {</span>
    <span class="hljs-keyword">int</span> count;
    <span class="hljs-keyword">double</span> in_x, in_y, distance;
 };
 </div></code></pre>
+<blockquote>
 <ul>
 <li>用<code>vector&lt;Stats&gt;</code>儲存每筆輸入與距離，可以容納無數筆輸入</li>
 <li>當輸入為<code>0 0</code>結束程式並顯示最短距離與出發座標</li>
 <li>利用pass by reference從函式輸出變數值</li>
 </ul>
+</blockquote>
 <pre><code class="language-c++"><div><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">getUserInput</span><span class="hljs-params">(<span class="hljs-keyword">double</span> &amp;out_x, <span class="hljs-keyword">double</span> &amp;out_y)</span>
 </span>{
    <span class="hljs-comment">//get user input and store into out_x and out_y by reference</span>
@@ -771,6 +774,7 @@ hue-6-2: #e6c07b
    <span class="hljs-keyword">return</span> !(out_x == <span class="hljs-number">0</span> &amp;&amp; out_y==<span class="hljs-number">0</span>);
 }
 </div></code></pre>
+<blockquote>
 <ul>
 <li>以<code>while(getUserInput(x, y))</code>持續接收使用者輸入。當使用者輸入0 0，<code>getUserInput</code>函式將return false中止while迴圈。</li>
 </ul>
@@ -778,14 +782,18 @@ hue-6-2: #e6c07b
 <h2 id="心得">心得</h2>
 <blockquote>
 <p>嘗試使用struct存放每一筆輸入值，然而對其用法相當不熟悉。原本想call它的default constructor，初始化struct</p>
+</blockquote>
 <pre><code class="language-c++"><div>userInput thisInput = <span class="hljs-built_in">userInput</span>(x, y, count, distance)
 </div></code></pre>
+<blockquote>
 <p>卻產生錯誤。只好一個個attribute個別賦值，寫出相當冗贅的程式。</p>
+</blockquote>
 <pre><code class="language-c++"><div>thisInput.x = x;
 thisInput.y = y;
 thisInput.count = count;
 thisInput.distance = distance;
 </div></code></pre>
+<blockquote>
 <p>struct的用法似乎跟class仍不盡相同，或是其實我在這之中寫錯了有所誤會。開始寫c++後才漸漸理解為何現今多個程式語言朝物件導向的語法發展。畢竟像c一樣的語法實在不太平易近人。</p>
 <p>很高興自己事先已經會操作vscode，設置開發環境與compiler。Vscode實在是很方便使用的文字編輯器，除了寫程式，寫markdown也很輕鬆。</p>
 </blockquote>
