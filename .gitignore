@@ -39,6 +39,10 @@
 /__pycache__
 *.npy
 
+#demo files from teacher
+*/W4Lab-CPPBook-Grades(Code+Reference)
+*/CH7Function(TODO-HW2)
+
 # Large files
 *.csv
 *.zip
