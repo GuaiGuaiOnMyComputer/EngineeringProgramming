@@ -7,10 +7,7 @@
 using namespace std; 
 using std::vector;
   
-// void pushStuffIntoVtr(vector<int>, int);
-
 void pushStuffIntoVtr(vector<int>& dynArray, int count = 5);
-
 void printPTR( int passInVar[], std::string msg1, std::string msg2, int nCount=3 ){
   cout << msg1 << endl;
   for ( int ix=0 ; ix < nCount ; ++ ix) {

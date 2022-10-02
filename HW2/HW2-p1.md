@@ -1,9 +1,10 @@
 # Homework 2 Part 1
 ## Dynamic array tutor2.cpp
 
-|  班級   |  學號    |  姓名  |
-|  :---:  |  :---:  |  :---:|
-|四機械四乙|B10831020|吳宇昕  |
+|  班級   |  學號    |  姓名  | 日期 |
+|  :---:  |  :---:  |  :---:| :---: |
+|四機械四乙|B10831020|吳宇昕  | 10/1/2022|
+
 
 [sorce code](CODE/DynArrayTutor2.cpp) and [replit url](https://replit.com/join/wxydphnzcy-b10831020)
 

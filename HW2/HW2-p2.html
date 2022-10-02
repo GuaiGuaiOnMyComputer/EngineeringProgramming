@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>HW2-p1.md</title>
+<title>HW2-p2.md</title>
 <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
 
 <style>
@@ -365,8 +365,7 @@ code {
           : 'default'
     });
   </script>
-<h1 id="homework-2-part-1">Homework 2 Part 1</h1>
-<h2 id="dynamic-array-tutor2cpp">Dynamic array tutor2.cpp</h2>
+<h1 id="homework-2-part-2">Homework 2 part 2</h1>
 <table>
 <thead>
 <tr>
@@ -385,36 +384,37 @@ code {
 </tr>
 </tbody>
 </table>
-<p><a href="CODE/DynArrayTutor2.cpp">sorce code</a> and <a href="https://replit.com/join/wxydphnzcy-b10831020">replit url</a></p>
-<h3 id="q1-%E5%B0%87%E5%87%BD%E5%BC%8F%E8%AE%8A%E6%95%B8%E7%94%B1-int-%E6%94%B9%E7%82%BA-int">Q1: 將函式變數由 int* 改為 int[]</h3>
-<blockquote>
-<p>兩種情況下，函式都能正常運作。迴圈最後一行使用的<code>++</code>運算子作用於int pointer時，每次都會自動偏移4個byte，也就是int的大小。因此無論函式的引述宣告為<code>[]</code>或<code>*</code>都可以順利執行。</p>
-</blockquote>
-<h3 id="q2-%E6%8A%8Apushback%E7%9A%84for-loop%E5%AF%AB%E6%88%90%E5%87%BD%E5%BC%8F">Q2: 把push_back的for loop寫成函式</h3>
-<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">pushStuffIntoVtr</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt;&amp; dynArray, <span class="hljs-keyword">int</span> count)</span>
+<h2 id="problem-2-%E5%AE%A3%E5%91%8A%E5%87%BD%E5%BC%8F%E8%A8%88%E7%AE%97%E8%A1%A8%E9%9D%A2%E7%A9%8D">Problem 2 宣告函式計算表面積</h2>
+<p><a href="CODE/HW2-problem2.cpp">sorce code</a></p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">double</span> <span class="hljs-title">getSurfaceArea</span><span class="hljs-params">(<span class="hljs-keyword">double</span> _radius, <span class="hljs-keyword">double</span> _height)</span>
 </span>{
-  <span class="hljs-keyword">for</span> ( <span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;count; ++i){
-    <span class="hljs-keyword">int</span> newValue = <span class="hljs-number">1000</span>+ i*<span class="hljs-number">10</span>;
-    dynArray.push_back(newValue);
-  }
+    <span class="hljs-keyword">const</span> <span class="hljs-keyword">double</span> pi = <span class="hljs-number">3.14159</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">2</span>*pi*_radius*_height + <span class="hljs-number">2</span>*<span class="hljs-built_in">pow</span>(_radius, <span class="hljs-number">2</span>)*pi;
 }
 </div></code></pre>
 <blockquote>
-<p>Vector以pass by reference方式傳入函式，方便修改其記憶體位置的值。同時，pass by reference可以避免複製整個vector至另一個函式的stack frame，節省記憶體使用量。</p>
+<p><code>main()</code>與終端機輸出
+<img src="IMG/problem2.png" alt="Problem2">
+善用函式可以大幅增進程式的可讀性，把許多與整體應用程式邏輯脈絡無關的內容移至<code>main()</code>函式之外。一個函式應該只負責一項很鮮明的工作，不應該試圖讓同一函式身兼多職。把不同功能寫在不同函式裡，讓函式看起來意義更明顯，也更方便命名。</p>
 </blockquote>
-<h2 id="%E5%BF%83%E5%BE%97">心得</h2>
+<h2 id="problem-5-%E5%87%BD%E5%BC%8F%E8%87%AA%E6%88%91%E5%91%BC%E5%8F%AB%E8%BF%AD%E4%BB%A3">Problem 5 函式自我呼叫、迭代</h2>
+<p><a href="CODE/HW2-problem5.cpp">sorce code</a></p>
 <blockquote>
-<p>這項作業介紹了tutor這良好的工具，可以視覺化呈現各個變數的數值，以及pointer所指向的位置。甚至當pointer正指向一個無效的記憶體位置時，還會顯示屎的表情符號，清楚呈現一個失控的pointer可以摧毀人的一天。</p>
-<p>其中有個問題讓我花了非常多時間理解，就是為何原程式執行37行以前，<code>dptr</code>是有效的，但是<code>dynArray</code>一旦被38行加入新值之後，馬上失效? 下圖為<code>dynArray</code>被38行<code>push_back</code>之前情形，<code>dptr</code>仍是有效的pointer
-<img src="IMG/dptrNotExpired.png" alt="Before new pushback">
-下圖為38行<code>push_back</code>以後，<code>dptr</code>已經失效
-<img src="IMG/dptrExpired.png" alt="After new push back">
-在vscode仔細檢查前後<code>dynArray</code>記憶體位置後，才發現vector被<code>push_back</code>之後，它的記憶體位置可能會截然不同。下圖顯示<code>push_back</code>前<code>dynArray</code>的起始記憶體位置，是<code>0x1011630</code>
-<img src="IMG/beforePushingNewStuff.png" alt="Memory before new push back">
-下圖顯示<code>push back</code>之後<code>dynArray</code>起始記憶體位置，是<code>0x1017018</code>，前後相距甚遠。
-<img src="IMG/afterPushingNewStuff.png" alt="Memory after new push back">
-由於vector需要找更大的記憶體空間容納新進數值，它會在heap上找出一個比原vector大一點的記憶體空間，把舊有的數值複製過去，並將新數值放入新記憶體位置的最後一個空間。<code>dptr</code>在程式執行到<code>dptr = &amp;dynArray[3]</code>以前完全不知道vector的記憶體位置更新過，傻傻的指向舊的、已經過時被清除的<code>dynArray</code>的位置。因此被tutor標記為失控的pointer。</p>
-<p>在電腦所有記憶體耗盡前，vector似乎可以無限增長，但是持續讓它配置新記憶體空間、複製舊有值、回傳新記憶體位置，恐怕會傷害程式效能。</p>
+<p>終端機輸出
+<img src="IMG/problem5.png" alt="Problem5"></p>
+<ul>
+<li>回傳值使用<code>uint_64t</code>減緩memory overflow</li>
+</ul>
+<p>尋找Fibonacci number的函式執行時間隨輸入index增加而指數上升，要找第50個Fibonacci number時明顯感受到電腦需要花相當久的時間才能找到。若C++函式沒有自我呼叫的功能，找Fibonacci number的函式恐怕會複雜得多，甚至有點不知道怎麼寫。</p>
+<p>曾經聽說寫微電腦的程式應該避免使用迭代的技巧，以免它們計算資源不足，記憶體耗盡。若是有辦法，之後我會更注意。</p>
+</blockquote>
+<h2 id="problem-8">Problem 8</h2>
+<p><a href="CODE/HW2-problem8.cpp">sorce code</a></p>
+<blockquote>
+<p>終端機輸出
+<img src="IMG/problem8.png" alt="Problem8">
+將陣列傳入<code>modifyArr()</code>與<code>displayArr</code>兩函式，以陣列本身以及其大小作為函式的引數。
+一般的陣列跟現在c++的standard array可以像這樣將其傳入一函式，並修改其值，vector卻不行。由於vector只要增長，其記憶體位置就可能改變，不像array的記憶體位置是固定的，要在函式中修改vector必須將其pass by reference。</p>
 </blockquote>
 
 </body>

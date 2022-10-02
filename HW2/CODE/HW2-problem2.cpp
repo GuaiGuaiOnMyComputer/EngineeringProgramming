@@ -1,7 +1,11 @@
 #include <iostream>
 #include <cmath>
 
-double getSurfaceArea(double, double);
+double getSurfaceArea(double _radius, double _height)
+{
+    const double pi = 3.14159;
+    return 2*pi*_radius*_height + 2*pow(_radius, 2)*pi;
+}
 
 int main()
 {
@@ -15,10 +19,4 @@ int main()
     std::cout << "\tThe surface area of this cylinder is " << getSurfaceArea(radius, height) << std::endl;
     system("pause");
     return 0;
-}
-
-double getSurfaceArea(double _radius, double _height)
-{
-    const double pi = 3.14159;
-    return 2*pi*_radius*_height + 2*pow(_radius, 2)*pi;
 }
