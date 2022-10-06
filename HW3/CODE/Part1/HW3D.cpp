@@ -18,3 +18,14 @@ int main() {
   
   return 0;
 }
+
+ /*
+ Replit: https://replit.com/join/rbiugzgkui-b10831020
+ Student B10831020
+Printing all 3 symbols of number:
+        &number                 *number                 number
+        0x61fef8                N/A                     10831020
+Printing all 3 symbols of number_ptr:
+        &number_ptr             *number_ptr             number_ptr
+        0x61fef4                10831020                0x61fef8
+ */

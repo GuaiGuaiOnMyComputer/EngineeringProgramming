@@ -1,7 +1,7 @@
 # Homework 3
  |  班級   | 姓名 |  學號   |   日期   |
  |   :---: | :---:|  :---:  |:---: |
- |四機械四乙|吳宇昕|B10831020|10/6/2022|
+ |四機械四乙|吳宇昕|B10831020|10/7/2022|
 
 ## __Part 1 Problem A__
 ### Copy a const int pointer to non-const pointer 
@@ -33,12 +33,12 @@
 > ```
 >
 > 實驗使用的 [test code](CODE/Part1/HW3B.cpp)在此。
-> 發現在g++ compiler優化前，各執行1000次平均兩者時間差0.0113839秒，而開啟優化```-O3```選項後，差距為0.00413375秒。若是體積更大的object需要被反覆傳入函式，更可以觀察出pass by value與pass by reference的效能差異。
+> 發現在g++ compiler優化前，兩個版本的函式各執行1000次平均時間差0.0113839秒，而開啟g++ compiler優化```-O3```選項後，差距為0.00413375秒。若是體積更大的object需要被反覆傳入函式，更可以觀察出pass by value與pass by reference的效能差異。
 
 ## __Part 1 Problem C__
 ### WHat are the difference between ```int myInt[10]``` and ```int* myInt[10]```
 [test code](CODE/Part1/HW3C.cpp)
-> 前者會在stack上配置一段連續的記憶體，長度40 bytes，儲存int數值。後者在stack上建立10個連續的int pointer，分別指向零散、非連續的記憶體位置。
+> 前者會在stack上配置一段連續的記憶體，長度40 bytes，儲存int數值，並取得指向[0]的pointer。後者在stack上建立10個連續的int pointer，分別指向零散、非連續的記憶體位置。
 > 後者做任何數值運算，需要dereference陣列的每個元素。未經dereference，會出現compile time error
 > 
 > ![forgot to dereference my pointer array](IMG/Part1/3C-0.png)
@@ -47,7 +47,7 @@
 > 
 > ![dereference segfault](IMG/Part1/3C-3.png)
 > 
-> 從vscode檢視記憶體位置，可以看見```int* arr_ptr[10]```配置的10個整數pointer指向記憶體各處，各個整數的記憶體位置凌亂。甚至不知道甚麼原因，```[0]```跟```[2]```***指向同一個記憶體位置***:
+> 從vscode檢視記憶體位置，可以看見```int* arr_ptr[10]```配置的10個整數pointer指向記憶體各處，各個整數的記憶體位置凌亂。甚至不知道甚麼原因，```[0]```跟```[2]```__指向相同的記憶體位置__:
 > 
 > ![discrete ints](IMG/Part1/3C-2.png)
 > 
@@ -56,7 +56,7 @@
 
 ## __Part 1 Problem D__
 ### Workshop
-[test code](CODE/Part1/HW3D.cpp)
+[test code](CODE/Part1/HW3D.cpp) and [replit](https://replit.com/join/rbiugzgkui-b10831020)
 > 宣告變數，得到下圖的輸出
 > ```c++
 >  int number = 10831020;
@@ -78,13 +78,13 @@ int DoSomething(int a, int b);
 void DoSomething(int& a, int& b);
 void DoSomething(int* a, int* b);
 ```
-> 以三種call signature分別呼叫
+> 三個版本分別傳入變數值、變數的reference，以及變數的記憶體位置。以三種call signature分別呼叫
 ```c++
 int result = DoSomething(a, b);
 DoSomething(a, b);
 DoSomething(&a, &b);
 ```
-> 發現compiler無法以有無return type的方式區別前兩種call signature分別該呼叫哪個版本的函式，因此發生compile time error。
+> 原本預期三種call signature都可以順利執行，卻發現compiler無法判別有無return type決定前兩種call signature該呼叫哪個版本的函式，因此發生compile time error。
 > ![overload function fail](IMG/Part1/3E-0.png)
 
 ## __Part 2__
@@ -97,11 +97,11 @@ DoSomething(&a, &b);
  > 
  > 不知道在命名習慣上，```typedef```與```using```自訂義的type name需不需要全部大寫？我假設需要，因此把二維矩陣取名為```INT_MATRIX```，卻發現程式碼裡太多大寫字母顯得雜亂。
  >
- > 作業中遇到困難的，是```rand()```函式每次程式執行皆依序輸出相同數字。後來才知道需要用```srand(time())```將執行當下的時間點作為random seed，才能避免此狀況。這樣一來，就可以確保每次```rand()```會輸出不同的數值。
+ > 作業中遇到困難的，是```rand()```函式每次程式執行皆輸出相同的一系列數字。後來才知道需要用```srand(time())```將執行當下的時間點作為random seed，才能避免此狀況。這樣一來，就可以確保每次```rand()```會輸出不同的數值。
 
  ## __Part 3__
- [sorce code](CODE/Part3/HW3P3.cpp) and [replit]()
- > 自訂義```struct hozRow```與```struct struct_mat```，將```hozRow```作為```struct struct_mat```矩陣的一橫列。每個矩陣含有4列，每列有4個int。宣告如下:
+ [sorce code](CODE/Part3/HW3P3.cpp) and [replit](https://replit.com/join/ixeibzasth-b10831020)
+ > 自訂義```struct hozRow```與```struct struct_mat```，將```hozRow```作為```struct_mat```矩陣的一橫列。每個矩陣含有4列，每列有4個int。宣告如下:
  ```c++
 struct hozRow
 {
@@ -116,9 +116,9 @@ struct struct_mat
  >
  > ![pointer arithmetic](IMG/Part3/pointer%20arithmetics.png)
  > 
- > 我們土炮做出來的二維振烈，不知道效能有沒有比一般的```int 2Darray[][]```更好。這樣宣告的二微陣列程式碼相當易讀，但是compiler並不會把陣列的每一列放在記憶體位置相鄰處；陣列的各列將會四散於記憶體各處，而我們的struct就可以確保整個陣列各列的記憶體位置必定相鄰。
+ > 我們土炮做出來的二維矩陣，不知道效能有沒有比一般的```int 2Darray[][]```更好。這樣宣告的二維矩陣程式碼相當易讀，但是compiler並不會把矩陣的每一列放在記憶體相鄰處；矩陣的各列將會四散於記憶體各處，而我們的struct就可以確保整個陣列各列的記憶體位置必定相鄰。
  > 
- > 然而，這樣用struct寫二維矩陣大幅犧牲程式易讀性。若真的需要讓矩陣的各列相鄰，我應該會把二維陣列寫成一維，像是:
+ > 然而，這樣用struct寫二維矩陣大幅降低程式易讀性。若真的需要讓矩陣的各列相鄰，我應該會把二維陣列寫成一維，像是:
  ```c++
  constexpr n_rows, n_cols;
  int matrix[n_rows * n_cols]; //declare 2D matrix as 1D

@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HW3.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="homework-3">Homework 3</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">班級</th>
+<th style="text-align:center">姓名</th>
+<th style="text-align:center">學號</th>
+<th style="text-align:center">日期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">四機械四乙</td>
+<td style="text-align:center">吳宇昕</td>
+<td style="text-align:center">B10831020</td>
+<td style="text-align:center">10/7/2022</td>
+</tr>
+</tbody>
+</table>
+<h2 id="part-1-problem-a"><strong>Part 1 Problem A</strong></h2>
+<h3 id="copy-a-const-int-pointer-to-non-const-pointer">Copy a const int pointer to non-const pointer</h3>
+<p><a href="CODE/Part1/HW3A.cpp">test code</a></p>
+<blockquote>
+<p>欲複製const pointer，必須將其儲存於另一個const pointer。若新的pointer並非const，則會產生compile time error。</p>
+<p><img src="IMG/Part1/3A-0.png" alt="compiletimeerror1"></p>
+<p>原本預期c++的<code>mutable</code>關鍵字可以暫時避免compiler設下的這道防護機制，強迫其將<code>const int*</code>複製給<code>int*</code>但是發現這樣做沒有用。看來mutable關鍵字是專門用來讓class裡的const函式修改class member用的，無法像我這樣使用。</p>
+<p><img src="IMG/Part1/3A-2.png" alt="mutable keyword no use"></p>
+</blockquote>
+<h2 id="part-1-problem-b"><strong>Part 1 Problem B</strong></h2>
+<h3 id="why-should-i-pass-variables-as-reference">Why should I pass variables as reference</h3>
+<p><a href="CODE/Part1/HW3B.cpp">test code</a> and <a href="https://replit.com/join/wogevlomwv-b10831020">replit</a></p>
+<blockquote>
+<p>變數被pass by value進到函式時，將會在該函示的stack frame裡產生其數值的副本。複製體積大的變數或物件時，將會耗費CPU資源以及記憶體空間。
+若是pass by reference，函式接收到的是該物件或變數的記憶體位置，只需要到該位置取值運算，不需要複製整個變數值進自己的stack frame。</p>
+<p>我用<code>chrono</code>套件量測將一個含有100000個double的vector pass by value與pass by reference進到函式裡，並修改其值需花費的時間。
+vector宣告如</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">double</span>&gt; <span class="hljs-title">largeVtr</span><span class="hljs-params">(<span class="hljs-number">100000</span>)</span>
+</span></div></code></pre>
+<p>Pass by reference 與 pass by value 宣告與參數如</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">passedByRef</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">double</span>&gt;&amp; _largeVtr)</span>
+<span class="hljs-keyword">void</span> <span class="hljs-title">passedByValue</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">double</span>&gt; _largeVtr)</span>
+</span></div></code></pre>
+<p>實驗使用的 <a href="CODE/Part1/HW3B.cpp">test code</a>在此。
+發現在g++ compiler優化前，兩個版本的函式各執行1000次平均時間差0.0113839秒，而開啟g++ compiler優化<code>-O3</code>選項後，差距為0.00413375秒。若是體積更大的object需要被反覆傳入函式，更可以觀察出pass by value與pass by reference的效能差異。</p>
+</blockquote>
+<h2 id="part-1-problem-c"><strong>Part 1 Problem C</strong></h2>
+<h3 id="what-are-the-difference-between-int-myint10-and-int-myint10">WHat are the difference between <code>int myInt[10]</code> and <code>int* myInt[10]</code></h3>
+<p><a href="CODE/Part1/HW3C.cpp">test code</a></p>
+<blockquote>
+<p>前者會在stack上配置一段連續的記憶體，長度40 bytes，儲存int數值，並取得指向[0]的pointer。後者在stack上建立10個連續的int pointer，分別指向零散、非連續的記憶體位置。
+後者做任何數值運算，需要dereference陣列的每個元素。未經dereference，會出現compile time error</p>
+<p><img src="IMG/Part1/3C-0.png" alt="forgot to dereference my pointer array"></p>
+<p>然而，原本預期dereference各個元素之後就可以對其賦值，實際操作卻出現runtime error，segmentation fault。不清楚應該如何使用<code>int* myint[10]</code>的語法，避免出錯。</p>
+<p><img src="IMG/Part1/3C-3.png" alt="dereference segfault"></p>
+<p>從vscode檢視記憶體位置，可以看見<code>int* arr_ptr[10]</code>配置的10個整數pointer指向記憶體各處，各個整數的記憶體位置凌亂。甚至不知道甚麼原因，<code>[0]</code>跟<code>[2]</code><strong>指向相同的記憶體位置</strong>:</p>
+<p><img src="IMG/Part1/3C-2.png" alt="discrete ints"></p>
+<p>對<code>int* myInt[10]</code>的語法仍然不熟悉，不清楚其應用為何。</p>
+</blockquote>
+<h2 id="part-1-problem-d"><strong>Part 1 Problem D</strong></h2>
+<h3 id="workshop">Workshop</h3>
+<p><a href="CODE/Part1/HW3D.cpp">test code</a> and <a href="https://replit.com/join/rbiugzgkui-b10831020">replit</a></p>
+<blockquote>
+<p>宣告變數，得到下圖的輸出</p>
+<pre class="hljs"><code><div> <span class="hljs-keyword">int</span> number = <span class="hljs-number">10831020</span>;
+ <span class="hljs-keyword">int</span>* number_ptr = &amp;number;
+ <span class="hljs-keyword">int</span>* number_ptr2 = number_ptr;
+</div></code></pre>
+<p><img src="IMG/Part1/int_intptr_intref.png" alt="tutor output"></p>
+<p>可以發現<code>&amp;number</code>與<code>number_ptr</code>顯示相同的記憶體位置，而<code>number</code>與<code>*number_ptr</code>顯示相同值。<code>number_ptr</code>本身也占據記憶體位置，但是它自身的記憶體位置與<code>number</code>的記憶體位置無關，為任意數。然而其指向的記憶體位置必與<code>&amp;number</code>相同。
+由於<code>*number</code>沒有意義，圖中print<code>*number</code>的欄位以<code>N/A</code>代替。</p>
+</blockquote>
+<h2 id="part-1-problem-e"><strong>Part 1 Problem E</strong></h2>
+<h3 id="overloading-functions">Overloading functions</h3>
+<p><a href="CODE/Part1/HW3E.cpp">test code</a></p>
+<blockquote>
+<p>宣告三個版本的函式，positional arguments接採用不同的type產生overload效果。呼叫函式時，compiler會以傳入的變數的type自動決定應該使用哪個版本的函式。</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">DoSomething</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DoSomething</span><span class="hljs-params">(<span class="hljs-keyword">int</span>&amp; a, <span class="hljs-keyword">int</span>&amp; b)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DoSomething</span><span class="hljs-params">(<span class="hljs-keyword">int</span>* a, <span class="hljs-keyword">int</span>* b)</span></span>;
+</div></code></pre>
+<blockquote>
+<p>三個版本分別傳入變數值、變數的reference，以及變數的記憶體位置。以三種call signature分別呼叫</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span> result = DoSomething(a, b);
+DoSomething(a, b);
+DoSomething(&amp;a, &amp;b);
+</div></code></pre>
+<blockquote>
+<p>原本預期三種call signature都可以順利執行，卻發現compiler無法判別有無return type決定前兩種call signature該呼叫哪個版本的函式，因此發生compile time error。
+<img src="IMG/Part1/3E-0.png" alt="overload function fail"></p>
+</blockquote>
+<h2 id="part-2"><strong>Part 2</strong></h2>
+<p><a href="CODE/Part2/HW3P2.cpp">sorce code</a> and <a href="https://replit.com/join/ntaqjzlkdi-b10831020">replit</a></p>
+<blockquote>
+<p>盡可能讓<code>main()</code>內容簡潔，13行以內塞下完整的程序。之前老師建議把print等函式寫在<code>main()</code>裡面，但這次需要另外寫<code>PrintMatrix</code>函式在<code>main()</code>之外，讓矩陣印出來比較美觀。二維矩陣，以及<code>main()</code>定義如下:</p>
+<p><img src="IMG/Part2//matrix def.png" alt="matrix def"></p>
+<p><img src="IMG/part2/main.png" alt="main function"></p>
+<p>不知道在命名習慣上，<code>typedef</code>與<code>using</code>自訂義的type name需不需要全部大寫？我假設需要，因此把二維矩陣取名為<code>INT_MATRIX</code>，卻發現程式碼裡太多大寫字母顯得雜亂。</p>
+<p>作業中遇到困難的，是<code>rand()</code>函式每次程式執行皆輸出相同的一系列數字。後來才知道需要用<code>srand(time())</code>將執行當下的時間點作為random seed，才能避免此狀況。這樣一來，就可以確保每次<code>rand()</code>會輸出不同的數值。</p>
+</blockquote>
+<h2 id="part-3"><strong>Part 3</strong></h2>
+<p><a href="CODE/Part3/HW3P3.cpp">sorce code</a> and <a href="https://replit.com/join/ixeibzasth-b10831020">replit</a></p>
+<blockquote>
+<p>自訂義<code>struct hozRow</code>與<code>struct struct_mat</code>，將<code>hozRow</code>作為<code>struct_mat</code>矩陣的一橫列。每個矩陣含有4列，每列有4個int。宣告如下:</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">hozRow</span>
+{</span>
+   <span class="hljs-keyword">int</span> w, x, y, z;
+};
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">struct_mat</span>
+{</span>
+   hozRow row0, row1, row2, row3;
+};
+</div></code></pre>
+<blockquote>
+<p>由於struct裡各個member的記憶體位置前後相連，且順序固定，可以用pointer arithmeitic技巧走訪陣列各整數位置</p>
+<p><img src="IMG/Part3/pointer arithmetics.png" alt="pointer arithmetic"></p>
+<p>我們土炮做出來的二維矩陣，不知道效能有沒有比一般的<code>int 2Darray[][]</code>更好。這樣宣告的二維矩陣程式碼相當易讀，但是compiler並不會把矩陣的每一列放在記憶體相鄰處；矩陣的各列將會四散於記憶體各處，而我們的struct就可以確保整個陣列各列的記憶體位置必定相鄰。</p>
+<p>然而，這樣用struct寫二維矩陣大幅降低程式易讀性。若真的需要讓矩陣的各列相鄰，我應該會把二維陣列寫成一維，像是:</p>
+</blockquote>
+<pre class="hljs"><code><div><span class="hljs-keyword">constexpr</span> n_rows, n_cols;
+<span class="hljs-keyword">int</span> matrix[n_rows * n_cols]; <span class="hljs-comment">//declare 2D matrix as 1D</span>
+
+<span class="hljs-comment">//iterate through matrix</span>
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>; i&lt;n_rows; i++&gt;){
+   <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>; j&lt;n_cols; j++&gt;)
+       matrix[j + i*n_cols] = <span class="hljs-comment">//do stuff;</span>
+}
+</div></code></pre>
+
+</body>
+</html>
