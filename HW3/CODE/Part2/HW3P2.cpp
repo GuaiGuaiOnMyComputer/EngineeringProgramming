@@ -13,13 +13,14 @@ void MatrixSubtract(const INT_MATRIX& _m1, const INT_MATRIX& _m2, const int n_ro
 
 int main()
 {
+    printf("Student B10831020\n");
     INT_MATRIX m1; //create a vector of vectors of ints
     INT_MATRIX m2; //create a vector of vectors of ints
     INT_MATRIX matrixAddtionResult;     //the matrix to store calculation results
     INT_MATRIX matrixSubtractionResult; //the matrix to store calculation results
     AssignRandomValues(m1, m2, 4, 4);   //give random values to the two matrices
-    PrintMatrix(m1,"m1", 4, 4);
-    PrintMatrix(m2,"m2", 4, 4);
+    PrintMatrix(m1,"Matrix m1", 4, 4);
+    PrintMatrix(m2,"Matrix m2", 4, 4);
     MatrixAdd(m1, m2, 4, 4, matrixAddtionResult);
     PrintMatrix(matrixAddtionResult, "Addition of the two matrices", 4, 4);
     MatrixSubtract(m1, m2, 4, 4, matrixSubtractionResult);

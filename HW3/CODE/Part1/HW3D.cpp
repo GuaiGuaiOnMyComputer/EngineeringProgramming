@@ -3,6 +3,7 @@
 using namespace std;
 
 int main() {
+  cout << "Student B10831020" << endl;
   int number = 10831020;
   int* number_ptr = &number;
   int* number_ptr2 = number_ptr;

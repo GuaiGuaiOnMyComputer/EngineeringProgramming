@@ -21,6 +21,7 @@ void StructMatrixSubtract(const struct_mat& _m1, const struct_mat& _m2, struct_m
 
 int main()
 {
+    printf("Student B10831020\n");
     struct_mat M1;
     struct_mat M2;
     struct_mat addResult;
@@ -67,7 +68,6 @@ void StructMatrixSubtract(const struct_mat& _m1, const struct_mat& _m2, struct_m
     }
 }
 
-
 void PrintStructMatrix(const struct_mat& m, const char* matrixName)
 {
     const int* read_ptr = (int*)(&m);
@@ -90,3 +90,32 @@ void PrintStructMatrix(const struct_mat& m, const char* matrixName)
     }
     printf("==========================================\n");
 }
+
+/*
+Replit: 
+Student B10831020Matrix M1:
+        |-150   -107    -106    -162|
+        |-167   -177    -115    -193|
+        |-115   -123    -116    -188|
+        |-158   -151    -140    -166|
+==========================================
+Matrix M2:
+        |-116   -162    -112    -148|
+        |-195   -129    -198    -198|
+        |-186   -139    -136    -180|
+        |-163   -139    -110    -140|
+==========================================
+M1+M2:
+        |-266   -269    -218    -310|
+        |-362   -306    -313    -391|
+        |-301   -262    -252    -368|
+        |-321   -290    -250    -306|
+==========================================
+M1-M2:
+        |-34    55      6       -14|
+        |28     -48     83      5|
+        |71     16      20      -8|
+        |5      -12     -30     -26|
+==========================================
+Press any key to continue . . .
+*/

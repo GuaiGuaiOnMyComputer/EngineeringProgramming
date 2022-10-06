@@ -32,6 +32,7 @@ void getResult(double _refTime[], double _valTime[])
 
 int main()
 {
+    printf("Student B10831020\n");
     double duration_ref[10000];
     double duration_val[10000];
     for (int i=0; i<1000; i++){
