@@ -42,8 +42,9 @@ void AssignRandomValue(struct_mat& _m1, struct_mat& _m2)
     srand(time(0));
     for(int i=0; i<N_ROW; i++){
         for(int j=0; j<N_COL; j++){
-            int* m1_ptr = (int*)(&_m1) + (N_COL*i + j); //get the beginning memory location of _m1 and cast the pointer to int* to operate on each value
-            int* m2_ptr = (int*)(&_m2) + (N_COL*i + j); //get the beginning memory location of _m2 and cast the pointer to int* to operate on each value
+            //get the beginning memory location of _m1 and cast the pointer to int* to operate on each value
+            int* m1_ptr = (int*)(&_m1) + (N_COL*i + j); 
+            int* m2_ptr = (int*)(&_m2) + (N_COL*i + j);
             *(m1_ptr) = rand() % 100 - 200;
             *(m2_ptr) = rand() % 100 - 200;
         }

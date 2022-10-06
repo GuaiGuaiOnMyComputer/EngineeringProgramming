@@ -98,3 +98,34 @@ DoSomething(&a, &b);
  > 不知道在命名習慣上，```typedef```與```using```自訂義的type name需不需要全部大寫？我假設需要，因此把二維矩陣取名為```INT_MATRIX```，卻發現程式碼裡太多大寫字母顯得雜亂。
  >
  > 作業中遇到困難的，是```rand()```函式每次程式執行皆依序輸出相同數字。後來才知道需要用```srand(time())```將執行當下的時間點作為random seed，才能避免此狀況。這樣一來，就可以確保每次```rand()```會輸出不同的數值。
+
+ ## __Part 3__
+ [sorce code](CODE/Part3/HW3P3.cpp) and [replit]()
+ > 自訂義```struct hozRow```與```struct struct_mat```，將```hozRow```作為```struct struct_mat```矩陣的一橫列。每個矩陣含有4列，每列有4個int。宣告如下:
+ ```c++
+struct hozRow
+{
+    int w, x, y, z;
+};
+struct struct_mat
+{
+    hozRow row0, row1, row2, row3;
+};
+ ```
+ > 由於struct裡各個member的記憶體位置前後相連，且順序固定，可以用pointer arithmeitic技巧走訪陣列各整數位置
+ >
+ > ![pointer arithmetic](IMG/Part3/pointer%20arithmetics.png)
+ > 
+ > 我們土炮做出來的二維振烈，不知道效能有沒有比一般的```int 2Darray[][]```更好。這樣宣告的二微陣列程式碼相當易讀，但是compiler並不會把陣列的每一列放在記憶體位置相鄰處；陣列的各列將會四散於記憶體各處，而我們的struct就可以確保整個陣列各列的記憶體位置必定相鄰。
+ > 
+ > 然而，這樣用struct寫二維矩陣大幅犧牲程式易讀性。若真的需要讓矩陣的各列相鄰，我應該會把二維陣列寫成一維，像是:
+ ```c++
+ constexpr n_rows, n_cols;
+ int matrix[n_rows * n_cols]; //declare 2D matrix as 1D
+ 
+ //iterate through matrix
+ for(int i=0; i<n_rows; i++>){
+    for(int j=0; j<n_cols; j++>)
+        matrix[j + i*n_cols] = //do stuff;
+ }
+ ```
