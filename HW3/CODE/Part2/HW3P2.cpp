@@ -18,8 +18,12 @@ int main()
     INT_MATRIX matrixAddtionResult;     //the matrix to store calculation results
     INT_MATRIX matrixSubtractionResult; //the matrix to store calculation results
     AssignRandomValues(m1, m2, 4, 4);   //give random values to the two matrices
+    PrintMatrix(m1,"m1", 4, 4);
+    PrintMatrix(m2,"m2", 4, 4);
     MatrixAdd(m1, m2, 4, 4, matrixAddtionResult);
-    MatrixSubtract(m1, m2, 4, 4, matrixAddtionResult);
+    PrintMatrix(matrixAddtionResult, "Addition of the two matrices", 4, 4);
+    MatrixSubtract(m1, m2, 4, 4, matrixSubtractionResult);
+    PrintMatrix(matrixSubtractionResult, "Subtracetion of the two matrices", 4, 4);
     system("pause");
     return 0;
 }
@@ -34,7 +38,6 @@ void MatrixAdd(const INT_MATRIX& _m1, const INT_MATRIX& _m2, const int n_rows, c
             out_result[i][j] = _m1[i][j] + _m2[i][j];
         }
     }
-    PrintMatrix(out_result, "Addition of the two matrice", n_rows, n_cols);
 }
 void MatrixSubtract(const INT_MATRIX& _m1, const INT_MATRIX& _m2, const int n_rows, const int n_cols, INT_MATRIX& out_result)
 {
@@ -45,7 +48,6 @@ void MatrixSubtract(const INT_MATRIX& _m1, const INT_MATRIX& _m2, const int n_ro
             out_result[i][j] = _m1[i][j] - _m2[i][j];
         }
     }
-    PrintMatrix(out_result, "Subtraction of the two matrice", n_rows, n_cols);
 }
 
 void AssignRandomValues(INT_MATRIX& _m1, INT_MATRIX& _m2, const int n_rows, const int n_cols)
@@ -61,8 +63,6 @@ void AssignRandomValues(INT_MATRIX& _m1, INT_MATRIX& _m2, const int n_rows, cons
             _m2[i].push_back(rand() % 200 - 100);
         }
     }
-    PrintMatrix(_m1, "m1", n_rows, n_cols);
-    PrintMatrix(_m2, "m2", n_rows, n_cols);
 }
 
 void PrintMatrix(const INT_MATRIX& _m, const char* _matrixName, const int n_rows, const int n_cols)
@@ -83,3 +83,37 @@ void PrintMatrix(const INT_MATRIX& _m, const char* _matrixName, const int n_rows
     }
     printf("========================\n\n");
 }
+
+/*
+Replit: https://replit.com/join/ntaqjzlkdi-b10831020
+
+m1
+-49     69      19      -81
+-27     -55     -46     -88
+-92     -97     37      -3
+45      -49     -6      -7
+========================
+
+m2
+-4      -72     95      -44
+28      11      9       -3
+88      -67     -72     -85
+-17     8       -17     98
+========================
+
+Addition of the two matrice
+-53     -3      114     -125
+1       -44     -37     -91
+-4      -164    -35     -88
+28      -41     -23     91
+========================
+
+Subtraction of the two matrice
+-45     141     -76     -37
+-55     -66     -55     -85
+-180    -30     109     82
+62      -57     11      -105
+========================
+
+Press any key to continue . . .
+*/
