@@ -386,16 +386,16 @@ code {
 </table>
 <h2 id="problem-a">Problem A</h2>
 <h3 id="copy-a-const-int-pointer-to-non-const-pointer">Copy a const int pointer to non-const pointer</h3>
-<p><a href="CODE/HW3A.cpp">test code</a></p>
+<p><a href="CODE/Part1/HW3A.cpp">test code</a></p>
 <blockquote>
 <p>欲複製const pointer，必須將其儲存於另一個const pointer。若新的pointer並非const，則會產生compile time error。</p>
-<p><img src="IMG/3A-0.png" alt="compiletimeerror1"></p>
+<p><img src="IMG/Part1/3A-0.png" alt="compiletimeerror1"></p>
 <p>原本預期c++的<code>mutable</code>關鍵字可以暫時避免compiler設下的這道防護機制，強迫其將<code>const int*</code>複製給<code>int*</code>但是發現這樣做沒有用。看來mutable關鍵字是專門用來讓class裡的const函式修改class member用的，無法像我這樣使用。</p>
-<p><img src="IMG/3A-2.png" alt="mutable keyword no use"></p>
+<p><img src="IMG/Part1/3A-2.png" alt="mutable keyword no use"></p>
 </blockquote>
 <h2 id="problem-b">Problem B</h2>
 <h3 id="why-should-i-pass-variables-as-reference">Why should I pass variables as reference</h3>
-<p><a href="CODE/HW3B.cpp">test code</a> and <a href="https://replit.com/join/wogevlomwv-b10831020">replit</a></p>
+<p><a href="CODE/Part1/HW3B.cpp">test code</a> and <a href="https://replit.com/join/wogevlomwv-b10831020">replit</a></p>
 <blockquote>
 <p>變數被pass by value進到函式時，將會在該函示的stack frame裡產生其數值的副本。複製體積大的變數或物件時，將會耗費CPU資源以及記憶體空間。
 若是pass by reference，函式接收到的是該物件或變數的記憶體位置，只需要到該位置取值運算，不需要複製整個變數值進自己的stack frame。</p>
@@ -407,44 +407,44 @@ vector宣告如</p>
 <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">passedByRef</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">double</span>&gt;&amp; _largeVtr)</span>
 <span class="hljs-keyword">void</span> <span class="hljs-title">passedByValue</span><span class="hljs-params">(<span class="hljs-built_in">std</span>::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">double</span>&gt; _largeVtr)</span>
 </span></div></code></pre>
-<p>實驗使用的 <a href="CODE/HW3B.cpp">test code</a>在此。
+<p>實驗使用的 <a href="CODE/Part1/HW3B.cpp">test code</a>在此。
 發現在g++ compiler優化前，各執行1000次平均兩者時間差0.0113839秒，而開啟優化<code>-O3</code>選項後，差距為0.00413375秒。若是體積更大的object需要被反覆傳入函式，更可以觀察出pass by value與pass by reference的效能差異。</p>
 </blockquote>
 <h2 id="problem-c">Problem C</h2>
 <h3 id="what-are-the-difference-between-int-myint10-and-int-myint10">WHat are the difference between <code>int myInt[10]</code> and <code>int* myInt[10]</code></h3>
-<p><a href="CODE/HW3C.cpp">test code</a></p>
+<p><a href="CODE/Part1/HW3C.cpp">test code</a></p>
 <blockquote>
 <p>前者會在stack上配置一段連續的記憶體，長度40 bytes，儲存int數值。後者在stack上建立10個連續的int pointer，分別指向零散、非連續的記憶體位置。
 後者做任何數值運算，需要dereference陣列的每個元素。未經dereference，會出現compile time error</p>
-<p><img src="IMG/3C-0.png" alt="forgot to dereference my pointer array"></p>
+<p><img src="IMG/Part1/3C-0.png" alt="forgot to dereference my pointer array"></p>
 <p>然而，原本預期dereference各個元素之後就可以對其賦值，實際操作卻出現runtime error，segmentation fault。不清楚應該如何使用<code>int* myint[10]</code>的語法，避免出錯。</p>
-<p><img src="IMG/3C-3.png" alt="dereference segfault"></p>
+<p><img src="IMG/Part1/3C-3.png" alt="dereference segfault"></p>
 <p>從vscode檢視記憶體位置，可以看見<code>int* arr_ptr[10]</code>配置的10個整數pointer指向記憶體各處，各個整數的記憶體位置凌亂。甚至不知道甚麼原因，<code>[0]</code>跟<code>[2]</code><em><strong>指向同一個記憶體位置</strong></em>:</p>
-<p><img src="IMG/3C-2.png" alt="discrete ints"></p>
+<p><img src="IMG/Part1/3C-2.png" alt="discrete ints"></p>
 <p>對<code>int* myInt[10]</code>的語法仍然不熟悉，不清楚其應用為何。</p>
 </blockquote>
 <h2 id="problem-d">Problem D</h2>
 <h3 id="workshop">Workshop</h3>
-<p><a href="CODE/HW3D.cpp">test code</a></p>
+<p><a href="CODE/Part1/HW3D.cpp">test code</a></p>
 <blockquote>
 <p>宣告變數，得到下圖的輸出</p>
 <pre class="hljs"><code><div> <span class="hljs-keyword">int</span> number = <span class="hljs-number">10831020</span>;
  <span class="hljs-keyword">int</span>* number_ptr = &amp;number;
  <span class="hljs-keyword">int</span>* number_ptr2 = number_ptr;
 </div></code></pre>
-<p><img src="IMG/int_intptr_intref.png" alt="tutor output"></p>
+<p><img src="IMG/Part1/int_intptr_intref.png" alt="tutor output"></p>
 <p>可以發現<code>&amp;number</code>與<code>number_ptr</code>顯示相同的記憶體位置，而<code>number</code>與<code>*number_ptr</code>顯示相同值。<code>number_ptr</code>本身也占據記憶體位置，但是它自身的記憶體位置與<code>number</code>的記憶體位置無關，為任意數。然而其指向的記憶體位置必與<code>&amp;number</code>相同。
 由於<code>*number</code>沒有意義，圖中print<code>*number</code>的欄位以<code>N/A</code>代替。</p>
 </blockquote>
 <h2 id="problem-e">Problem E</h2>
 <h3 id="overloading-functions">Overloading functions</h3>
-<p><a href="CODE/HW3E.cpp">test code</a></p>
+<p><a href="CODE/Part1/HW3E.cpp">test code</a></p>
 <blockquote>
 <p>宣告三個版本的函式，positional arguments接採用不同的type產生overload效果。呼叫函式時，compiler會以傳入的變數的type自動決定應該使用哪個版本的函式。</p>
 </blockquote>
 <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">DoSomething</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span></span>;
 <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DoSomething</span><span class="hljs-params">(<span class="hljs-keyword">int</span>&amp; a, <span class="hljs-keyword">int</span>&amp; b)</span></span>;
-<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DoSomething</span><span class="hljs-params">(<span class="hljs-keyword">int</span>*a, <span class="hljs-keyword">int</span>* b)</span></span>;
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DoSomething</span><span class="hljs-params">(<span class="hljs-keyword">int</span>* a, <span class="hljs-keyword">int</span>* b)</span></span>;
 </div></code></pre>
 <blockquote>
 <p>以三種call signature分別呼叫</p>
@@ -454,8 +454,8 @@ DoSomething(a, b);
 DoSomething(&amp;a, &amp;b);
 </div></code></pre>
 <blockquote>
-<p>發現compiler無法以有無return type的方式區別前兩種call signature分別該呼叫哪個版本的函式，因此發生compile time error
-<img src="IMG/3E-0.png" alt="overload function fail"></p>
+<p>發現compiler無法以有無return type的方式區別前兩種call signature分別該呼叫哪個版本的函式，因此發生compile time error。
+<img src="IMG/Part1/3E-0.png" alt="overload function fail"></p>
 </blockquote>
 
 </body>
