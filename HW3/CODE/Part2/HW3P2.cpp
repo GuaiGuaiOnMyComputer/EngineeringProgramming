@@ -3,21 +3,21 @@
 #include <time.h>
 #include <vector>
 
-using INT_COL = std::vector<int>; //vector of ints
-using INT_MATRIX = std::vector<INT_COL>; //vector of vectors of ints
+using rowVtr = std::vector<int>; //vector of ints
+using matrixVtr = std::vector<rowVtr>; //vector of vectors of ints
 
-void AssignRandomValues(INT_MATRIX& _m1, INT_MATRIX& _m2, const int n_rows, const int n_cols);
-void PrintMatrix(const INT_MATRIX& _m, const char* _matrixName, const int n_rows, const int n_cols);
-void MatrixAdd(const INT_MATRIX& _m1, const INT_MATRIX& _m2, const int n_rows, const int n_cols, INT_MATRIX& out_result);
-void MatrixSubtract(const INT_MATRIX& _m1, const INT_MATRIX& _m2, const int n_rows, const int n_cols, INT_MATRIX& out_result);
+void AssignRandomValues(matrixVtr& _m1, matrixVtr& _m2, const int n_rows, const int n_cols);
+void PrintMatrix(const matrixVtr& _m, const char* _matrixName, const int n_rows, const int n_cols);
+void MatrixAdd(const matrixVtr& _m1, const matrixVtr& _m2, const int n_rows, const int n_cols, matrixVtr& out_result);
+void MatrixSubtract(const matrixVtr& _m1, const matrixVtr& _m2, const int n_rows, const int n_cols, matrixVtr& out_result);
 
 int main()
 {
     printf("Student B10831020\n");
-    INT_MATRIX m1; //create a vector of vectors of ints
-    INT_MATRIX m2; //create a vector of vectors of ints
-    INT_MATRIX matrixAddtionResult;     //the matrix to store calculation results
-    INT_MATRIX matrixSubtractionResult; //the matrix to store calculation results
+    matrixVtr m1; //create a vector of vectors of ints
+    matrixVtr m2; //create a vector of vectors of ints
+    matrixVtr matrixAddtionResult;     //the matrix to store calculation results
+    matrixVtr matrixSubtractionResult; //the matrix to store calculation results
     AssignRandomValues(m1, m2, 4, 4);   //give random values to the two matrices
     PrintMatrix(m1,"Matrix m1", 4, 4);
     PrintMatrix(m2,"Matrix m2", 4, 4);
@@ -30,7 +30,7 @@ int main()
 }
 
 
-void MatrixAdd(const INT_MATRIX& _m1, const INT_MATRIX& _m2, const int n_rows, const int n_cols, INT_MATRIX& out_result)
+void MatrixAdd(const matrixVtr& _m1, const matrixVtr& _m2, const int n_rows, const int n_cols, matrixVtr& out_result)
 {
     out_result.reserve(n_rows); //allocate 4 vectors of ints
     for(int i=0; i<n_rows; i++){
@@ -40,7 +40,7 @@ void MatrixAdd(const INT_MATRIX& _m1, const INT_MATRIX& _m2, const int n_rows, c
         }
     }
 }
-void MatrixSubtract(const INT_MATRIX& _m1, const INT_MATRIX& _m2, const int n_rows, const int n_cols, INT_MATRIX& out_result)
+void MatrixSubtract(const matrixVtr& _m1, const matrixVtr& _m2, const int n_rows, const int n_cols, matrixVtr& out_result)
 {
     out_result.reserve(n_rows); //allocate 4 vectors of ints
     for(int i=0; i<n_rows; i++){
@@ -51,7 +51,7 @@ void MatrixSubtract(const INT_MATRIX& _m1, const INT_MATRIX& _m2, const int n_ro
     }
 }
 
-void AssignRandomValues(INT_MATRIX& _m1, INT_MATRIX& _m2, const int n_rows, const int n_cols)
+void AssignRandomValues(matrixVtr& _m1, matrixVtr& _m2, const int n_rows, const int n_cols)
 {
     srand(time(0)); //use a time stanp as random seed
     _m1.reserve(n_rows); //allocate 4 vectors of ints
@@ -66,7 +66,7 @@ void AssignRandomValues(INT_MATRIX& _m1, INT_MATRIX& _m2, const int n_rows, cons
     }
 }
 
-void PrintMatrix(const INT_MATRIX& _m, const char* _matrixName, const int n_rows, const int n_cols)
+void PrintMatrix(const matrixVtr& _m, const char* _matrixName, const int n_rows, const int n_cols)
 {
     printf("%s\n", _matrixName);
     for(int i=0; i<n_rows; i++){
