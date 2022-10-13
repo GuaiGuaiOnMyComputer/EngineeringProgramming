@@ -89,6 +89,7 @@ DoSomething(a, b);              //attempt to call version 2
 DoSomething(&a, &b);            //attempt to call version 3
 ```
 > 原本預期三種call signature都可以順利執行，卻發現compiler無法從有無return type判斷前兩種call signature分別該呼叫哪個版本的函式，因此發生compile time error。
+> 
 > ![overload function fail](IMG/Part1/3E-0.png)
 
 ## __Part 2__
