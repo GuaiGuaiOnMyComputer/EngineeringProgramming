@@ -87,7 +87,7 @@ void matrixAdd(const CompositeArr& m1, const CompositeArr& m2, CompositeArr& out
     out.reserve(4);
     for(int i = 0; i < m1.size(); i++){
         out.push_back(HozRow());
-        out[i].data.reserve(4);
+        // out[i].data.reserve(4);
         for(int j = 0; j < m1[i].data.size(); j++){
             out[i].data.push_back(m1[i].data[j] + m2[i].data[j]);
         }
