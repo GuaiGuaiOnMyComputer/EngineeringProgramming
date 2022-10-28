@@ -49,8 +49,8 @@ void assignRandomValue(CompositeArr& m1, CompositeArr& m2)
     m1.reserve(4);
     m2.reserve(4);
     for(int i = 0; i < 4; i++){
-        m1.push_back(HozRow());
-        m2.push_back(HozRow());
+        m1.push_back(HozRow()); //calls HozRow constructor
+        m2.push_back(HozRow()); //calls HozRow constructor
         for(int j = 0; j < 4; j++){
             m1[i].data.push_back(randGenerator() % 200 - 100);
             m2[i].data.push_back(randGenerator() % 200 - 100);
