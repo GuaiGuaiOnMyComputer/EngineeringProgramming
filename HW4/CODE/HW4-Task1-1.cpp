@@ -115,3 +115,32 @@ void getPrintNonDiaSum(const CompositeArr& addResult)
         }
     }
 }
+
+/*
+Replit:https://replit.com/join/ivcjhkwpfh-b10831020
+Student B10831020
+Random composite matrix m1
+|17	-60	-84	46|	row average = -20.25
+|28	-5	-37	54|	row average = 10
+|12	28	-78	11|	row average = -6.75
+|39	-47	-23	-72|	row average = -25.75
+================================================
+Random composite matrix m2
+|-19	87	99	89|	row average = 64
+|-20	34	51	31|	row average = 24
+|-33	-68	10	90|	row average = -0.25
+|34	-13	-5	10|	row average = 6.5
+================================================
+ m1 + m2
+|-2	27	15	135|	row average = 43.75
+|8	29	14	85|	row average = 34
+|-21	-40	-68	101|	row average = -7
+|73	-60	-28	-62|	row average = -19.25
+================================================
+Nondiagonal element sum of m1 and m2
+|--	27	15	135|
+|8	--	14	85|
+|-21	-40	--	101|
+|73	-60	-28	--|
+
+*/

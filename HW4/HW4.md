@@ -1,0 +1,117 @@
+# Homework 4
+ |  班級   | 姓名 |  學號   |   日期   |
+ |   :---: | :---:|  :---:  |:---: |
+ |四機械四乙|吳宇昕|B10831020|10/29/2022|
+
+## Part 1: 延續HW3，有技巧的產生Struct Vector
+[sorce code](CODE/HW4-Task1-1.cpp) and [replit](https://replit.com/join/ivcjhkwpfh-b10831020)
+
+執行結果如下圖:
+
+![output](IMG/part1_output.png)
+
+Struct的定義如下圖：
+
+![struct def](IMG/part1_struct.png) 
+
+將```HozRow```當作struct vector的一列。自定義```HozRow```的constructor，當vector需要加入新的一列，會呼叫此constructor執行```reserve```函式，為此列預留記憶體空間。
+
+寫這次的作業發現vector很有趣的一個現象。以下是為陣列賦值的函式，它會加長兩個陣列的行列數，並賦予亂數值。
+
+```c++
+void assignRandomValue(CompositeArr& m1, CompositeArr& m2)
+{
+    auto randGenerator = std::mt19937(time(0));
+    m1.reserve(4);
+    m2.reserve(4);
+    for(int i = 0; i < 4; i++){
+        m1.push_back(HozRow()); //calls HozRow constructor
+        m2.push_back(HozRow()); //calls HozRow constructor
+        for(int j = 0; j < 4; j++){
+            m1[i].data.push_back(randGenerator() % 200 - 100);
+            m2[i].data.push_back(randGenerator() % 200 - 100);
+        }
+    }
+    getRowAvg(m1);
+    getRowAvg(m2);
+}
+```
+若將
+```c++
+m1[i].data.push_back(randGenerator() % 200 -100);
+```
+改為
+```c++
+m1[i].data[j] = randGenerator() % 200 -100;
+```
+程式依然可以執行，不會發生segmentation fault，且後續用```m1[i].data[j]```索引第i列j行的元素值可以順利取值。然而，若用```m1.size()```查詢其內容物數量，會發現是0。
+｛
+雖然vector經過```reserve()```已經配置空間可以容納新元素，仍應該用```push_back()```使其增長，而不是像上述用等號的寫法直接寫入記憶體空間。不然即使順利對vector寫入數值，它不會知道自己真實內容物量為何。如此逾越vector管理自身長度的設計，恐怕是相當糟糕的寫法。過去有一份作業是這樣寫的，很高興這次有發現此缺失。
+
+## Part 2: 整合第三方complex API，創建複數struct vector
+> __目前這份作業有嚴重的執行期錯誤__
+
+[sorce code](CODE/HW4-Task1-2.cpp) and [replit](https://replit.com/join/zulanzrtsi-b10831020)
+
+執行結果如下圖（執行期錯誤）:
+
+![part2 output](IMG/part2-output_witherror.png)
+
+
+程式有明顯的執行其錯誤，但是經過長時間的debug仍然看不出為什麼會這樣。
+
+以圖片輸出為例，使用者輸入實數與虛數上下界浮點數，但是產生的亂數即使經過處理仍沒有落在指定範圍內，而且是很詭異的數值。還有，各個元素實部與虛部皆應是亂數，然而實際輸出看見好幾的元素的值是重複的。兩個問題經過長時間debug仍無法解決。
+
+struct 定義如下圖：
+
+![part2 struct](IMG/part2-struct.png)
+
+自定義```CplxRow```的constructor與計算列平均的函式```GetAvg()```。計算平均的函式本來想寫成
+```c++
+Complex GetAvg()
+{
+    Complex avg;
+    for(int i=0 ; i<data.size(); i++){
+        avg += data[i];
+    }
+    avg /= (int)data.size();
+    return avg;
+}
+```
+卻發現```/=```運算子沒辦法在```std::complex<float>```與```int```之間使用。在[cppreference.com網站](https://en.cppreference.com/w/cpp/numeric/complex/operator_arith3)上看到這句話
+> Because template argument deduction does not consider implicit conversions, these operators cannot be used for mixed integer/complex arithmetic. In all cases, the scalar must have the same type as the underlying type of the complex number.
+
+顯然目前這兩種type之間的變數無法使用這個運算子，那就只好向圖片裡一樣寫得土炮一點。
+
+## Part 3: 觀照視頻心得
+這部影片主要介紹C++的class如何自訂義operator。其實operator似乎只是變形的函式，只是以更簡潔的符號形式達到相加、相減、比較等計算結果。
+
+兩複數相加時，普通的class內函式可能長這樣
+```c++
+Complex Complex::add(const Complex& another)
+{
+    return Complex(this->real() + this->real(), another.imag() + another.imag());
+}
+```
+而呼叫此函示需寫成
+```c++
+Complex c1, c2, c3;
+c3 = c1.add(c2); // assume = operator is already availabe
+```
+但是若在```class Complex```自訂義+運算子，兩個複數相加的程式將會看起來更簡潔
+```c++
+Complex Complex::operator + (const Complex anotherCplx) const
+{
+    return Complex(this->real()+anotherCplx.real(), this->imag()+another.imag())
+}
+```
+使用+運算子只需要
+```c++
+Complex c1, c2, c3;
+c3 = c1 + c2; // assume = operator is already available
+```
+定義+運算子有幾個關鍵字，其實跟定義函式語法很類似：
+* ```Complex```: 運算子(函式)回傳一個Complex物件
+* ```Complex```::operator +:修改Complex class的+運算子
+* ```(const Complex anotherCplx)```: 此函式需要輸入兩個參數，不過第一個參數即呼叫此運算子時在+前的Complex物件，會暗中自動傳入不需要在參數列標示。上例中的```c1```即是第一個參數，在函式內文為```this```。而第二個參數被pass by const reference，即上例的```c2```，函式內文為```anotherCplx```。
+* ```const```: 此函式不會修改第一個參數物件```c1```內容，故在函式宣告同一行最後標記```const```
