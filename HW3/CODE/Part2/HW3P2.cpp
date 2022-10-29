@@ -68,7 +68,7 @@ void AssignRandomValues(matrixVtr& _m1, matrixVtr& _m2, const int n_rows, const 
 
 void PrintMatrix(const matrixVtr& _m, const char* _matrixName, const int n_rows, const int n_cols)
 {
-    printf("%s\n", _matrixName);
+    printf("%s size %d capacity %d\n", _matrixName, _m.size(), _m.capacity());
     for(int i=0; i<n_rows; i++){
         for(int j=0; j<n_cols; j++){
             if(j==0){
@@ -86,7 +86,7 @@ void PrintMatrix(const matrixVtr& _m, const char* _matrixName, const int n_rows,
 }
 
 /*
-Replit: https://replit.com/join/ntaqjzlkdi-b10831020
+Replit: https://replit.com/join/aqehxsqagg-b10831020
 
 m1
 -49     69      19      -81
