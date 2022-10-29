@@ -62,14 +62,13 @@ void printNonDiaSum(const CompositeMatrixCplx& m);
 int main()
 {
     std::cout << "Student B10831020" << std::endl;
+    std::cout << "==================================================" << std::endl;
+    std::cout << "NOTICE: Currently there is a bug"<< std::endl;
+    std::cout << "The generated random values repeats and their values are not within the user-designated interval. Maybe I can fix it later, maybe not" << std::endl;
+    std::cout << "==================================================" << std::endl;
     Range userSetRange;
     CompositeMatrixCplx m1, m2, addResult;
-    // getRangeInput(userSetRange);
-    userSetRange.imgMin = 0.7;
-    userSetRange.imgMax = 75;
-    userSetRange.realMax = 2;
-    userSetRange.realMin = 10;
-
+    getRangeInput(userSetRange);
     assignRandomValues(userSetRange, m1, m2);
     printCompositeMatrix(m1, "Complex matrix m1"); 
     printCompositeMatrix(m2, "Complex matrix m2");
@@ -82,6 +81,7 @@ int main()
 
 void printNonDiaSum(const CompositeMatrixCplx& m)
 {
+    std::cout << "Non diagonal sum of m1 and m2" << std::endl;
     for(int i=0; i<m.size(); i++){
         for(int j=0; j<m[i].data.size(); j++){
             if(i==j){
