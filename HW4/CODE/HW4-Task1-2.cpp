@@ -15,16 +15,14 @@ struct CplxRow
     Complex avg;
     CplxRow(){data.reserve(4);}; //struct constructor
 
-    std::complex<float> GetAvg()
+    Complex GetAvg()
     {
-        float realAvg = 0, imgAvg = 0;
+        Complex avg;
         for(int i=0 ; i<data.size(); i++){
-            realAvg += data[i].real(); //cast std::complex<float> into float
-            imgAvg += data[i].imag(); //cast std::complex<float> into float
+            avg += data[i];
         }
-        realAvg = realAvg / (float)data.size();
-        imgAvg = imgAvg / (float)data.size();
-        return std::complex<float> (realAvg, imgAvg);
+        avg = Complex(avg.real() / data.size(), avg.imag()/ data.size());
+        return avg;
     }
 };
 
@@ -57,6 +55,7 @@ void getRangeInput(Range& out_range);
 void assignRandomValues(const Range& rng, CompositeMatrixCplx& m1, CompositeMatrixCplx& m2);
 void printCompositeMatrix(const CompositeMatrixCplx& m, const char* msg);
 void matrixAdd(const CompositeMatrixCplx& m1, const CompositeMatrixCplx& m2, CompositeMatrixCplx& out_result);
+void matrixSubtract(const CompositeMatrixCplx& m1, const CompositeMatrixCplx& m2, CompositeMatrixCplx& out_result);
 void printNonDiaSum(const CompositeMatrixCplx& m);
 
 int main()
@@ -67,13 +66,15 @@ int main()
     std::cout << "The generated random values repeats and their values are not within the user-designated interval. Maybe I can fix it later, maybe not" << std::endl;
     std::cout << "==================================================" << std::endl;
     Range userSetRange;
-    CompositeMatrixCplx m1, m2, addResult;
+    CompositeMatrixCplx m1, m2, addResult, subtractResult;
     getRangeInput(userSetRange);
     assignRandomValues(userSetRange, m1, m2);
     printCompositeMatrix(m1, "Complex matrix m1"); 
     printCompositeMatrix(m2, "Complex matrix m2");
     matrixAdd(m1, m2, addResult);
     printCompositeMatrix(addResult, "m1 + m2");
+    matrixSubtract(m1, m2, subtractResult);
+    printCompositeMatrix(subtractResult, "m1 - m2");
     printNonDiaSum(addResult);
     system("pause");   
     return 0;
@@ -111,9 +112,17 @@ void matrixAdd(const CompositeMatrixCplx& m1, const CompositeMatrixCplx& m2, Com
     for(int i=0; i<m1.size(); i++){
         out_result.push_back(CplxRow());
         for(int j=0; j<m1.size(); j++){
-            float realAdd = m1[i].data[j].real() + m2[i].data[j].real();
-            float imgAdd = m1[i].data[j].imag() + m2[i].data[j].imag();
-            out_result[i].data.push_back(Complex(realAdd, imgAdd));
+            out_result[i].data.push_back(m1[i].data[j] + m2[i].data[j]);
+        }
+    }
+}
+void matrixSubtract(const CompositeMatrixCplx& m1, const CompositeMatrixCplx& m2, CompositeMatrixCplx& out_result)
+{
+    out_result.reserve(4);
+    for(int i=0; i<m1.size(); i++){
+        out_result.push_back(CplxRow());
+        for(int j=0; j<m1.size(); j++){
+            out_result[i].data.push_back(m1[i].data[j] - m2[i].data[j]);
         }
     }
 }
@@ -128,6 +137,7 @@ void printCompositeMatrix(const CompositeMatrixCplx& m, const char* msg)
         std::cout << std::endl;
     }
     std::cout << "=============================" << std::endl;
+    std::cout << std::endl;
 }
 
 void assignRandomValues(const Range& rng, CompositeMatrixCplx& m1, CompositeMatrixCplx& m2)
@@ -181,3 +191,52 @@ void getRangeInput(Range& out_range)
     std::cin >> out_range.imgMin >> out_range.imgMax;
     out_range.CheckAndSwapMinMax(); // if the min and max is input oppositely, call this function to revert it and calculate the interval attribute
 }
+
+/*
+Replit:https://replit.com/join/zulanzrtsi-b10831020
+
+Student B10831020
+==================================================
+NOTICE: Currently there is a bug
+The generated random values repeats and their values are not within the user-designated interval. Maybe I can fix it later, maybe not
+==================================================
+Please input the boundaries of the real part
+89.66
+11
+Please input the boundaries of the imaginary part
+-78
+23
+Complex matrix m1
+7.74e-38+0i 7.74e-38+14.7i  7.74e-38+14.7i  7.74e-38+14.7i
+7.74e-38+0i 7.74e-38+17.5i  7.74e-38+17.5i  7.74e-38+17.5i
+7.74e-38+0i 7.74e-38+18.1i  7.74e-38+18.1i  7.74e-38+18.1i
+7.74e-38+0i 7.74e-38+21.3i  7.74e-38+21.3i  7.74e-38+21.3i
+=============================
+
+Complex matrix m2
+7.74e-38+0i 7.74e-38+0i 7.74e-38+0i 7.74e-38+17.7i
+7.74e-38+0i 7.74e-38+0i 7.74e-38+0i 7.74e-38+20.9i
+7.74e-38+0i 7.74e-38+0i 7.74e-38+0i 7.74e-38+12.1i
+7.74e-38+0i 7.74e-38+0i 7.74e-38+0i 7.74e-38+21.6i
+=============================
+
+m1 + m2
+1.55e-37+0i 1.55e-37+14.7i  1.55e-37+14.7i  1.55e-37+32.5i
+1.55e-37+0i 1.55e-37+17.5i  1.55e-37+17.5i  1.55e-37+38.4i
+1.55e-37+0i 1.55e-37+18.1i  1.55e-37+18.1i  1.55e-37+30.2i
+1.55e-37+0i 1.55e-37+21.3i  1.55e-37+21.3i  1.55e-37+43i
+=============================
+
+m1 - m2
+0+0i    0+14.7i 0+14.7i 0+-3.03i
+0+0i    0+17.5i 0+17.5i 0+-3.38i
+0+0i    0+18.1i 0+18.1i 0+6.05i
+0+0i    0+21.3i 0+21.3i 0+-0.271i
+=============================
+
+Non diagonal sum of m1 and m2
+----------  1.55e-37+14.7i  1.55e-37+14.7i  1.55e-37+32.5i
+1.55e-37+0i ----------  1.55e-37+17.5i  1.55e-37+38.4i
+1.55e-37+0i 1.55e-37+18.1i  ----------  1.55e-37+30.2i
+1.55e-37+0i 1.55e-37+21.3i  1.55e-37+21.3i  ----------
+*/
