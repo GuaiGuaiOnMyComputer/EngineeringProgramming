@@ -25,7 +25,6 @@ int main()
     PrintMatrix(matrixAddtionResult, "Addition of the two matrices", 4, 4);
     MatrixSubtract(m1, m2, 4, 4, matrixSubtractionResult);
     PrintMatrix(matrixSubtractionResult, "Subtracetion of the two matrices", 4, 4);
-    system("pause");
     return 0;
 }
 
@@ -34,9 +33,10 @@ void MatrixAdd(const matrixVtr& _m1, const matrixVtr& _m2, const int n_rows, con
 {
     out_result.reserve(n_rows); //allocate 4 vectors of ints
     for(int i=0; i<n_rows; i++){
+        out_result.push_back(rowVtr());
         out_result[i].reserve(n_cols); //allocate 4 ints within each row vector
         for(int j=0; j<n_cols; j++){
-            out_result[i][j] = _m1[i][j] + _m2[i][j];
+            out_result[i].push_back(_m1[i][j] + _m2[i][j]);
         }
     }
 }
@@ -44,9 +44,10 @@ void MatrixSubtract(const matrixVtr& _m1, const matrixVtr& _m2, const int n_rows
 {
     out_result.reserve(n_rows); //allocate 4 vectors of ints
     for(int i=0; i<n_rows; i++){
+        out_result.push_back(rowVtr());
         out_result[i].reserve(n_cols); //allocate 4 ints within each row vector
         for(int j=0; j<n_cols; j++){
-            out_result[i][j] = _m1[i][j] - _m2[i][j];
+            out_result[i].push_back(_m1[i][j] - _m2[i][j]);
         }
     }
 }
@@ -57,6 +58,8 @@ void AssignRandomValues(matrixVtr& _m1, matrixVtr& _m2, const int n_rows, const 
     _m1.reserve(n_rows); //allocate 4 vectors of ints
     _m2.reserve(n_rows); //allocate 4 vectors of ints
     for(int i=0; i<n_rows; i++){
+        _m1.push_back(rowVtr());
+        _m2.push_back(rowVtr());
         _m1[i].reserve(n_cols); //allocate 4 ints within each row vector
         _m2[i].reserve(n_cols); //allocate 4 ints within each row vector
         for(int j=0; j<n_cols; j++){
