@@ -95,10 +95,10 @@ void printNonDiaSum(const CompositeMatrixCplx& m)
             }
             else{
                 if(i==3){
-                    std::cout << m[i].data[j].real() << "+" << m[i].data[j].imag() << 'i' << '\t';
+                    std::cout << m[i].data[j] << '\t';
                 }
                 else{
-                    std::cout << m[i].data[j].real() << '+' << m[i].data[j].imag() << 'i' << '\t';
+                    std::cout << m[i].data[j] << '\t';
                 }
             }
         }
@@ -140,46 +140,42 @@ void printCompositeMatrix(const CompositeMatrixCplx& m, const char* msg)
     std::cout << std::endl;
 }
 
+float shiftRandomValueIntoRange(float randV, const Range& rng, const int realOrImg)
+{
+    float dist;
+    if(realOrImg %2){ // if realOrImg is even %2 = 0, this iteration is handeling the real part
+        if(randV > rng.realMax){
+            dist = std::fabs(randV - rng.realMax);
+            return randV - 1.2 * dist;
+        }
+        else if(randV < rng.realMin){
+            dist = std::fabs(randV - rng.realMin);
+            return randV + 1.2 * dist;
+        }
+    }
+    else{ // if realOrImg is odd %2 = 1, this iteration is handeling the imaginary part
+        if(randV > rng.imgMax){
+            dist = std::fabs(randV - rng.imgMax);
+            return randV - 1.2 * dist;
+        }
+        else if(randV < rng.imgMin){
+            dist = std::fabs(randV - rng.imgMin);
+            return randV + 1.2 * dist;
+        }
+    }
+}
+
 void assignRandomValues(const Range& rng, CompositeMatrixCplx& m1, CompositeMatrixCplx& m2)
 {
     m1.reserve(4); //reserves 4 ComplexRows in each CompositeMatrixCplx
     m2.reserve(4);
     auto randGenerator = std::mt19937(time(0));    
-    for(int i=0; i<4; i++){
-        m1.push_back(CplxRow()); // calls the CplxRow constructor and auto reserve 4 complexes in a row
-        m2.push_back(CplxRow()); // checkout the CplxRow consturctor
-        float randNumbers[4];
-        for(int j=0; j<4; j++)
-        {
-            // randNumbers[j] = (float)randGenerator(); this line seems necessary but it creates weird bug
-            float randOffsetCoeff = 1 + (float)(randGenerator() - randGenerator.min()) / (float)(randGenerator.max() - randGenerator.min()); // the result will be 1.xxx
-            // left-shift or right-shift the generated random number into the user input range
-            switch (j%2)
-            {
-                case 1:
-                    // handling the real part of a complex number if i is an odd number(if this current iteration is an odd iteration)
-                    if(randNumbers[j] > rng.realMax){
-                        randNumbers[j] = randNumbers[j] - randOffsetCoeff * (randNumbers[j] - rng.realMax);
-                    }
-                    else if(randNumbers[j] < rng.realMin){
-                        randNumbers[j] = randNumbers[j] + randOffsetCoeff * (rng.realMin - randNumbers[j]);
-                    }
-                    break;
-                case 0:
-                    // handling the imaginary part of a complex number if i is an even number(if this current iteration is an even iteration)
-                    if(randNumbers[j] > rng.imgMax){
-                        randNumbers[j] = randNumbers[j] - randOffsetCoeff * (randNumbers[j] - rng.imgMax);
-                    }
-                    else if(randNumbers[j] < rng.imgMin){
-                        randNumbers[j] = randNumbers[j] + randOffsetCoeff * (rng.imgMin - randNumbers[j]);
-                    }
-                    break;
-            }
-            m1[i].data.push_back(Complex(randNumbers[0], randNumbers[1])); // calls the constructor of std::complex<float>
-            m2[i].data.push_back(Complex(randNumbers[2], randNumbers[3])); // push_back a complex number into the matrix
+    for(int i=0; i<m1.size(); i++){
+        for(int j=0; j<4*2; j++){ //*2 to handle both the real part and the imaginary part
+            float randReal = (float)randGenerator();
+            float randImg = (float)randGenerator();
+
         }
-        m1[i].GetAvg();
-        m2[i].GetAvg();
     }
 }
 

@@ -141,3 +141,5 @@ Python class內的函式若需修改一個instance，該函式第一個參數必
 C++與C若宣告變數時沒有特地使用new關鍵字，該變數就會存在stack裡；反之，就會存在heap。除非需要在local function創建一條array，或是程式需要儲存體積龐大的物件，將變數儲存在stack上應該是較好的選擇。
 
 由於heap裡的物件不會在function call結束或scpoe結束時被清除，很容易產生memory leak霸佔電腦的記憶體空間。同時，stack記憶體裡所有變數儲存位置相鄰，heap可能儲存在任何凌亂的位置，CPU需要到某個stack位置取值計算更有效率。
+
+即使我們寫的作業幾乎不需要用到new關鍵字，不需要手動操作heap記憶體，其實四次作業都有用到vector就是在讀寫heap記憶體。由於vector長度不固定，其必須被儲存在heap才有這樣的靈活度，因此vector設計上一律儲存在heap。但是為了避免memory leak，它同時也被設計當它go out-of-scope，會自動呼叫destructor，清除相關的heap記憶體內容。
