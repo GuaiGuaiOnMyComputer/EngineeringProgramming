@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HW4.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="homework-4">Homework 4</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">班級</th>
+<th style="text-align:center">姓名</th>
+<th style="text-align:center">學號</th>
+<th style="text-align:center">日期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">四機械四乙</td>
+<td style="text-align:center">吳宇昕</td>
+<td style="text-align:center">B10831020</td>
+<td style="text-align:center">10/29/2022</td>
+</tr>
+</tbody>
+</table>
+<h2 id="part-1-%E5%BB%B6%E7%BA%8Chw3%E6%9C%89%E6%8A%80%E5%B7%A7%E7%9A%84%E7%94%A2%E7%94%9Fstruct-vector">Part 1: 延續HW3，有技巧的產生Struct Vector</h2>
+<p><a href="CODE/HW4-Task1-1.cpp">sorce code</a> and <a href="https://replit.com/join/ivcjhkwpfh-b10831020">replit</a></p>
+<p>執行結果如下圖:</p>
+<p><img src="IMG/part1_output.png" alt="output"></p>
+<p>Struct的定義如下圖：</p>
+<p><img src="IMG/part1_struct.png" alt="struct def"></p>
+<p>將<code>HozRow</code>當作struct vector的一列。自定義<code>HozRow</code>的constructor，當vector需要加入新的一列，會呼叫此constructor執行<code>reserve</code>函式，為此列預留記憶體空間。</p>
+<p>寫這次的作業發現vector很有趣的一個現象。以下是為陣列賦值的函式，它會加長兩個陣列的行列數，並賦予亂數值。</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">assignRandomValue</span><span class="hljs-params">(CompositeArr&amp; m1, CompositeArr&amp; m2)</span>
+</span>{
+    <span class="hljs-keyword">auto</span> randGenerator = <span class="hljs-built_in">std</span>::mt19937(time(<span class="hljs-number">0</span>));
+    m1.reserve(<span class="hljs-number">4</span>);
+    m2.reserve(<span class="hljs-number">4</span>);
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">4</span>; i++){
+        m1.push_back(HozRow()); <span class="hljs-comment">//calls HozRow constructor</span>
+        m2.push_back(HozRow()); <span class="hljs-comment">//calls HozRow constructor</span>
+        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">4</span>; j++){
+            m1[i].data.push_back(randGenerator() % <span class="hljs-number">200</span> - <span class="hljs-number">100</span>);
+            m2[i].data.push_back(randGenerator() % <span class="hljs-number">200</span> - <span class="hljs-number">100</span>);
+        }
+    }
+    getRowAvg(m1);
+    getRowAvg(m2);
+}
+</div></code></pre>
+<p>若將</p>
+<pre class="hljs"><code><div>m1[i].data.push_back(randGenerator() % <span class="hljs-number">200</span> <span class="hljs-number">-100</span>);
+</div></code></pre>
+<p>改為</p>
+<pre class="hljs"><code><div>m1[i].data[j] = randGenerator() % <span class="hljs-number">200</span> <span class="hljs-number">-100</span>;
+</div></code></pre>
+<p>程式依然可以執行，不會發生segmentation fault，且後續用<code>m1[i].data[j]</code>索引第i列j行的元素值可以順利取值。然而，若用<code>m1.size()</code>查詢其內容物數量，會發現是0。</p>
+<p>雖然vector經過<code>reserve()</code>已經配置空間可以容納新元素，仍應該用<code>push_back()</code>使其增長，而不是像上述用等號的寫法直接寫入記憶體空間。不然即使順利對vector寫入數值，它不會知道自己真實內容物量為何。如此逾越vector管理自身長度的設計，恐怕是相當糟糕的寫法。過去有一份作業是這樣寫的，很高興這次有發現此缺失。</p>
+<h2 id="part-2-%E6%95%B4%E5%90%88%E7%AC%AC%E4%B8%89%E6%96%B9complex-api%E5%89%B5%E5%BB%BA%E8%A4%87%E6%95%B8struct-vector">Part 2: 整合第三方complex API，創建複數struct vector</h2>
+<blockquote>
+<p><strong>目前這份code有嚴重的執行期錯誤</strong></p>
+</blockquote>
+<p><a href="CODE/HW4-Task1-2.cpp">sorce code</a> and <a href="https://replit.com/join/zulanzrtsi-b10831020">replit</a></p>
+<p>執行結果如下圖（執行期錯誤）:</p>
+<p><img src="IMG/part2-output_witherror.png" alt="part2 output"></p>
+<p>程式有明顯的錯誤，但是經過長時間的debug仍然看不出為什麼會這樣。</p>
+<p>以圖片輸出為例，使用者以浮點數輸入實數與虛數上下界，但是產生的亂數即使經過處理沒有落在指定範圍內，反而變成很詭異的數值。還有，各個元素實部與虛部皆應是亂數，然而實際輸出看見好幾的元素的值是重複的。兩個問題經過長時間debug仍無法解決。</p>
+<p>struct 定義如下圖：</p>
+<p><img src="IMG/part2-struct.png" alt="part2 struct"></p>
+<p>自定義<code>CplxRow</code>的constructor與計算列平均的函式<code>GetAvg()</code>。計算平均的函式本來想寫成</p>
+<pre class="hljs"><code><div><span class="hljs-function">Complex <span class="hljs-title">GetAvg</span><span class="hljs-params">()</span>
+</span>{
+    Complex avg;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span> ; i&lt;data.<span class="hljs-built_in">size</span>(); i++){
+        avg += data[i];
+    }
+    avg /= (<span class="hljs-keyword">int</span>)data.<span class="hljs-built_in">size</span>();
+    <span class="hljs-keyword">return</span> avg;
+}
+</div></code></pre>
+<p>卻發現<code>/=</code>運算子沒辦法在<code>std::complex&lt;float&gt;</code>與<code>int</code>之間使用。在<a href="https://en.cppreference.com/w/cpp/numeric/complex/operator_arith3">cppreference.com網站</a>上看到這句話</p>
+<blockquote>
+<p>Because template argument deduction does not consider implicit conversions, these operators cannot be used for mixed integer/complex arithmetic. In all cases, the scalar must have the same type as the underlying type of the complex number.</p>
+</blockquote>
+<p>顯然目前這兩種type之間的變數無法使用這個運算子，那就只好向圖片裡一樣寫得土炮一點。</p>
+<h2 id="part-3-%E8%A7%80%E7%85%A7%E8%A6%96%E9%A0%BB%E5%BF%83%E5%BE%97">Part 3: 觀照視頻心得</h2>
+<p>這部影片主要介紹C++的class如何自訂義operator。其實operator似乎只是變形的函式，以更簡潔的符號形式進行相加、相減、比較等計算。</p>
+<p>兩複數相加時，普通的class內函式可能長這樣</p>
+<pre class="hljs"><code><div><span class="hljs-function">Complex <span class="hljs-title">Complex::add</span><span class="hljs-params">(<span class="hljs-keyword">const</span> Complex&amp; another)</span>
+</span>{
+    <span class="hljs-keyword">return</span> Complex(<span class="hljs-keyword">this</span>-&gt;real() + <span class="hljs-keyword">this</span>-&gt;real(), another.imag() + another.imag());
+}
+</div></code></pre>
+<p>而呼叫此函示需寫成</p>
+<pre class="hljs"><code><div>Complex c1, c2, c3;
+c3 = c1.add(c2); <span class="hljs-comment">// assume = operator is already availabe</span>
+</div></code></pre>
+<p>但是若在<code>class Complex</code>自訂義+運算子，兩個複數相加的程式將會看起來更簡潔</p>
+<pre class="hljs"><code><div>Complex Complex::<span class="hljs-keyword">operator</span> + (<span class="hljs-keyword">const</span> Complex anotherCplx) <span class="hljs-keyword">const</span>
+{
+    <span class="hljs-keyword">return</span> Complex(<span class="hljs-keyword">this</span>-&gt;real()+anotherCplx.real(), <span class="hljs-keyword">this</span>-&gt;imag()+another.imag())
+}
+</div></code></pre>
+<p>使用+運算子複數相加只需要</p>
+<pre class="hljs"><code><div>Complex c1, c2, c3;
+c3 = c1 + c2; <span class="hljs-comment">// assume = operator is already available</span>
+</div></code></pre>
+<p>定義+運算子有幾個關鍵字，其實跟定義函式語法很類似：</p>
+<ul>
+<li><code>Complex</code>: 運算子(函式)的return type是Complex instance</li>
+<li><code>Complex</code>::operator +:修改Complex class的+運算子</li>
+<li><code>(const Complex anotherCplx)</code>: 此函式需要輸入兩個參數，不過第一個參數即呼叫此運算子時在+前的Complex instance，會暗中自動傳入不需要寫在參數列裡。上例中的<code>c1</code>即是第一個參數，被暗中傳入，即函式內文的<code>this</code>。而第二個參數被pass by const reference，即上例的<code>c2</code>，函式內文為<code>anotherCplx</code>。</li>
+<li><code>const</code>: 此函式不會修改第一個參數物件<code>c1</code>內容</li>
+</ul>
+<h2 id="part-4-%E9%87%8D%E9%BB%9E%E5%9B%9E%E9%A1%A7%E4%B8%8B%E5%88%97%E5%BD%B1%E7%89%87%E5%AF%AB%E5%87%BA80%E5%AD%97%E5%BF%83%E5%BE%97">Part 4: 重點回顧下列影片，寫出80字心得</h2>
+<blockquote>
+<p>我其實找不到該影片</p>
+</blockquote>
+<h3 id="a-python-oop"><strong>A. Python OOP</strong></h3>
+<p>Python讓使用者自由選擇是否使用OOP語法寫程式，不像C#或Java一定要求每個主程式要包覆在namespace、class裡面。</p>
+<p>與其像C++在class裡使用<code>public</code>、<code>private</code>、<code>protected</code>等access modifiers，它以變數的名稱前面有幾個底線_判別各個attribute的accessibility。</p>
+<ul>
+<li>attribute 名稱前沒有_ : public attribute</li>
+<li>名稱前帶有_  : private attribute</li>
+<li>名稱前帶有__ : protected attribute</li>
+</ul>
+<p>兩個語言皆提供inhertance，但是python似乎不提供function overload。</p>
+<p>Python class內的函式若需修改一個instance，該函式第一個參數必須傳入<code>self</code>。或在寒士名稱上標記<code>@classmethod</code>。若不修改instance而是單純把一個函式寫在class內，則可以標註<code>@staticmethod</code>。C++沒有這種機制，所有class內的函式無論是否修改instance都長一樣。</p>
+<h3 id="b-c%E8%AA%9E%E8%A8%80%E9%99%A3%E5%88%97%E4%BA%86%E8%A7%A3heap%E7%A9%BA%E9%96%93%E8%AE%8A%E5%8C%96"><strong>B. C語言陣列，了解heap空間變化</strong></h3>
+<p>程式可以把變數存在兩種不同記憶體，stack或是heap。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">特性</th>
+<th style="text-align:center">Stack</th>
+<th style="text-align:center">Heap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">自動清除變數</td>
+<td style="text-align:center">有</td>
+<td style="text-align:center">無</td>
+</tr>
+<tr>
+<td style="text-align:left">CPU效率</td>
+<td style="text-align:center">較高</td>
+<td style="text-align:center">較低</td>
+</tr>
+<tr>
+<td style="text-align:left">可用空間</td>
+<td style="text-align:center">較小</td>
+<td style="text-align:center">較大</td>
+</tr>
+</tbody>
+</table>
+<p>C++與C若宣告變數時沒有特地使用new關鍵字，該變數就會存在stack裡；反之，就會存在heap。除非需要回傳一條在函式裡創建的array，或是程式需要儲存體積龐大的物件，將變數儲存在stack上應該是較好的選擇。</p>
+<p>由於heap裡的物件不會在function call結束或scpoe結束時被清除，很容易產生memory leak霸佔電腦的記憶體空間。同時，stack記憶體裡所有變數儲存位置相鄰，heap可能儲存在任何凌亂的位置，CPU對某個stack位置取值計算更有效率。</p>
+<p>即使我們寫的作業幾乎不需要用到new關鍵字，不需要手動操作heap記憶體，其實四次作業都有用到vector就是在讀寫heap記憶體。由於vector長度不固定，其必須被儲存在heap才有這樣的靈活度，因此vector設計上一律儲存在heap。但是為了避免memory leak，它同時也被設計當它go out-of-scope，會自動call destructor，清除相關的heap記憶體內容。</p>
+
+</body>
+</html>
