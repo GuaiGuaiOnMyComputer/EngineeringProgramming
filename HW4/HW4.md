@@ -105,7 +105,7 @@ Complex Complex::operator + (const Complex anotherCplx) const
     return Complex(this->real()+anotherCplx.real(), this->imag()+another.imag())
 }
 ```
-使用+運算子只需要
+使用+運算子複數相加只需要
 ```c++
 Complex c1, c2, c3;
 c3 = c1 + c2; // assume = operator is already available
@@ -115,3 +115,29 @@ c3 = c1 + c2; // assume = operator is already available
 * ```Complex```::operator +:修改Complex class的+運算子
 * ```(const Complex anotherCplx)```: 此函式需要輸入兩個參數，不過第一個參數即呼叫此運算子時在+前的Complex物件，會暗中自動傳入不需要在參數列標示。上例中的```c1```即是第一個參數，在函式內文為```this```。而第二個參數被pass by const reference，即上例的```c2```，函式內文為```anotherCplx```。
 * ```const```: 此函式不會修改第一個參數物件```c1```內容，故在函式宣告同一行最後標記```const```
+
+## Part 4: 重點回顧下列影片，寫出80字心得
+> 我其實找不到該影片
+### __A. Python OOP__
+Python讓使用者自由選擇是否使用OOP語法寫程式，不像C#或Java一定要求每個主程式要包覆在namespace、class裡面。
+
+與其像C++在class裡使用```public```、```private```、```protected```等access modifiers，它以變數的名稱判別各個attribute的accessibility。
+* attribute 名稱前沒有_ : public attribute
+* 名稱前帶有_  : private attribute
+* 名稱前大有__ : protected attribute
+
+兩個語言皆提供inhertance，但是python似乎不提供function overload。
+
+Python class內的函式若需修改一個instance，該函式第一個參數必須傳入```self```。若不修改instance而是單純把一個函式寫在class內，則可以標註```@classmethod```或```@staticmethod```。C++沒有這種機制，所有class內的函式無論是否修改instance都長一樣。
+
+### __B. C語言陣列，了解heap空間變化__
+程式可以把變數存在兩種不同記憶體，stack或是heap。
+|特性|Stack|Heap|
+|:---|:---:|:---:|
+|自動清除變數|有|無|
+|CPU效率|較高|較低|
+|可用空間|較小|較大|
+
+C++與C若宣告變數時沒有特地使用new關鍵字，該變數就會存在stack裡；反之，就會存在heap。除非需要在local function創建一條array，或是程式需要儲存體積龐大的物件，將變數儲存在stack上應該是較好的選擇。
+
+由於heap裡的物件不會在function call結束或scpoe結束時被清除，很容易產生memory leak霸佔電腦的記憶體空間。同時，stack記憶體裡所有變數儲存位置相鄰，heap可能儲存在任何凌亂的位置，CPU需要到某個stack位置取值計算更有效率。
