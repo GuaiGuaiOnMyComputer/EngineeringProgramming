@@ -227,79 +227,106 @@ pre code {
 </style>
 
 <style>
-/* Tomorrow Theme */
-/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
-/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+/*
 
-/* Tomorrow Comment */
-.hljs-comment,
-.hljs-quote {
-	color: #8e908c;
-}
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
 
-/* Tomorrow Red */
-.hljs-variable,
-.hljs-template-variable,
-.hljs-tag,
-.hljs-name,
-.hljs-selector-id,
-.hljs-selector-class,
-.hljs-regexp,
-.hljs-deletion {
-	color: #c82829;
-}
-
-/* Tomorrow Orange */
-.hljs-number,
-.hljs-built_in,
-.hljs-builtin-name,
-.hljs-literal,
-.hljs-type,
-.hljs-params,
-.hljs-meta,
-.hljs-link {
-	color: #f5871f;
-}
-
-/* Tomorrow Yellow */
-.hljs-attribute {
-	color: #eab700;
-}
-
-/* Tomorrow Green */
-.hljs-string,
-.hljs-symbol,
-.hljs-bullet,
-.hljs-addition {
-	color: #718c00;
-}
-
-/* Tomorrow Blue */
-.hljs-title,
-.hljs-section {
-	color: #4271ae;
-}
-
-/* Tomorrow Purple */
-.hljs-keyword,
-.hljs-selector-tag {
-	color: #8959a8;
-}
+*/
 
 .hljs {
-	display: block;
-	overflow-x: auto;
-	color: #4d4d4c;
-	padding: 0.5em;
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
 }
 
 .hljs-emphasis {
-	font-style: italic;
+  font-style: italic;
 }
 
 .hljs-strong {
-	font-weight: bold;
+  font-weight: bold;
 }
+
 </style>
 
 <style>
@@ -391,22 +418,17 @@ code {
 <p>Struct的定義如下圖：</p>
 <p><img src="IMG/part1_struct.png" alt="struct def"></p>
 <p>將<code>HozRow</code>當作struct vector的一列。自定義<code>HozRow</code>的constructor，當vector需要加入新的一列，會呼叫此constructor執行<code>reserve</code>函式，為此列預留記憶體空間。</p>
-<p>寫這次的作業發現vector很有趣的一個現象。以下是為陣列賦值的函式，它會加長兩個陣列的行列數，並賦予亂數值。</p>
-<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">assignRandomValue</span><span class="hljs-params">(CompositeArr&amp; m1, CompositeArr&amp; m2)</span>
+<p>寫這次的作業發現vector很有趣的一個現象。以下是為陣列賦值的函式，它會加長陣列的行列數，並賦予亂數值。</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">assignRandomValue</span><span class="hljs-params">(CompositeArr&amp; m1)</span>
 </span>{
     <span class="hljs-keyword">auto</span> randGenerator = <span class="hljs-built_in">std</span>::mt19937(time(<span class="hljs-number">0</span>));
     m1.reserve(<span class="hljs-number">4</span>);
-    m2.reserve(<span class="hljs-number">4</span>);
     <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">4</span>; i++){
         m1.push_back(HozRow()); <span class="hljs-comment">//calls HozRow constructor</span>
-        m2.push_back(HozRow()); <span class="hljs-comment">//calls HozRow constructor</span>
         <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">4</span>; j++){
             m1[i].data.push_back(randGenerator() % <span class="hljs-number">200</span> - <span class="hljs-number">100</span>);
-            m2[i].data.push_back(randGenerator() % <span class="hljs-number">200</span> - <span class="hljs-number">100</span>);
         }
     }
-    getRowAvg(m1);
-    getRowAvg(m2);
 }
 </div></code></pre>
 <p>若將</p>
@@ -416,7 +438,7 @@ code {
 <pre class="hljs"><code><div>m1[i].data[j] = randGenerator() % <span class="hljs-number">200</span> <span class="hljs-number">-100</span>;
 </div></code></pre>
 <p>程式依然可以執行，不會發生segmentation fault，且後續用<code>m1[i].data[j]</code>索引第i列j行的元素值可以順利取值。然而，若用<code>m1.size()</code>查詢其內容物數量，會發現是0。</p>
-<p>雖然vector經過<code>reserve()</code>已經配置空間可以容納新元素，仍應該用<code>push_back()</code>使其增長，而不是像上述用等號的寫法直接寫入記憶體空間。不然即使順利對vector寫入數值，它不會知道自己真實內容物量為何。如此逾越vector管理自身長度的設計，恐怕是相當糟糕的寫法。過去有一份作業是這樣寫的，很高興這次有發現此缺失。</p>
+<p>雖然vector經過<code>reserve()</code>已經配置空間可以容納新元素，仍應該用<code>push_back()</code>使其增長，而不是像上述用等號的寫法直接寫入記憶體空間。不然即使順利對vector寫入數值，它不會知道自己真實內容物量為何。如此逾越vector管理自身長度機制的語法，恐怕是相當糟糕。過去有一份作業是這樣寫的，以為萬無一失。很高興這次寫作業有發現這個問題。</p>
 <h2 id="part-2-%E6%95%B4%E5%90%88%E7%AC%AC%E4%B8%89%E6%96%B9complex-api%E5%89%B5%E5%BB%BA%E8%A4%87%E6%95%B8struct-vector">Part 2: 整合第三方complex API，創建複數struct vector</h2>
 <blockquote>
 <p><strong>目前這份code有嚴重的執行期錯誤</strong></p>
