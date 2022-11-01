@@ -2,6 +2,7 @@
 /test
 *test*
 /bin
+/midterm/*
 *.code-workspace
 
 # Prerequisites
