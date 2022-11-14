@@ -2,6 +2,7 @@
 /test
 *test*
 /bin
+/midterm/Problem3
 *.code-workspace
 
 # Midterm files

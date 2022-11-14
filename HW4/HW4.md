@@ -16,24 +16,19 @@ Struct的定義如下圖：
 
 將```HozRow```當作struct vector的一列。自定義```HozRow```的constructor，當vector需要加入新的一列，會呼叫此constructor執行```reserve```函式，為此列預留記憶體空間。
 
-寫這次的作業發現vector很有趣的一個現象。以下是為陣列賦值的函式，它會加長兩個陣列的行列數，並賦予亂數值。
+寫這次的作業發現vector很有趣的一個現象。以下是為陣列賦值的函式，它會加長陣列的行列數，並賦予亂數值。
 
 ```c++
-void assignRandomValue(CompositeArr& m1, CompositeArr& m2)
+void assignRandomValue(CompositeArr& m1)
 {
     auto randGenerator = std::mt19937(time(0));
     m1.reserve(4);
-    m2.reserve(4);
     for(int i = 0; i < 4; i++){
         m1.push_back(HozRow()); //calls HozRow constructor
-        m2.push_back(HozRow()); //calls HozRow constructor
         for(int j = 0; j < 4; j++){
             m1[i].data.push_back(randGenerator() % 200 - 100);
-            m2[i].data.push_back(randGenerator() % 200 - 100);
         }
     }
-    getRowAvg(m1);
-    getRowAvg(m2);
 }
 ```
 若將
@@ -46,7 +41,7 @@ m1[i].data[j] = randGenerator() % 200 -100;
 ```
 程式依然可以執行，不會發生segmentation fault，且後續用```m1[i].data[j]```索引第i列j行的元素值可以順利取值。然而，若用```m1.size()```查詢其內容物數量，會發現是0。
 
-雖然vector經過```reserve()```已經配置空間可以容納新元素，仍應該用```push_back()```使其增長，而不是像上述用等號的寫法直接寫入記憶體空間。不然即使順利對vector寫入數值，它不會知道自己真實內容物量為何。如此逾越vector管理自身長度的設計，恐怕是相當糟糕的寫法。過去有一份作業是這樣寫的，很高興這次有發現此缺失。
+雖然vector經過```reserve()```已經配置空間可以容納新元素，仍應該用```push_back()```使其增長，而不是像上述用等號的寫法直接寫入記憶體空間。不然即使順利對vector寫入數值，它不會知道自己真實內容物量為何。如此逾越vector管理自身長度機制的語法，恐怕是相當糟糕。過去有一份作業是這樣寫的，以為萬無一失。很高興這次寫作業有發現這個問題。
 
 ## Part 2: 整合第三方complex API，創建複數struct vector
 > __目前這份code有嚴重的執行期錯誤__
