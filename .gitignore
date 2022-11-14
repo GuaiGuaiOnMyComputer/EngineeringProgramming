@@ -4,6 +4,9 @@
 /bin
 *.code-workspace
 
+# Midterm files
+/Midterm/Problem3
+
 # Prerequisites
 *.d
 
