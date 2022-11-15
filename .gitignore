@@ -2,12 +2,10 @@
 /test
 *test*
 /bin
-/midterm/Problem3
 *.code-workspace
 
 # Midterm files
-/Midterm/Problem3
-
+*R4*
 # Prerequisites
 *.d
 
