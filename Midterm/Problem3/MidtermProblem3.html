@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MidtermProblem3.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="kelly-simulator">Kelly Simulator</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">班級</th>
+<th style="text-align:center">姓名</th>
+<th style="text-align:center">學號</th>
+<th style="text-align:center">日期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">四機械四乙</td>
+<td style="text-align:center">吳宇昕</td>
+<td style="text-align:center">B10831020</td>
+<td style="text-align:center">11/16/2022</td>
+</tr>
+</tbody>
+</table>
+<h2 id="%E5%8E%9F%E5%A7%8B%E7%A2%BC%E8%88%87replit">原始碼與Replit</h2>
+<p>兩個原始碼檔案須放在同個資料夾內才能運作</p>
+<p><a href="CODE/main.cpp">main.cpp</a> and <a href="CODE/KellySimulator.hpp">KellySimulator.hpp</a></p>
+<p><a href="https://replit.com/join/shgkerdwie-b10831020">replit</a></p>
+<h2 id="%E6%AA%94%E6%A1%88%E7%B4%80%E9%8C%84%E8%BC%B8%E5%87%BA">檔案紀錄輸出</h2>
+<p>使用者須手動輸入投資標的之預期漲跌幅(percent increase/decrease)，以及賭贏的機率(P)。程式會模擬投資三個標的，每個標的投資30次。初始資金為10000元，每次投資將會把賺得或賠掉的金額更新至下次的投資資金。下圖僅包含投資第一個標的的結果，數值金額皆四捨五入至整數位。</p>
+<p><img src="IMG/terminal output normal.png" alt="normal terminal output"></p>
+<p>若投資標的的Kelly percentage低於0，表示不應該投資該標的。程式會跳過該標的，直接開始模擬投資下一個標的。</p>
+<h2 id="bug">Bug</h2>
+<p>程式目前設計若Kelly percentage小於0，就不會模擬該標的。若更改程式允許模擬Kelly percentage小於0的情形，會在模擬投資Kelly percentage &lt; 0的標的時發生執行其錯誤。即使投資人賭錯了，該輪模擬仍然會讓投資人的資金增加，而不是反應賠錢虧損。</p>
+<h2 id="%E7%B5%90%E6%9E%9C%E8%A8%8E%E8%AB%96">結果討論</h2>
+<h3 id="1-%E5%8D%B3%E4%BD%BF%E9%81%BF%E9%96%8B%E6%89%80%E6%9C%89kelly-percentage%E4%BD%8E%E6%96%BC0%E7%9A%84%E6%A8%99%E7%9A%84%E6%8A%95%E8%B3%87%E4%BB%8D%E7%84%B6%E5%8F%AF%E8%83%BD%E8%B3%A0%E9%8C%A2">1. 即使避開所有Kelly percentage低於0的標的，投資仍然可能賠錢</h3>
+<blockquote>
+<p>下圖的Kelly percentage為0.11%，數值相當小，可能代表這並不是個很吸引人的投資標的。經過30次模擬，總資金少了40元。其實也不是很大的損失，但是實在沒有很值得投資人忙碌奔波。</p>
+<p><img src="IMG/loosing slightly.png" alt="loosing money although kelly percent &gt; 0"></p>
+</blockquote>
+<h3 id="2-%E4%BE%9D%E5%87%B1%E5%8A%9B%E5%85%AC%E5%BC%8F%E8%B2%B7%E5%8F%B0%E8%82%A1%E5%BE%88%E9%9B%A3%E8%B2%B7%E5%88%B0%E7%A0%B4%E7%94%A2">2. 依凱力公式買台股很難買到破產</h3>
+<blockquote>
+<p>程式有破產停止模擬的設計，但是在不投資Kelly percentage &lt; 0的標的前提下，經過很多次模擬都沒有破產。台股有每天漲跌幅10%的限制，若遵守凱利公式分配預算，很難讓投資人破產。</p>
+</blockquote>
+<h3 id="3-%E6%8A%95%E8%B3%87%E4%BA%BA%E9%9C%80%E4%B8%BB%E8%A7%80%E6%B1%BA%E5%AE%9A%E5%87%B1%E5%88%A9%E5%85%AC%E5%BC%8F%E4%B8%AD%E7%9A%84%E5%8F%83%E6%95%B8">3. 投資人需主觀決定凱利公式中的參數</h3>
+<blockquote>
+<p>公式裡的預期漲跌幅，以及猜對的機率，都需要主觀決定。散戶往往缺乏經驗，對標的的消息也不如大戶靈通，很難正確判斷三個參數的數值。模擬得到的結果也不準確。</p>
+</blockquote>
+<h2 id="%E5%BF%83%E5%BE%97">心得</h2>
+<p>這份作業很適合用OOP的風格完成。將計算Kelly percentage到輸出模擬結果的過程都包覆在class之內，避免class外的程式干預。</p>
+<p>對於寫程式的技巧，我還在想辦法讓終端機輸出與檔案輸出的程式碼更簡潔。以這個函式為例，我想要在Kelly percentage 小於0時在終端機輸出Kelly percentage及相關參數值，告訴投資人不要投資這個標的，同時把上述所有內容完整寫入紀錄檔案。整個函式明顯有兩段一模一樣的程式碼，相當冗長。不知道有沒有更好的做法。</p>
+<pre class="hljs"><code><div>    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">KellySimulator::mQuitGameBecauseThisSucks</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+        <span class="hljs-function">ofstream <span class="hljs-title">file</span><span class="hljs-params">(<span class="hljs-string">"Log.txt"</span>, ofstream::app)</span></span>; <span class="hljs-comment">// parameter app appends the content of this game to an existing file</span>
+        file &lt;&lt; left &lt;&lt; setw(<span class="hljs-number">25</span>) &lt;&lt; <span class="hljs-string">"Wining probability: "</span> &lt;&lt; mP &lt;&lt; <span class="hljs-built_in">endl</span>;
+        file &lt;&lt; left &lt;&lt; setw(<span class="hljs-number">25</span>) &lt;&lt; <span class="hljs-string">"Percent increase:"</span> &lt;&lt; mPercentRise &lt;&lt; <span class="hljs-built_in">endl</span>;
+        file &lt;&lt; left &lt;&lt; setw(<span class="hljs-number">25</span>) &lt;&lt; <span class="hljs-string">"Percent decrease:"</span> &lt;&lt; mPercentFall &lt;&lt; <span class="hljs-built_in">endl</span>;
+        file &lt;&lt; left &lt;&lt; setw(<span class="hljs-number">25</span>) &lt;&lt; <span class="hljs-string">"Kelly percentage:"</span> &lt;&lt; mF &lt;&lt; <span class="hljs-built_in">endl</span>;
+        file &lt;&lt; <span class="hljs-string">"This investment target sucks! Don't put any money into it. Terminating simulaton\n"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+        <span class="hljs-built_in">cout</span> &lt;&lt; left &lt;&lt; setw(<span class="hljs-number">25</span>) &lt;&lt; <span class="hljs-string">"Wining probability: "</span> &lt;&lt; mP &lt;&lt; <span class="hljs-built_in">endl</span>;
+        <span class="hljs-built_in">cout</span> &lt;&lt; left &lt;&lt; setw(<span class="hljs-number">25</span>) &lt;&lt; <span class="hljs-string">"Percent increase:"</span> &lt;&lt; mPercentRise &lt;&lt; <span class="hljs-built_in">endl</span>;
+        <span class="hljs-built_in">cout</span> &lt;&lt; left &lt;&lt; setw(<span class="hljs-number">25</span>) &lt;&lt; <span class="hljs-string">"Percent decrease:"</span> &lt;&lt; mPercentFall &lt;&lt; <span class="hljs-built_in">endl</span>;
+        <span class="hljs-built_in">cout</span> &lt;&lt; left &lt;&lt; setw(<span class="hljs-number">25</span>) &lt;&lt; <span class="hljs-string">"Kelly percentage:"</span> &lt;&lt; mF &lt;&lt; <span class="hljs-built_in">endl</span>;
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"This investment target sucks! Don't put any money into it. Terminating simulaton\n"</span> &lt;&lt; <span class="hljs-built_in">endl</span>;
+        file.<span class="hljs-built_in">close</span>();
+    }
+</div></code></pre>
+<p>至於報告Bug章節提到的問題，仍然不清楚解決方式為何。看不太出來為什麼會這樣子。</p>
+
+</body>
+</html>

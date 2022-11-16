@@ -17,6 +17,9 @@
 
 若投資標的的Kelly percentage低於0，表示不應該投資該標的。程式會跳過該標的，直接開始模擬投資下一個標的。
 
+## Bug
+程式目前設計若Kelly percentage小於0，就不會模擬該標的。若更改程式允許模擬Kelly percentage小於0的情形，會在模擬投資Kelly percentage < 0的標的時發生執行其錯誤。即使投資人賭錯了，該輪模擬仍然會讓投資人的資金增加，而不是反應賠錢虧損。
+
 ## 結果討論
 
 ### 1. 即使避開所有Kelly percentage低於0的標的，投資仍然可能賠錢
@@ -25,4 +28,32 @@
 > ![loosing money although kelly percent > 0](IMG/loosing%20slightly.png)
 
 ### 2. 依凱力公式買台股很難買到破產
-> 程式有破產停止模擬的設計，但是經過很多次模擬都沒有觸發。台股有每天漲跌幅10%的限制，若遵守凱利公式分配預算，很難因為突然暴跌讓投資人破產。
+> 程式有破產停止模擬的設計，但是在不投資Kelly percentage < 0的標的前提下，經過很多次模擬都沒有破產。台股有每天漲跌幅10%的限制，若遵守凱利公式分配預算，很難讓投資人破產。
+
+### 3. 投資人需主觀決定凱利公式中的參數
+> 公式裡的預期漲跌幅，以及猜對的機率，都需要主觀決定。散戶往往缺乏經驗，對標的的消息也不如大戶靈通，很難正確判斷三個參數的數值。模擬得到的結果也不準確。
+
+## 心得
+這份作業很適合用OOP的風格完成。將計算Kelly percentage到輸出模擬結果的過程都包覆在class之內，避免class外的程式干預。
+
+對於寫程式的技巧，我還在想辦法讓終端機輸出與檔案輸出的程式碼更簡潔。以這個函式為例，我想要在Kelly percentage 小於0時在終端機輸出Kelly percentage及相關參數值，告訴投資人不要投資這個標的，同時把上述所有內容完整寫入紀錄檔案。整個函式明顯有兩段一模一樣的程式碼，相當冗長。不知道有沒有更好的做法。
+```c++
+    void KellySimulator::mQuitGameBecauseThisSucks()
+    {
+        using namespace std;
+        ofstream file("Log.txt", ofstream::app); // parameter app appends the content of this game to an existing file
+        file << left << setw(25) << "Wining probability: " << mP << endl;
+        file << left << setw(25) << "Percent increase:" << mPercentRise << endl;
+        file << left << setw(25) << "Percent decrease:" << mPercentFall << endl;
+        file << left << setw(25) << "Kelly percentage:" << mF << endl;
+        file << "This investment target sucks! Don't put any money into it. Terminating simulaton\n" << endl;
+        cout << left << setw(25) << "Wining probability: " << mP << endl;
+        cout << left << setw(25) << "Percent increase:" << mPercentRise << endl;
+        cout << left << setw(25) << "Percent decrease:" << mPercentFall << endl;
+        cout << left << setw(25) << "Kelly percentage:" << mF << endl;
+        cout << "This investment target sucks! Don't put any money into it. Terminating simulaton\n" << endl;
+        file.close();
+    }
+```
+
+至於報告Bug章節提到的問題，仍然不清楚解決方式為何。看不太出來為什麼會這樣子。

@@ -29,11 +29,11 @@ public:
 
     void PlayGame()
     {
-        // if(mF < 0) // if this target is so bad that its Kelly percentage is below 0, don't invest any money
-        // {
-        //     mQuitGameBecauseThisSucks();
-        //     return;
-        // }
+        if(mF < 0) // if this target is so bad that its Kelly percentage is below 0, don't invest any money
+        {
+            mQuitGameBecauseThisSucks();
+            return;
+        }
         for(int i = 0; i < mNRounds; i++){
             float winOrLoose = mGetRandom();
             double moneyInvested = mBudjet * mF;
