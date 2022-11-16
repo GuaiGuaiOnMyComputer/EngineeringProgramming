@@ -29,6 +29,11 @@ public:
 
     void PlayGame()
     {
+        // if(mF < 0) // if this target is so bad that its Kelly percentage is below 0, don't invest any money
+        // {
+        //     mQuitGameBecauseThisSucks();
+        //     return;
+        // }
         for(int i = 0; i < mNRounds; i++){
             float winOrLoose = mGetRandom();
             double moneyInvested = mBudjet * mF;
@@ -66,9 +71,26 @@ private:
 
     static std::mt19937 sActualEdgeRandGen;
 
+    void mQuitGameBecauseThisSucks()
+    {
+        using namespace std;
+        ofstream file("Log.txt", ofstream::app); // parameter app appends the content of this game to an existing file
+        file << left << setw(25) << "Wining probability: " << mP << endl;
+        file << left << setw(25) << "Percent increase:" << mPercentRise << endl;
+        file << left << setw(25) << "Percent decrease:" << mPercentFall << endl;
+        file << left << setw(25) << "Kelly percentage:" << mF << endl;
+        file << "This investment target sucks! Don't put any money into it. Terminating simulaton\n" << endl;
+        cout << left << setw(25) << "Wining probability: " << mP << endl;
+        cout << left << setw(25) << "Percent increase:" << mPercentRise << endl;
+        cout << left << setw(25) << "Percent decrease:" << mPercentFall << endl;
+        cout << left << setw(25) << "Kelly percentage:" << mF << endl;
+        cout << "This investment target sucks! Don't put any money into it. Terminating simulaton\n" << endl;
+        file.close();
+    }
+
     double mGetRandom()
     {
-        return (double)(sActualEdgeRandGen() - sActualEdgeRandGen.min()) / (sActualEdgeRandGen.max() - sActualEdgeRandGen.min());
+        return (double)(sActualEdgeRandGen() - sActualEdgeRandGen.min()) / (double)(sActualEdgeRandGen.max() - sActualEdgeRandGen.min());
     }
 
     void mPrintGameResult() const
