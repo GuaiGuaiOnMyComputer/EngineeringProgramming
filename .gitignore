@@ -5,6 +5,8 @@
 /Midterm/Problem3
 *.code-workspace
 
+# Midterm files
+*R4*
 # Prerequisites
 *.d
 
