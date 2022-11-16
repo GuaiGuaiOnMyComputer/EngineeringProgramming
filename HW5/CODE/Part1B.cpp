@@ -11,7 +11,7 @@ struct PartTimeWorker
     int Hours;
     float Salary;
 
-    void SetHOurs(int hours) 
+    void SetHours(int hours) 
     {
         if(hours <= 50 and hours > 0)
             this->Hours = hours;
@@ -21,7 +21,6 @@ struct PartTimeWorker
     }
 
     friend std::ostream& operator<< (std::ostream& stream, const PartTimeWorker& worker);
-
 };
 
 std::ostream& operator<< (std::ostream& stream, const PartTimeWorker& worker)
@@ -35,19 +34,22 @@ std::ostream& operator<< (std::ostream& stream, const PartTimeWorker& worker)
 
 int main()
 {
-    int maxEmployee = 8;
-    PartTimeWorker* employees = new PartTimeWorker[maxEmployee];
+    const int MAX_EMPLOYEE_COUNT = 8;
+    PartTimeWorker employees[MAX_EMPLOYEE_COUNT];
     employees[0] = {0, "Eric", 100, 0, 0};
-    employees[0].SetHOurs(15); // PartTimeWorker::SetHours() also calculates and sets the salary of each instance
+    employees[0].SetHours(15); // PartTimeWorker::SetHours() also calculates and sets the salary of each instance
     employees[1] = {1, "NotEric", 110, 0, 0};
-    employees[1].SetHOurs(18);
+    employees[1].SetHours(18);
     employees[2] = {2, "NotNotEric", 120, 0, 0};
-    employees[2].SetHOurs(20);
+    employees[2].SetHours(20);
+    employees[2] = {3, "Erica", 138, 0, 0};
+    employees[2].SetHours(34);
+    employees[3] = {4, "NotErica", 128, 0, 0};
+    employees[3].SetHours(47);
 
-    for(int i=0; i<3; i++){
+    for(int i = 0; i < 4; i++){
         std::cout << employees[i] << std::endl;
         std::cout << "-----------------------------------------" << std::endl;
     }
-    delete[] employees;
     system("pause");
 }
