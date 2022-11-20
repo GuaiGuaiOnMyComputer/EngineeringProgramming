@@ -38,6 +38,7 @@ std::ostream& operator<< (std::ostream& stream, const PartTimeWorker& worker)
         << '\t' << left << setw(14) << "salary" << worker.mSalary << '\n'
         << '\t' << left << setw(14) << "hour rate" << worker.mHourRate << '\n'
         << '\t' << left << setw(14) << "hours"  << worker.mHours;
+    return stream;
 }
 
 int main()
@@ -61,3 +62,28 @@ int main()
     }
     system("pause");
 }
+
+/*
+Replit: https://replit.com/@b10831020/HW5-2#main.cpp
+Name:           Eric    ID  0
+        salary        1500
+        hour rate     100
+        hours         15
+-----------------------------------------
+Name:        NotEric    ID  1
+        salary        1980
+        hour rate     110
+        hours         18
+-----------------------------------------
+Name:          Erica    ID  3
+        salary        4692
+        hour rate     138
+        hours         34
+-----------------------------------------
+Name:       NotErica    ID  4
+        salary        6580
+        hour rate     140
+        hours         47
+-----------------------------------------
+Press any key to continue . . . 
+*/

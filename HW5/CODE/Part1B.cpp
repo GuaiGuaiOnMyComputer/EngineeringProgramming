@@ -30,6 +30,7 @@ std::ostream& operator<< (std::ostream& stream, const PartTimeWorker& worker)
         << "\tsalary" << setw(9) << worker.Salary << '\n'
         << "\thour rate" << setw(6) << worker.HourRate << '\n'
         << "\tHours" << setw(10) << worker.Hours;
+    return stream;
 }
 
 int main()

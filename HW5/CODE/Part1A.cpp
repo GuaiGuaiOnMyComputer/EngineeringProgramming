@@ -21,7 +21,7 @@ struct PartTimeWorker
         this->Salary = this->HourRate * this->Hours;
     }
 
-    float GetSalary(){return this->Salary;}
+    float GetSalary() const {return this->Salary;}
 
     friend std::ostream& operator<< (std::ostream& stream, const PartTimeWorker& worker);
 
