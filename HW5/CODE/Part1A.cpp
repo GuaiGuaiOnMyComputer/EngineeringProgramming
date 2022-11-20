@@ -21,6 +21,8 @@ struct PartTimeWorker
         this->Salary = this->HourRate * this->Hours;
     }
 
+    float GetSalary(){return this->Salary;}
+
     friend std::ostream& operator<< (std::ostream& stream, const PartTimeWorker& worker);
 
 };
@@ -32,6 +34,7 @@ std::ostream& operator<< (std::ostream& stream, const PartTimeWorker& worker)
         << "\tsalary" << setw(9) << worker.Salary << '\n'
         << "\thour rate" << setw(6) << worker.HourRate << '\n'
         << "\tHours" << setw(10) << worker.Hours;
+    return stream;
 }
 
 int main()
@@ -45,9 +48,34 @@ int main()
     employees[2] = {2, "NotNotEric", 120, 0, 0};
     employees[2].SetHours(20);
 
+    float totalSalary = 0;
     for(int i = 0; i < 3; i++){
         std::cout << employees[i] << std::endl;
+        totalSalary += employees[i].GetSalary();
         std::cout << "-----------------------------------------" << std::endl;
     }
+    std::cout << "Total salary:" << std::setw(8) << std::setprecision(6) << totalSalary << std::endl;
     system("pause");
 }
+
+/*
+Replit: https://replit.com/@b10831020/Midterm-Paper-Test-1#main.cpp
+ ./main
+Name           Eric ID  0
+    salary     1500
+    hour rate   100
+    Hours        15
+-----------------------------------------
+Name        NotEric ID  1
+    salary     1980
+    hour rate   110
+    Hours        18
+-----------------------------------------
+Name     NotNotEric ID  2
+    salary     2400
+    hour rate   120
+    Hours        20
+-----------------------------------------
+Total salary:    5880
+sh: 1: pause: not found
+*/

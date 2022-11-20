@@ -42,8 +42,12 @@ int main()
     employees[1].SetHours(18);
     employees[2] = {2, "NotNotEric", 120, 0, 0};
     employees[2].SetHours(20);
+
+    // Overwrites employees[2]
     employees[2] = {3, "Erica", 138, 0, 0};
     employees[2].SetHours(34);
+
+    // New employees[3]
     employees[3] = {4, "NotErica", 128, 0, 0};
     employees[3].SetHours(47);
 
