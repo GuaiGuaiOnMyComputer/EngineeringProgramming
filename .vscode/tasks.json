@@ -28,7 +28,9 @@
 			"type": "shell",
 			"args": [
 				"build",
-				"${fileDirname}//${fileBasenameNoExtension}.csproj",
+				"${workspaceFolder}\\EngineeringProgramming.csproj",
+				"--output",
+				"${fileDirname}\\bin\\Debug\\netcoreapp3.1",	
 				"/property:GenerateFullPaths=True",
 				"/consoleloggerparameters:NoSummary"
 			],

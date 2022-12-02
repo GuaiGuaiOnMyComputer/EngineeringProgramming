@@ -9,7 +9,7 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "C#Build",
-            "program": "${fileDirname}//bin//Debug//netcoreapp3.1//${fileBasenameNoExtension}.dll",
+            "program": "${fileDirname}//bin//Debug//netcoreapp3.1//${workspaceFolderBasename}.dll",
             "args": [],
             "cwd": "${fileDirname}",
             "stopAtEntry": false,
