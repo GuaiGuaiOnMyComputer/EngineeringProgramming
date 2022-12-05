@@ -4,7 +4,7 @@
 using System;
 using System.Diagnostics;  // for Assert( )
 
-class Program {
+class Program{
   public static void Main (string[] args) 
   {
     int[] userInput = new int[2];
@@ -56,7 +56,7 @@ class Program {
   public static void Get2Values(int ceiling, int cCount, ref System.Text.StringBuilder _sb){
     Random rnd = new Random();
     int inum1, inum2; 
-    Debug.Assert(cCount >=5);  // Microsoft - MSDOCS
+    // Debug.Assert(cCount >=5);  // Microsoft - MSDOCS
     
     _sb.AppendLine($"\nLoop count {cCount}\n") ; //TODO 
     for (var idx =0; idx < cCount ;idx++) {

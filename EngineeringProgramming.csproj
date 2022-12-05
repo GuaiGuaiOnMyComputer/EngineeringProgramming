@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
+    <StartupObject>Q1.Program</StartupObject>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
