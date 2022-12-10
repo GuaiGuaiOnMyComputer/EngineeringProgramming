@@ -54,7 +54,6 @@ namespace Main2Tuple
     public static void Get2Values(int ceiling, int cCount, ref System.Text.StringBuilder _sb){
       Random rnd = new Random();
       int inum1, inum2; 
-      
       _sb.AppendLine($"\nLoop count {cCount}\n") ; //TODO 
       for (var idx =0; idx < cCount ;idx++) {
         inum1 = rnd.Next() % ceiling; 
@@ -62,6 +61,6 @@ namespace Main2Tuple
         _sb.AppendLine(String.Format("Loop= {2:G3}, {0:G4}, {1:G4}", inum1, inum2, idx ));
       }
     }
-      // 
+      
   } // END of Class 
 }

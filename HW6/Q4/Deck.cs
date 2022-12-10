@@ -33,11 +33,11 @@ namespace Q4
             for(int i = 0; i < 13; i++){
                 for(int j = 0; j < 4; j++){
                     if(j == 0){
-                        sb.Append($"|{Card.sNumber[AllCards[i*4 + j].numberIdx], 2}--{Card.sSuit[AllCards[i*4 + j].SuitIdx], -7}");
+                        sb.Append($"|{Card.sNumber[AllCards[i*4 + j].numberIdx], 2}--{Card.sSuit[AllCards[i*4 + j].SuitIdx], -9}");
                     }else if(j == 3){
-                        sb.Append($"{Card.sNumber[AllCards[i*4 + j].numberIdx], 2}--{Card.sSuit[AllCards[i*4 + j].SuitIdx], -7}|\n");
+                        sb.Append($"{Card.sNumber[AllCards[i*4 + j].numberIdx], 2}--{Card.sSuit[AllCards[i*4 + j].SuitIdx], -9}|\n");
                     }else{
-                        sb.Append($"{Card.sNumber[AllCards[i*4 + j].numberIdx], 2}--{Card.sSuit[AllCards[i*4 + j].SuitIdx], -7}");
+                        sb.Append($"{Card.sNumber[AllCards[i*4 + j].numberIdx], 2}--{Card.sSuit[AllCards[i*4 + j].SuitIdx], -9}");
                     }
                 }
             }
