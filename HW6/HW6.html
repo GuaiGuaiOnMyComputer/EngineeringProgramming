@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HW6.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="hw6">HW6</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">班級</th>
+<th style="text-align:center">姓名</th>
+<th style="text-align:center">學號</th>
+<th style="text-align:center">日期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">四機械四乙</td>
+<td style="text-align:center">吳宇昕</td>
+<td style="text-align:center">B10831020</td>
+<td style="text-align:center">12/10/2022</td>
+</tr>
+</tbody>
+</table>
+<h2 id="q0-main2tuple">Q0 Main2Tuple</h2>
+<p><a href="Q0/Main2Tuple.cs">sorce code</a> and <a href="https://replit.com/@b10831020/HW6-Q0#Main.cs">replit</a></p>
+<p><strong>終端機輸出</strong></p>
+<p><img src="IMG/Q0-Console output.png" alt="Termainal output"></p>
+<p>將<code>Get2Values</code>寫成獨立函式，去除零散的<code>Console.WriteLine()</code>程式碼。在<code>Main</code>產生<code>StringBuilder</code>物件，並搭配<code>ref</code>關鍵字傳進此函式。</p>
+<p><img src="IMG/Q0-Get2ValuesMethod.png" alt="Get2Values method"></p>
+<p><strong>心得</strong></p>
+<p>C#的Tuple用法很多元。可以幫每個tuple內的元素命名，形成類似struct或dictionary以欄位名稱索引的資料結構。</p>
+<p>然而其方便性仍遠不如Python的tuple。不清楚為什麼，C#的tuple不支援foreach loop，也不支援以index取值，必須要用<code>.item1</code>，<code>.item2</code>的方式取出第一與第二個元素值。</p>
+<p>像是這樣的語法，在C#行不通</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">var</span> t = (<span class="hljs-number">23</span>, <span class="hljs-number">66</span>, <span class="hljs-number">22</span>); <span class="hljs-comment">// creating a tuple&lt;int, int, int&gt;</span>
+Console.Write(t[<span class="hljs-number">0</span>]);  <span class="hljs-comment">// unable to get the value 23 by indexing 0</span>
+</div></code></pre>
+<p>必須要寫成這樣</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">var</span> t = (<span class="hljs-number">23</span>, <span class="hljs-number">66</span>, <span class="hljs-number">22</span>); <span class="hljs-comment">// creating a tuple&lt;int, int, int&gt;</span>
+Console.Write(t.Item1);  <span class="hljs-comment">// get the value 23 by ".Item1"</span>
+</div></code></pre>
+<p>tuple不支援indexing跟foreach迴圈，恐怕不適合被迴圈走訪。或許C#的Tuple設計上並不打算讓我們這樣做？或是其實有正確的作法，但是我還沒學到。目前看起來，它最適合打包函式的回傳值。這讓C#的函式看起來可以像Python的函式一次回傳多個值，在接收回傳值的地方利用類似Python unpacking語法，輕鬆拆封tuple。</p>
+<h2 id="q3a">Q3A</h2>
+<p><a href="Q3/Q3A.cs">sorce code</a> and <a href="https://replit.com/@b10831020/HW6-Q3A#main.cs">replit</a></p>
+<p><strong>終端機輸出</strong></p>
+<p><img src="IMG/Q3A-Console output.png" alt="Q3A terminal output"></p>
+<p><strong>計算最長距離</strong></p>
+<p>題目給7個點的x,y座標，求最遠兩點的距離。求解過程如下：</p>
+<ol>
+<li>找出擁有最大與最小x,y座標值的四個點，最遠距離一定是此四點其中兩點距離</li>
+<li>設一變數紀錄最長距離</li>
+<li>計算此四點兩兩之間的距離，若當下的兩點距離大於紀錄的最長距離，就取而代之</li>
+</ol>
+<p><strong>心得</strong></p>
+<p>計算歐式距離需要開根號，耗費較多計算資源，應盡可能降低開根號次數。若要計算每一個點與其他點之間的距離，須至少開C(7,2)次根號。但是確定最大距離一定發生在四個邊界點之間，只需要計算四個邊界點兩兩之間的距離，開C(4,2)次根號就夠了。若題目加入更多點的座標，不會增加開根號次數。</p>
+<p>或許這個題目還有更好的解法，進一步減少計算成本，但目前我只想到這個做法。</p>
+<h2 id="q3b">Q3B</h2>
+<p><a href="Q3/Q3B.cs">sorce code</a> and <a href="https://replit.com/@b10831020/HW6-Q3B#main.cs">replit</a></p>
+<p><strong>終端機輸出</strong></p>
+<p><img src="IMG/Q3B-Console output.png" alt="terminal output"></p>
+<p><strong>心得</strong></p>
+<p>C#有個很好用的關鍵字<code>readonly</code>，讓一個class attribute的值經初始化後便改為唯讀，不可變更。這比C++的<code>const</code>關鍵字好用，因為一個const member沒辦法初始化賦值。
+C#好像不讓我們把的class member設為const，若要一個class member值固定不變，必須用readonly。因此這題我把學生的成績設為<code>readonly int[,]</code>，放在<code>class Program</code>裡面。</p>
+<p><img src="IMG/Q3B-Scores.png" alt="readonly member"></p>
+<h2 id="q4">Q4</h2>
+<p>sorce code <a href="Q4/main.cs">main.cs</a>  <a href="Q4/Deck.cs">Deck.cs</a>  <a href="Q4/card.cs">Card.cs</a></p>
+<p>and</p>
+<p><a href="https://replit.com/@b10831020/HW6-Q4#main.cs">replit</a></p>
+<p>三份cs檔分別包含<code>class Program</code>、<code>class Deck</code>及<code>class card</code>，皆屬於<code>namespace Q4</code></p>
+<p><em><strong>終端機輸出</strong></em></p>
+<p><img src="IMG/Q4-console output.png" alt="console output"></p>
+<p><strong>自定義Card物件</strong></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">Q4</span>
+{
+    <span class="hljs-keyword">class</span> <span class="hljs-title">Card</span>
+    {
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">string</span>[] sSuit = {<span class="hljs-string">"berry"</span>, <span class="hljs-string">"flower"</span>, <span class="hljs-string">"diamond"</span>, <span class="hljs-string">"heart"</span>};
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">string</span>[] sNumber = {<span class="hljs-string">"A"</span>, <span class="hljs-string">"2"</span>, <span class="hljs-string">"3"</span>, <span class="hljs-string">"4"</span>, <span class="hljs-string">"5"</span>, <span class="hljs-string">"6"</span>, <span class="hljs-string">"7"</span>, <span class="hljs-string">"8"</span>, <span class="hljs-string">"9"</span>, <span class="hljs-string">"10"</span>, <span class="hljs-string">"J"</span>, <span class="hljs-string">"Q"</span>, <span class="hljs-string">"K"</span>};
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">int</span> SuitIdx;
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">int</span> numberIdx;
+ 
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Card</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> _suitIdx, <span class="hljs-keyword">int</span> _numberIdx</span>)</span>
+        {
+            <span class="hljs-keyword">this</span>.SuitIdx = _suitIdx;
+            <span class="hljs-keyword">this</span>.numberIdx = _numberIdx;
+        }
+    }
+}
+</div></code></pre>
+<p>每張牌都有一個花色與一個數值，兩者都是string。然而，過去似乎聽說string是指向heap的char pointer，在程式裡生成過多string物件容易使記憶體零散。因此，每張牌的花色與數值欄位我並沒有用string的方式儲存，以int儲存，作為索引另外兩個static string array的索引值。</p>
+<p>不知道這樣做是否真的可以提升程式效能，減少記憶體零散，或是只是我自找麻煩？後續要印出一張牌的內容時，增加了不少困擾，要寫成這樣：</p>
+<pre class="hljs"><code><div>Card c = <span class="hljs-keyword">new</span> Card(<span class="hljs-number">3</span>, <span class="hljs-number">11</span>);
+Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{sSuit[c.SuitIdx]}</span>--<span class="hljs-subst">{sNumber[c.numberIdx]}</span>"</span>)
+<span class="hljs-comment">// diamond--J</span>
+</div></code></pre>
+<p>而不是這樣：</p>
+<pre class="hljs"><code><div>Card c = <span class="hljs-keyword">new</span> Card(<span class="hljs-number">3</span>, <span class="hljs-number">11</span>);
+Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{c.Suit}</span>--<span class="hljs-subst">{c.Number}</span>"</span>);
+<span class="hljs-comment">// diamond--J</span>
+</div></code></pre>
+<p>我的寫法大幅減少可讀性，不知道是否真的能像我想像的一樣增進效能。</p>
+
+</body>
+</html>

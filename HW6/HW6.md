@@ -4,7 +4,7 @@
  |四機械四乙|吳宇昕|B10831020|12/10/2022|
 
  ## Q0 Main2Tuple
- [sorce code](Q0/Main2Tuple.cs) and [replit]()
+ [sorce code](Q0/Main2Tuple.cs) and [replit](https://replit.com/@b10831020/HW6-Q0#Main.cs)
 
  __終端機輸出__
 
@@ -34,7 +34,7 @@ tuple不支援indexing跟foreach迴圈，恐怕不適合被迴圈走訪。或許
 
 ## Q3A
 
-[sorce code](Q3/Q3A.cs)
+[sorce code](Q3/Q3A.cs) and [replit](https://replit.com/@b10831020/HW6-Q3A#main.cs)
 
 __終端機輸出__
 
@@ -56,7 +56,7 @@ __心得__
 
 ## Q3B
 
-[sorce code](Q3/Q3B.cs)
+[sorce code](Q3/Q3B.cs) and [replit](https://replit.com/@b10831020/HW6-Q3B#main.cs)
 
 __終端機輸出__
 
@@ -71,7 +71,11 @@ C#好像不讓我們把的class member設為const，若要一個class member值�
 
 ## Q4
 
-sorce code [main.cs](Q4/main.cs)  [Deck.cs](Q4/Deck.cs)  [Card.cs](Q4/card.cs)
+sorce code [main.cs](Q4/main.cs)  [Deck.cs](Q4/Deck.cs)  [Card.cs](Q4/card.cs) 
+
+and
+
+[replit](https://replit.com/@b10831020/HW6-Q4#main.cs)
 
 三份cs檔分別包含```class Program```、```class Deck```及```class card```，皆屬於```namespace Q4```
 

@@ -30,7 +30,28 @@
 				"build",
 				"${workspaceFolder}\\EngineeringProgramming.csproj",
 				"--output",
-				"${fileDirname}\\bin\\Debug\\netcoreapp3.1",	
+				"${fileDirname}\\bin\\Debug\\net7.0",	
+				"/property:GenerateFullPaths=True",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"group": "build",
+			"presentation": {
+				"reveal": "silent",
+			},
+			"problemMatcher": "$msCompile"
+		},
+
+		{
+			"label": "C# Build And Optimise",
+			"command": "dotnet",
+			"type": "shell",
+			"args": [
+				"build",
+				"${workspaceFolder}\\EngineeringProgramming.csproj",
+				"--output",
+				"${fileDirname}\\bin\\Release\\net7.0",
+				"--configuration", 
+				"Release",
 				"/property:GenerateFullPaths=True",
 				"/consoleloggerparameters:NoSummary"
 			],

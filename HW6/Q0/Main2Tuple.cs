@@ -61,6 +61,5 @@ namespace Main2Tuple
         _sb.AppendLine(String.Format("Loop= {2:G3}, {0:G4}, {1:G4}", inum1, inum2, idx ));
       }
     }
-      
   } // END of Class 
 }
