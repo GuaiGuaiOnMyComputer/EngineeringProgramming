@@ -380,28 +380,10 @@ code {
 <td style="text-align:center">四機械四乙</td>
 <td style="text-align:center">吳宇昕</td>
 <td style="text-align:center">B10831020</td>
-<td style="text-align:center">12/10/2022</td>
+<td style="text-align:center">12/20/2022</td>
 </tr>
 </tbody>
 </table>
-<h2 id="q0-main2tuple">Q0 Main2Tuple</h2>
-<p><a href="Q0/Main2Tuple.cs">sorce code</a> and <a href="https://replit.com/@b10831020/HW6-Q0#Main.cs">replit</a></p>
-<p><strong>終端機輸出</strong></p>
-<p><img src="IMG/Q0-Console output.png" alt="Termainal output"></p>
-<p>將<code>Get2Values</code>寫成獨立函式，去除零散的<code>Console.WriteLine()</code>程式碼。在<code>Main</code>產生<code>StringBuilder</code>物件，並搭配<code>ref</code>關鍵字傳進此函式。</p>
-<p><img src="IMG/Q0-Get2ValuesMethod.png" alt="Get2Values method"></p>
-<p><strong>心得</strong></p>
-<p>C#的Tuple用法很多元。可以幫每個tuple內的元素命名，形成類似struct或dictionary以欄位名稱索引的資料結構。</p>
-<p>然而其方便性仍遠不如Python的tuple。不清楚為什麼，C#的tuple不支援foreach loop，也不支援以index取值，必須要用<code>.item1</code>，<code>.item2</code>的方式取出第一與第二個元素值。</p>
-<p>像是這樣的語法，在C#行不通</p>
-<pre class="hljs"><code><div><span class="hljs-keyword">var</span> t = (<span class="hljs-number">23</span>, <span class="hljs-number">66</span>, <span class="hljs-number">22</span>); <span class="hljs-comment">// creating a tuple&lt;int, int, int&gt;</span>
-Console.Write(t[<span class="hljs-number">0</span>]);  <span class="hljs-comment">// unable to get the value 23 by indexing 0</span>
-</div></code></pre>
-<p>必須要寫成這樣</p>
-<pre class="hljs"><code><div><span class="hljs-keyword">var</span> t = (<span class="hljs-number">23</span>, <span class="hljs-number">66</span>, <span class="hljs-number">22</span>); <span class="hljs-comment">// creating a tuple&lt;int, int, int&gt;</span>
-Console.Write(t.Item1);  <span class="hljs-comment">// get the value 23 by ".Item1"</span>
-</div></code></pre>
-<p>tuple不支援indexing跟foreach迴圈，恐怕不適合被迴圈走訪。或許C#的Tuple設計上並不打算讓我們這樣做？或是其實有正確的作法，但是我還沒學到。目前看起來，它最適合打包函式的回傳值。這讓C#的函式看起來可以像Python的函式一次回傳多個值，在接收回傳值的地方利用類似Python unpacking語法，輕鬆拆封tuple。</p>
 <h2 id="q3a">Q3A</h2>
 <p><a href="Q3/Q3A.cs">sorce code</a> and <a href="https://replit.com/@b10831020/HW6-Q3A#main.cs">replit</a></p>
 <p><strong>終端機輸出</strong></p>
@@ -414,8 +396,9 @@ Console.Write(t.Item1);  <span class="hljs-comment">// get the value 23 by ".Ite
 <li>計算此四點兩兩之間的距離，若當下的兩點距離大於紀錄的最長距離，就取而代之</li>
 </ol>
 <p><strong>心得</strong></p>
-<p>計算歐式距離需要開根號，耗費較多計算資源，應盡可能降低開根號次數。若要計算每一個點與其他點之間的距離，須至少開C(7,2)次根號。但是確定最大距離一定發生在四個邊界點之間，只需要計算四個邊界點兩兩之間的距離，開C(4,2)次根號就夠了。若題目加入更多點的座標，不會增加開根號次數。</p>
-<p>或許這個題目還有更好的解法，進一步減少計算成本，但目前我只想到這個做法。</p>
+<p>計算歐式距離需要開根號，耗費較多計算資源，應盡可能降低開根號次數。若要計算每一個點與其他6個點之間的距離，須至少開C(7,2)次根號。但是可以確定最大距離一定發生在四個邊界點之間，只需要計算四個邊界點兩兩之間的距離，開C(4,2)次根號就夠了。若題目加入更多點的座標，不會增加開根號次數。</p>
+<p>尋找四個邊界點所需的時間會隨題目的點數增加而線性上升，比起指數型上升是相當大的改善。</p>
+<p>或許這個題目還有更好的解法，進一步減少計算成本，目前這是我想到最好的做法。</p>
 <h2 id="q3b">Q3B</h2>
 <p><a href="Q3/Q3B.cs">sorce code</a> and <a href="https://replit.com/@b10831020/HW6-Q3B#main.cs">replit</a></p>
 <p><strong>終端機輸出</strong></p>
@@ -424,43 +407,118 @@ Console.Write(t.Item1);  <span class="hljs-comment">// get the value 23 by ".Ite
 <p>C#有個很好用的關鍵字<code>readonly</code>，讓一個class attribute的值經初始化後便改為唯讀，不可變更。這比C++的<code>const</code>關鍵字好用，因為一個const member沒辦法初始化賦值。
 C#好像不讓我們把的class member設為const，若要一個class member值固定不變，必須用readonly。因此這題我把學生的成績設為<code>readonly int[,]</code>，放在<code>class Program</code>裡面。</p>
 <p><img src="IMG/Q3B-Scores.png" alt="readonly member"></p>
-<h2 id="q4">Q4</h2>
-<p>sorce code <a href="Q4/main.cs">main.cs</a>  <a href="Q4/Deck.cs">Deck.cs</a>  <a href="Q4/card.cs">Card.cs</a></p>
-<p>and</p>
-<p><a href="https://replit.com/@b10831020/HW6-Q4#main.cs">replit</a></p>
-<p>三份cs檔分別包含<code>class Program</code>、<code>class Deck</code>及<code>class card</code>，皆屬於<code>namespace Q4</code></p>
+<h2 id="q5">Q5</h2>
+<p>sorce code <a href="Q5/main.cs">main.cs</a>  <a href="Q5/Deck.cs">Deck.cs</a>  <a href="Q5/card.cs">Card.cs</a> <a href="Q5/Player.cs">Player.cs</a> and <a href="https://replit.com/@b10831020/HW6-Q5#main.cs">replit</a></p>
+<p>三份cs檔分別包含<code>class Program</code>、<code>class Deck</code>、<code>class card</code>及<code>class Player</code>，皆屬於<code>namespace Q5</code></p>
 <p><em><strong>終端機輸出</strong></em></p>
-<p><img src="IMG/Q4-console output.png" alt="console output"></p>
-<p><strong>自定義Card物件</strong></p>
-<pre class="hljs"><code><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">Q4</span>
+<p><img src="IMG/Q5-console output.png" alt="console output"></p>
+<h3 id="%E8%87%AA%E5%AE%9A%E7%BE%A9card-class"><strong>自定義Card class</strong></h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">Q5</span>
 {
     <span class="hljs-keyword">class</span> <span class="hljs-title">Card</span>
     {
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">string</span>[] sSuit = {<span class="hljs-string">"berry"</span>, <span class="hljs-string">"flower"</span>, <span class="hljs-string">"diamond"</span>, <span class="hljs-string">"heart"</span>};
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">string</span>[] sNumber = {<span class="hljs-string">"A"</span>, <span class="hljs-string">"2"</span>, <span class="hljs-string">"3"</span>, <span class="hljs-string">"4"</span>, <span class="hljs-string">"5"</span>, <span class="hljs-string">"6"</span>, <span class="hljs-string">"7"</span>, <span class="hljs-string">"8"</span>, <span class="hljs-string">"9"</span>, <span class="hljs-string">"10"</span>, <span class="hljs-string">"J"</span>, <span class="hljs-string">"Q"</span>, <span class="hljs-string">"K"</span>};
         <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">int</span> SuitIdx;
-        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">int</span> numberIdx;
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">int</span> NumberIdx;
  
         <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Card</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> _suitIdx, <span class="hljs-keyword">int</span> _numberIdx</span>)</span>
         {
             <span class="hljs-keyword">this</span>.SuitIdx = _suitIdx;
-            <span class="hljs-keyword">this</span>.numberIdx = _numberIdx;
+            <span class="hljs-keyword">this</span>.NumberIdx = _numberIdx;
         }
     }
 }
 </div></code></pre>
-<p>每張牌都有一個花色與一個數值，兩者都是string。然而，過去似乎聽說string是指向heap的char pointer，在程式裡生成過多string物件容易使記憶體零散。因此，每張牌的花色與數值欄位我並沒有用string的方式儲存，以int儲存，作為索引另外兩個static string array的索引值。</p>
-<p>不知道這樣做是否真的可以提升程式效能，減少記憶體零散，或是只是我自找麻煩？後續要印出一張牌的內容時，增加了不少困擾，要寫成這樣：</p>
-<pre class="hljs"><code><div>Card c = <span class="hljs-keyword">new</span> Card(<span class="hljs-number">3</span>, <span class="hljs-number">11</span>);
-Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{sSuit[c.SuitIdx]}</span>--<span class="hljs-subst">{sNumber[c.numberIdx]}</span>"</span>)
-<span class="hljs-comment">// diamond--J</span>
+<p>每張牌都有一個花色與一個數值，兩者都應該是string。然而，過去似乎聽說string是指向heap的char pointer，在程式裡生成過多string容易使記憶體零散。因此，每張牌的花色與數值欄位我並沒有用string的方式儲存，而是以int儲存，作為索引另外兩個static string array <code>sSuit</code>與<code>sNumber</code>的索引值。如此一來，每個card instance只佔據記憶體連續的16個byte。</p>
+<p>不知道這樣做是否真的可以提升程式效能，減少記憶體零散，或是只是我自找麻煩？</p>
+<p>這個寫法犧牲一些程式可讀性，印出一張牌的程式如此一來必須寫成這樣</p>
+<pre class="hljs"><code><div>Card c = <span class="hljs-keyword">new</span> Card(<span class="hljs-number">2</span>, <span class="hljs-number">10</span>);
+Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{Card.sNumber{c.NumberIdx}</span>--Card.sSuit<span class="hljs-subst">{c.SuitIdx}</span>}"</span>);
+<span class="hljs-comment">// Actual output</span>
+<span class="hljs-comment">// Diamond--J</span>
 </div></code></pre>
-<p>而不是這樣：</p>
-<pre class="hljs"><code><div>Card c = <span class="hljs-keyword">new</span> Card(<span class="hljs-number">3</span>, <span class="hljs-number">11</span>);
-Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{c.Suit}</span>--<span class="hljs-subst">{c.Number}</span>"</span>);
-<span class="hljs-comment">// diamond--J</span>
+<p>而不是這樣</p>
+<pre class="hljs"><code><div>Card c = <span class="hljs-keyword">new</span> Card(<span class="hljs-number">2</span>, <span class="hljs-number">10</span>);
+Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{c.Number}</span>--<span class="hljs-subst">{c.Suit}</span>"</span>);
+<span class="hljs-comment">// Desired output</span>
+<span class="hljs-comment">// Diamond--J</span>
 </div></code></pre>
-<p>我的寫法大幅減少可讀性，不知道是否真的能像我想像的一樣增進效能。</p>
+<h3 id="%E8%87%AA%E5%AE%9A%E7%BE%A9deck-class"><strong>自定義Deck class</strong></h3>
+<p>含有一個長度52的<code>Card</code>陣列<code>this.AllCards</code>，代表整副牌的所有卡片。</p>
+<p><strong><code>Shuffle</code>方法</strong></p>
+<p>打亂<code>this.AllCards</code>陣列各元素的順序。隨機取陣列中的兩張牌，互換位置52次。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> Shuffle : Deck()
+{
+    <span class="hljs-keyword">this</span>.shuffledFlag = <span class="hljs-literal">true</span>;
+    Random rnd = <span class="hljs-keyword">new</span> Random();
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">52</span>; i++){
+        <span class="hljs-keyword">int</span> card1Idx = rnd.Next() % <span class="hljs-number">52</span>;
+        <span class="hljs-keyword">int</span> card2Idx = rnd.Next() % <span class="hljs-number">52</span>;
+        <span class="hljs-comment">// swapping the loactions of two cards</span>
+        Card tmp = <span class="hljs-keyword">this</span>.AllCards[card1Idx];
+        <span class="hljs-keyword">this</span>.AllCards[card1Idx] = <span class="hljs-keyword">this</span>.AllCards[card2Idx];
+        <span class="hljs-keyword">this</span>.AllCards[card2Idx] = tmp;
+    }
+}
+</div></code></pre>
+<p>或許其實洗牌不需要互換那麼多次，整副牌的順序就會夠亂了?</p>
+<p><strong><code>Deal</code>方法</strong></p>
+<p>發牌的方法<code>this.Deal</code> pass by reference輸入一個玩家陣列，發兩張牌給每位玩家。每個Deck instance都會用一個int <code>this.lastGivenCardIdx</code>記錄自己<code>this.AllCards</code>陣列發到第幾張牌了，避免一張牌在不同次發牌間重複出現。</p>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Deal</span>(<span class="hljs-params"><span class="hljs-keyword">ref</span> Player[] _players, <span class="hljs-keyword">int</span> nCardsEachPerson = <span class="hljs-number">2</span></span>)</span>
+{
+    Card[] cardsGivenToAPlayer = <span class="hljs-keyword">new</span> Card[nCardsEachPerson];
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; _players.GetLength(<span class="hljs-number">0</span>); i++) {
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; nCardsEachPerson; j++){
+            cardsGivenToAPlayer[j] = <span class="hljs-keyword">this</span>.AllCards[<span class="hljs-keyword">this</span>.lastGivenCardIdx];
+            <span class="hljs-keyword">this</span>.lastGivenCardIdx++; <span class="hljs-comment">// keeps track of which card in array this.AllCards has been given out</span>
+        }
+        _players[i].ReceiveCards(cardsGivenToAPlayer);
+    }
+}
+</div></code></pre>
+<p>這個發牌的方法在牌發完的時候會產生index out of range exception，玩家人數或每個人拿到的排數量太多時會出問題。</p>
+<h3 id="%E8%87%AA%E5%AE%9A%E7%BE%A9player-class"><strong>自定義Player class</strong></h3>
+<p>每個Player instance只有一個attribute，是<code>List&lt;Card&gt;</code>，代表該玩家的手牌。除此之外，Player class也定義了一些method，例如<code>ReceiveCard</code>、<code>ShowCard</code>等等，代表玩家可能做的事。還有一個static method <code>AllPlayersShowCards</code>，輸入一個玩家陣列，顯示所有玩家的手牌。</p>
+<p><strong>心得</strong></p>
+<p>C#確實比C++好寫很多。唯一比較想抱怨的，是它不太讓我們把物件存在stack上，而且所有物件都需要一個個初始化。像是我的<code>Player</code>陣列：</p>
+<pre class="hljs"><code><div>Player players = <span class="hljs-keyword">new</span> Player[<span class="hljs-number">3</span>];
+</div></code></pre>
+<p>這樣寫只有初始化陣列本身，而沒有初始化到陣列裡的player instance。要走訪這個陣列，初始化一個個player instance，甚至不能用foreach loop。這樣寫行不通</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">foreach</span>(Player p <span class="hljs-keyword">in</span> players){
+    p = <span class="hljs-keyword">new</span> Player();
+    <span class="hljs-comment">// p is a foreach loop variable, cannot be reassigned </span>
+    <span class="hljs-comment">// or initialized</span>
+}
+</div></code></pre>
+<p>必須用傳統的for loop，寫成這樣:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; players.GetLength(<span class="hljs-number">0</span>); i++){
+    players[i] = <span class="hljs-keyword">new</span> Player();
+}
+</div></code></pre>
+<p>創建instance的程式碼比C++ stack-allocate物件複雜，但這恐怕是在C#或Java都無法避免的。</p>
+<h2 id="q6">Q6</h2>
+<p>使用Q5的程式碼測試vscode intellisense跟debugging功能。使用dotnet sdk 7.0，建置vscode開發環境。</p>
+<h3 id="compile-time-error"><strong>Compile time error</strong></h3>
+<p>C#每個物件都需要用<code>new</code>關鍵字初始化。下圖是我創建了一個Player陣列，稱為<code>player</code>，卻沒有使用<code>new</code>初始化陣列本身。當我試圖把這個陣列拿來用，傳進別的method時，vscode intellicense在compile time就劃紅線顯示錯誤訊息，告訴我這個陣列尚未初始化。</p>
+<p>雖然不太清楚為甚麼錯誤訊息是說<em>Use of unassigned local variable</em>而不是<em>uninitialized local variable</em>。</p>
+<p><img src="IMG/Q6-uninitiallized player array.png" alt="uninitiallized player array"></p>
+<p>加上<code>new</code>關鍵字後，紅線就消失，可以編譯了。</p>
+<h3 id="run-time-error"><strong>Run time error</strong></h3>
+<p>但是這不代表不會出現run time error。剛才的player陣列本身加上<code>new</code>關鍵字以後成功初始化了，但是裡面的元素，一個個Player instance沒有初始化，造成<em>NullReference Exception</em></p>
+<p><img src="IMG/Q6-Null reference exception.png" alt="null reference exception"></p>
+<p>查看vscode debug工具列裡面的local variable watch視窗，可以看到陣列本身存在了，但是裡面的三個元素走到這一步還是<code>null</code></p>
+<p><img src="IMG/Q6-Uninitialized player instance.png" alt="null instance"></p>
+<p>在別處用for loop初始化這個陣列以後，就解決這個run time error了。</p>
+<h3 id="xml-style-comments"><strong>Xml-style comments</strong></h3>
+<p>書裡有提到C# xml-style comment的功能，試著幫Q5的程式碼加上一些註解。</p>
+<p><img src="IMG/Q6-xml comment on method.png" alt="xml comment on a method"></p>
+<p>同一個C# project使用到這個method的地方，只要把游標移到函式名稱上方，就會依summery, output, parameter自動顯示xml comment的內容。</p>
+<p><img src="IMG/Q6-xml comment working.png" alt="xml comment working"></p>
+<p>但是有點疑惑的是，它只有顯示出<code>&lt;summery&gt;&lt;/summery&gt;</code>的內容，其他像<code>&lt;para name&gt;&lt;/para name&gt;</code>裡的，都沒有顯示出來。不知道我是哪裡做錯了，還是有什麼vscode套件的問題。</p>
+<h3 id="%E5%BF%83%E5%BE%97"><strong>心得</strong></h3>
+<p>vscode的intellisense非常人性化，可以自己用xml語法控制註解內容真是一大福音。加上精心設計<code>task.json</code>跟<code>launch.json</code>的內容，f5一按下去就自動編譯並開始偵錯程式，一切流程自動化太方便了。</p>
+<p>更棒的是，vscode免費。</p>
 
 </body>
 </html>

@@ -39,7 +39,7 @@ namespace Q5
         /// <summary>
         /// Get a string of the cards the player has
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The cards a player has as a string</returns>
         public string ShowCards()
         {
             var _sb = new StringBuilder();

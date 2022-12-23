@@ -10,9 +10,6 @@ namespace Q5
             Player[] players; // initalized in method PlayersEnter
             PlayersEnter(out players, 3);
             Deck aDeckOfCards = new Deck();
-            Console.WriteLine("");
-            Console.WriteLine("The entire deck before shuffling");
-            aDeckOfCards.ShowDeck();
             aDeckOfCards.Shuffle();
             Console.WriteLine("");
             Console.WriteLine("The entire deck after shuffling");
