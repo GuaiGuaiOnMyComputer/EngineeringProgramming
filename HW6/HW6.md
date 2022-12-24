@@ -178,19 +178,28 @@ C#每個物件都需要用```new```關鍵字初始化。下圖是我創建了一
 
 ![uninitiallized player array](IMG/Q6-uninitiallized%20player%20array.png)
 
-加上```new```關鍵字後，紅線就消失，可以編譯了。
+第10行加上```new```關鍵字後，紅線就消失，可以編譯了。
+```C#
+Player[] players = new Player[3];
+```
 
 ### __Run time error__
 
-但是這不代表不會出現run time error。剛才的player陣列本身加上```new```關鍵字以後成功初始化了，但是裡面的元素，一個個Player instance沒有初始化，造成*NullReference Exception*
+剛才的player陣列本身加上```new```關鍵字以後成功初始化了，但是裡面的元素，一個個Player instance沒有初始化，造成*NullReference Exception*
 
 ![null reference exception](IMG/Q6-Null%20reference%20exception.png)
 
-查看vscode debug工具列裡面的local variable watch視窗，可以看到陣列本身存在了，但是裡面的三個元素走到這一步還是```null```
+查看vscode debug工具列裡面的local variable watch視窗，可以看到陣列本身存在，但是裡面的三個元素還是```null```
 
 ![null instance](IMG/Q6-Uninitialized%20player%20instance.png)
 
-在別處用for loop初始化這個陣列以後，就解決這個run time error了。
+在別處用for loop走訪這個陣列，初始化每個元素後就解決了這個run time error。
+
+```C#
+for(int i = 0; i < 3; i++){
+    players[i] = new Player();
+}
+```
 
 ### __Xml-style comments__
 

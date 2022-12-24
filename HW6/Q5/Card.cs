@@ -5,7 +5,7 @@ namespace Q5
     /// </summary>
     class Card
     {
-        public readonly static string[] sSuit = {"berry", "flower", "diamond", "heart"};
+        public readonly static string[] sSuit = {"Spade", "Club", "Diamond", "Heart"};
         public readonly static string[] sNumber = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
         public readonly int SuitIdx;
         public readonly int NumberIdx;

@@ -25,7 +25,7 @@ namespace Q5
         static void DrawAndShowCards(Player[] _allPlayers, Deck _aDeckOfCards, int times = 4)
         {
             for (int i = 0; i < times; i++){
-                Console.WriteLine($"Deal #{i}");
+                Console.WriteLine($"Deal #{i+1}");
                 foreach(Player p in _allPlayers){
                     p.ClearCards();
                 }

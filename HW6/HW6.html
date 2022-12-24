@@ -503,13 +503,19 @@ Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{c.Number
 <p>C#每個物件都需要用<code>new</code>關鍵字初始化。下圖是我創建了一個Player陣列，稱為<code>player</code>，卻沒有使用<code>new</code>初始化陣列本身。當我試圖把這個陣列拿來用，傳進別的method時，vscode intellicense在compile time就劃紅線顯示錯誤訊息，告訴我這個陣列尚未初始化。</p>
 <p>雖然不太清楚為甚麼錯誤訊息是說<em>Use of unassigned local variable</em>而不是<em>uninitialized local variable</em>。</p>
 <p><img src="IMG/Q6-uninitiallized player array.png" alt="uninitiallized player array"></p>
-<p>加上<code>new</code>關鍵字後，紅線就消失，可以編譯了。</p>
+<p>第10行加上<code>new</code>關鍵字後，紅線就消失，可以編譯了。</p>
+<pre class="hljs"><code><div>Player[] players = <span class="hljs-keyword">new</span> Player[<span class="hljs-number">3</span>];
+</div></code></pre>
 <h3 id="run-time-error"><strong>Run time error</strong></h3>
-<p>但是這不代表不會出現run time error。剛才的player陣列本身加上<code>new</code>關鍵字以後成功初始化了，但是裡面的元素，一個個Player instance沒有初始化，造成<em>NullReference Exception</em></p>
+<p>剛才的player陣列本身加上<code>new</code>關鍵字以後成功初始化了，但是裡面的元素，一個個Player instance沒有初始化，造成<em>NullReference Exception</em></p>
 <p><img src="IMG/Q6-Null reference exception.png" alt="null reference exception"></p>
-<p>查看vscode debug工具列裡面的local variable watch視窗，可以看到陣列本身存在了，但是裡面的三個元素走到這一步還是<code>null</code></p>
+<p>查看vscode debug工具列裡面的local variable watch視窗，可以看到陣列本身存在，但是裡面的三個元素還是<code>null</code></p>
 <p><img src="IMG/Q6-Uninitialized player instance.png" alt="null instance"></p>
-<p>在別處用for loop初始化這個陣列以後，就解決這個run time error了。</p>
+<p>在別處用for loop走訪這個陣列，初始化每個元素後就解決了這個run time error。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; i++){
+    players[i] = <span class="hljs-keyword">new</span> Player();
+}
+</div></code></pre>
 <h3 id="xml-style-comments"><strong>Xml-style comments</strong></h3>
 <p>書裡有提到C# xml-style comment的功能，試著幫Q5的程式碼加上一些註解。</p>
 <p><img src="IMG/Q6-xml comment on method.png" alt="xml comment on a method"></p>
