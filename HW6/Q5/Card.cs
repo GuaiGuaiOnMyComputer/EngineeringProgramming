@@ -5,11 +5,15 @@ namespace Q5
     /// </summary>
     class Card
     {
-        public readonly static string[] sSuit = {"Spade", "Club", "Diamond", "Heart"};
-        public readonly static string[] sNumber = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
-        public readonly int SuitIdx;
-        public readonly int NumberIdx;
- 
+        private readonly static string[] sSuit = {"Spade", "Club", "Diamond", "Heart"};
+        private readonly static string[] sNumber = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+        private int suitIdx;
+        private int numberIdx;
+
+        public string Suit => sSuit[this.suitIdx];
+
+        public string Number => sNumber[this.numberIdx];
+
         /// <summary>
         /// Create an instance of a card.
         /// </summary>
@@ -17,13 +21,13 @@ namespace Q5
         /// <param name="_numberIdx">The index to retreve the number of this card as a string Card from array Card.sNumber.</param>
         public Card(int _suitIdx, int _numberIdx)
         {
-            this.SuitIdx = _suitIdx;
-            this.NumberIdx = _numberIdx;
+            this.suitIdx = _suitIdx;
+            this.numberIdx = _numberIdx;
         }
 
         public override string ToString()
         {
-            return $"{sNumber[this.NumberIdx], 2}--{sSuit[this.SuitIdx], -9}";
+            return string.Format("{0,2}--{1,-9}", this.Number, this.Suit);
         }
     }
 }

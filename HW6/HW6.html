@@ -413,58 +413,44 @@ C#好像不讓我們把的class member設為const，若要一個class member值�
 <p><em><strong>終端機輸出</strong></em></p>
 <p><img src="IMG/Q5-console output.png" alt="console output"></p>
 <h3 id="%E8%87%AA%E5%AE%9A%E7%BE%A9card-class"><strong>自定義Card class</strong></h3>
-<pre class="hljs"><code><div><span class="hljs-keyword">namespace</span> <span class="hljs-title">Q5</span>
+<pre class="hljs"><code><div><span class="hljs-keyword">class</span> <span class="hljs-title">Card</span>
 {
-    <span class="hljs-keyword">class</span> <span class="hljs-title">Card</span>
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">string</span>[] sSuit = {<span class="hljs-string">"Spade"</span>, <span class="hljs-string">"Club"</span>, <span class="hljs-string">"Diamond"</span>, <span class="hljs-string">"Heart"</span>};
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">string</span>[] sNumber = {<span class="hljs-string">"A"</span>, <span class="hljs-string">"2"</span>, <span class="hljs-string">"3"</span>, <span class="hljs-string">"4"</span>, <span class="hljs-string">"5"</span>, <span class="hljs-string">"6"</span>, <span class="hljs-string">"7"</span>, <span class="hljs-string">"8"</span>, <span class="hljs-string">"9"</span>, <span class="hljs-string">"10"</span>, <span class="hljs-string">"J"</span>, <span class="hljs-string">"Q"</span>, <span class="hljs-string">"K"</span>};
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> suitIdx;
+    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> numberIdx;
+
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Suit =&gt; sSuit[<span class="hljs-keyword">this</span>.suitIdx]; <span class="hljs-comment">// custom get accessor for suit of a card</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">string</span> Number =&gt; sNumber[<span class="hljs-keyword">this</span>.numberIdx]; <span class="hljs-comment">// custom get accessor for Number of a card</span>
+
+    <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;summary&gt;</span></span>
+    <span class="hljs-comment"><span class="hljs-doctag">///</span> Create an instance of a card.</span>
+    <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;/summary&gt;</span></span>
+    <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name="_suitIdx"&gt;</span>The index to retrieve the suit of this card as a string from array Card.sSuit<span class="hljs-doctag">&lt;/param&gt;</span></span>
+    <span class="hljs-comment"><span class="hljs-doctag">///</span> <span class="hljs-doctag">&lt;param name="_numberIdx"&gt;</span>The index to retreve the number of this card as a string Card from array Card.sNumber.<span class="hljs-doctag">&lt;/param&gt;</span></span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Card</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> _suitIdx, <span class="hljs-keyword">int</span> _numberIdx</span>)</span>
     {
-        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">string</span>[] sSuit = {<span class="hljs-string">"berry"</span>, <span class="hljs-string">"flower"</span>, <span class="hljs-string">"diamond"</span>, <span class="hljs-string">"heart"</span>};
-        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">string</span>[] sNumber = {<span class="hljs-string">"A"</span>, <span class="hljs-string">"2"</span>, <span class="hljs-string">"3"</span>, <span class="hljs-string">"4"</span>, <span class="hljs-string">"5"</span>, <span class="hljs-string">"6"</span>, <span class="hljs-string">"7"</span>, <span class="hljs-string">"8"</span>, <span class="hljs-string">"9"</span>, <span class="hljs-string">"10"</span>, <span class="hljs-string">"J"</span>, <span class="hljs-string">"Q"</span>, <span class="hljs-string">"K"</span>};
-        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">int</span> SuitIdx;
-        <span class="hljs-keyword">public</span> <span class="hljs-keyword">readonly</span> <span class="hljs-keyword">int</span> NumberIdx;
- 
-        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">Card</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> _suitIdx, <span class="hljs-keyword">int</span> _numberIdx</span>)</span>
-        {
-            <span class="hljs-keyword">this</span>.SuitIdx = _suitIdx;
-            <span class="hljs-keyword">this</span>.NumberIdx = _numberIdx;
-        }
+        <span class="hljs-keyword">this</span>.suitIdx = _suitIdx;
+        <span class="hljs-keyword">this</span>.numberIdx = _numberIdx;
+    }
+
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">override</span> <span class="hljs-keyword">string</span> <span class="hljs-title">ToString</span>(<span class="hljs-params"></span>)</span>
+    {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">string</span>.Format(<span class="hljs-string">"{0,2}--{1,-9}"</span>, <span class="hljs-keyword">this</span>.Number, <span class="hljs-keyword">this</span>.Suit);
     }
 }
 </div></code></pre>
-<p>每張牌都有一個花色與一個數值，兩者都應該是string。然而，過去似乎聽說string是指向heap的char pointer，在程式裡生成過多string容易使記憶體零散。因此，每張牌的花色與數值欄位我並沒有用string的方式儲存，而是以int儲存，作為索引另外兩個static string array <code>sSuit</code>與<code>sNumber</code>的索引值。如此一來，每個card instance只佔據記憶體連續的16個byte。</p>
+<p>每張牌都有一個花色與一個數值，兩者都應該是string。然而，過去似乎聽說string是指向heap的char pointer，在程式裡生成過多string容易使記憶體零散。因此，每張牌的花色與數值欄位我並沒有用string的方式儲存，而是以int儲存，作為索引另外兩個static string array <code>sSuit</code>與<code>sNumber</code>的索引值。如此一來，每個card instance只佔據記憶體連續的16個byte。 也就是說，每個instance的<code>this.Suit</code>跟<code>this.Number</code>並不佔據記憶體空間，它們只是個method，被呼叫的時候去索引<code>Card.sSuit</code>跟<code>Card.sNumber</code>陣列，回傳一個字串。</p>
+<p>有了這兩個accessor，即使每個card instance並沒有真正的<code>this.Number</code>跟<code>this.Suit</code>兩個attribute，也可以對一個card instance打點簡單取出它的數值跟花色。</p>
+<pre class="hljs"><code><div>Card c = <span class="hljs-keyword">new</span> Card(<span class="hljs-number">2</span>, <span class="hljs-number">10</span>);
+Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{c.Number}</span>--<span class="hljs-subst">{c.Suit}</span>"</span>); <span class="hljs-comment">// call the accessors of Number and Suit</span>
+<span class="hljs-comment">// Diamond--J</span>
+</div></code></pre>
 <p>不知道這樣做是否真的可以提升程式效能，減少記憶體零散，或是只是我自找麻煩？</p>
-<p>這個寫法犧牲一些程式可讀性，印出一張牌的程式如此一來必須寫成這樣</p>
-<pre class="hljs"><code><div>Card c = <span class="hljs-keyword">new</span> Card(<span class="hljs-number">2</span>, <span class="hljs-number">10</span>);
-Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{Card.sNumber{c.NumberIdx}</span>--Card.sSuit<span class="hljs-subst">{c.SuitIdx}</span>}"</span>);
-<span class="hljs-comment">// Actual output</span>
-<span class="hljs-comment">// Diamond--J</span>
-</div></code></pre>
-<p>而不是這樣</p>
-<pre class="hljs"><code><div>Card c = <span class="hljs-keyword">new</span> Card(<span class="hljs-number">2</span>, <span class="hljs-number">10</span>);
-Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{c.Number}</span>--<span class="hljs-subst">{c.Suit}</span>"</span>);
-<span class="hljs-comment">// Desired output</span>
-<span class="hljs-comment">// Diamond--J</span>
-</div></code></pre>
 <h3 id="%E8%87%AA%E5%AE%9A%E7%BE%A9deck-class"><strong>自定義Deck class</strong></h3>
 <p>含有一個長度52的<code>Card</code>陣列<code>this.AllCards</code>，代表整副牌的所有卡片。</p>
-<p><strong><code>Shuffle</code>方法</strong></p>
-<p>打亂<code>this.AllCards</code>陣列各元素的順序。隨機取陣列中的兩張牌，互換位置52次。</p>
-<pre class="hljs"><code><div><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> Shuffle : Deck()
-{
-    <span class="hljs-keyword">this</span>.shuffledFlag = <span class="hljs-literal">true</span>;
-    Random rnd = <span class="hljs-keyword">new</span> Random();
-    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">52</span>; i++){
-        <span class="hljs-keyword">int</span> card1Idx = rnd.Next() % <span class="hljs-number">52</span>;
-        <span class="hljs-keyword">int</span> card2Idx = rnd.Next() % <span class="hljs-number">52</span>;
-        <span class="hljs-comment">// swapping the loactions of two cards</span>
-        Card tmp = <span class="hljs-keyword">this</span>.AllCards[card1Idx];
-        <span class="hljs-keyword">this</span>.AllCards[card1Idx] = <span class="hljs-keyword">this</span>.AllCards[card2Idx];
-        <span class="hljs-keyword">this</span>.AllCards[card2Idx] = tmp;
-    }
-}
-</div></code></pre>
-<p>或許其實洗牌不需要互換那麼多次，整副牌的順序就會夠亂了?</p>
 <p><strong><code>Deal</code>方法</strong></p>
-<p>發牌的方法<code>this.Deal</code> pass by reference輸入一個玩家陣列，發兩張牌給每位玩家。每個Deck instance都會用一個int <code>this.lastGivenCardIdx</code>記錄自己<code>this.AllCards</code>陣列發到第幾張牌了，避免一張牌在不同次發牌間重複出現。</p>
+<p>發牌的方法<code>this.Deal</code> pass by reference輸入一個玩家陣列，發兩張牌給每位玩家。每個Deck instance都會用一個int <code>this.lastGivenCardIdx</code>記錄自己<code>this.AllCards</code>陣列發到第幾張牌了，避免一張牌在不同次發牌間重複出現。發牌時，一律從洗好的牌組抽出最上面的一張牌發給玩家，從<code>this.AllCards</code>陣列第0張牌發到最後一張。</p>
 <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Deal</span>(<span class="hljs-params"><span class="hljs-keyword">ref</span> Player[] _players, <span class="hljs-keyword">int</span> nCardsEachPerson = <span class="hljs-number">2</span></span>)</span>
 {
     Card[] cardsGivenToAPlayer = <span class="hljs-keyword">new</span> Card[nCardsEachPerson];
@@ -477,11 +463,12 @@ Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{c.Number
     }
 }
 </div></code></pre>
-<p>這個發牌的方法在牌發完的時候會產生index out of range exception，玩家人數或每個人拿到的排數量太多時會出問題。</p>
+<p>這個發牌的方法在牌發完的時候會產生index out of range exception，玩家人數或每個人拿到的牌數量太多時會出問題。</p>
 <h3 id="%E8%87%AA%E5%AE%9A%E7%BE%A9player-class"><strong>自定義Player class</strong></h3>
 <p>每個Player instance只有一個attribute，是<code>List&lt;Card&gt;</code>，代表該玩家的手牌。除此之外，Player class也定義了一些method，例如<code>ReceiveCard</code>、<code>ShowCard</code>等等，代表玩家可能做的事。還有一個static method <code>AllPlayersShowCards</code>，輸入一個玩家陣列，顯示所有玩家的手牌。</p>
 <p><strong>心得</strong></p>
-<p>C#確實比C++好寫很多。唯一比較想抱怨的，是它不太讓我們把物件存在stack上，而且所有物件都需要一個個初始化。像是我的<code>Player</code>陣列：</p>
+<p>C#確實比C++好寫很多。有了accessor的設計跟簡易的getter, setter，讀寫class內容的程式碼變得很簡單。</p>
+<p>唯一比較想抱怨的，是C#不太讓我們把物件存在stack上，而且所有物件都需要一個個初始化。像是我的<code>Player</code>陣列：</p>
 <pre class="hljs"><code><div>Player players = <span class="hljs-keyword">new</span> Player[<span class="hljs-number">3</span>];
 </div></code></pre>
 <p>這樣寫只有初始化陣列本身，而沒有初始化到陣列裡的player instance。要走訪這個陣列，初始化一個個player instance，甚至不能用foreach loop。這樣寫行不通</p>
@@ -492,7 +479,7 @@ Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{c.Number
 }
 </div></code></pre>
 <p>必須用傳統的for loop，寫成這樣:</p>
-<pre class="hljs"><code><div><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; players.GetLength(<span class="hljs-number">0</span>); i++){
+<pre class="hljs"><code><div><span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; players.Count(); i++){
     players[i] = <span class="hljs-keyword">new</span> Player();
 }
 </div></code></pre>
@@ -522,6 +509,8 @@ Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{c.Number
 <p>同一個C# project使用到這個method的地方，只要把游標移到函式名稱上方，就會依summery, output, parameter自動顯示xml comment的內容。</p>
 <p><img src="IMG/Q6-xml comment working.png" alt="xml comment working"></p>
 <p>但是有點疑惑的是，它只有顯示出<code>&lt;summery&gt;&lt;/summery&gt;</code>的內容，其他像<code>&lt;para name&gt;&lt;/para name&gt;</code>裡的，都沒有顯示出來。不知道我是哪裡做錯了，還是有什麼vscode套件的問題。</p>
+<h3 id="break-point"><strong>Break point</strong></h3>
+<p>過去只知道break point可以讓程式執行到那裏就停下來，不知道還有conditional breakpoint這種東西。過去曾經遇到一個問題，走訪陣列的迴圈走到1000次的第894次時，總是發生runtime error。有conditional breakpoint，就可以在第893次的時候停下來，開始用step into功能單步執行，這樣更方便。</p>
 <h3 id="%E5%BF%83%E5%BE%97"><strong>心得</strong></h3>
 <p>vscode的intellisense非常人性化，可以自己用xml語法控制註解內容真是一大福音。加上精心設計<code>task.json</code>跟<code>launch.json</code>的內容，f5一按下去就自動編譯並開始偵錯程式，一切流程自動化太方便了。</p>
 <p>更棒的是，vscode免費。</p>

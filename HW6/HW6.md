@@ -55,74 +55,54 @@ ___終端機輸出___
 ### __自定義Card class__
 
 ```C#
-namespace Q5
+class Card
 {
-    class Card
+    private readonly static string[] sSuit = {"Spade", "Club", "Diamond", "Heart"};
+    private readonly static string[] sNumber = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
+    private int suitIdx;
+    private int numberIdx;
+
+    public string Suit => sSuit[this.suitIdx]; // custom get accessor for suit of a card
+    public string Number => sNumber[this.numberIdx]; // custom get accessor for Number of a card
+
+    /// <summary>
+    /// Create an instance of a card.
+    /// </summary>
+    /// <param name="_suitIdx">The index to retrieve the suit of this card as a string from array Card.sSuit</param>
+    /// <param name="_numberIdx">The index to retreve the number of this card as a string Card from array Card.sNumber.</param>
+    public Card(int _suitIdx, int _numberIdx)
     {
-        public readonly static string[] sSuit = {"berry", "flower", "diamond", "heart"};
-        public readonly static string[] sNumber = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
-        public readonly int SuitIdx;
-        public readonly int NumberIdx;
- 
-        public Card(int _suitIdx, int _numberIdx)
-        {
-            this.SuitIdx = _suitIdx;
-            this.NumberIdx = _numberIdx;
-        }
+        this.suitIdx = _suitIdx;
+        this.numberIdx = _numberIdx;
+    }
+
+    public override string ToString()
+    {
+        return string.Format("{0,2}--{1,-9}", this.Number, this.Suit);
     }
 }
 ```
 
 
-每張牌都有一個花色與一個數值，兩者都應該是string。然而，過去似乎聽說string是指向heap的char pointer，在程式裡生成過多string容易使記憶體零散。因此，每張牌的花色與數值欄位我並沒有用string的方式儲存，而是以int儲存，作為索引另外兩個static string array ```sSuit```與```sNumber```的索引值。如此一來，每個card instance只佔據記憶體連續的16個byte。 
+每張牌都有一個花色與一個數值，兩者都應該是string。然而，過去似乎聽說string是指向heap的char pointer，在程式裡生成過多string容易使記憶體零散。因此，每張牌的花色與數值欄位我並沒有用string的方式儲存，而是以int儲存，作為索引另外兩個static string array ```sSuit```與```sNumber```的索引值。如此一來，每個card instance只佔據記憶體連續的16個byte。 也就是說，每個instance的```this.Suit```跟```this.Number```並不佔據記憶體空間，它們只是個method，被呼叫的時候去索引```Card.sSuit```跟```Card.sNumber```陣列，回傳一個字串。
+
+有了這兩個accessor，即使每個card instance並沒有真正的```this.Number```跟```this.Suit```兩個attribute，也可以對一個card instance打點簡單取出它的數值跟花色。
+
+```C#
+Card c = new Card(2, 10);
+Console.WriteLine($"{c.Number}--{c.Suit}"); // call the accessors of Number and Suit
+// Diamond--J
+```
 
 不知道這樣做是否真的可以提升程式效能，減少記憶體零散，或是只是我自找麻煩？
-
-這個寫法犧牲一些程式可讀性，印出一張牌的程式如此一來必須寫成這樣
-
-```C#
-Card c = new Card(2, 10);
-Console.WriteLine($"{Card.sNumber{c.NumberIdx}--Card.sSuit{c.SuitIdx}}");
-// Actual output
-// Diamond--J
-```
-
-而不是這樣
-```C#
-Card c = new Card(2, 10);
-Console.WriteLine($"{c.Number}--{c.Suit}");
-// Desired output
-// Diamond--J
-```
 
 ### __自定義Deck class__
 
 含有一個長度52的```Card```陣列```this.AllCards```，代表整副牌的所有卡片。
 
-__```Shuffle```方法__
-
-打亂```this.AllCards```陣列各元素的順序。隨機取陣列中的兩張牌，互換位置52次。
-
-```C#
-public void Shuffle : Deck()
-{
-    this.shuffledFlag = true;
-    Random rnd = new Random();
-    for(int i = 0; i < 52; i++){
-        int card1Idx = rnd.Next() % 52;
-        int card2Idx = rnd.Next() % 52;
-        // swapping the loactions of two cards
-        Card tmp = this.AllCards[card1Idx];
-        this.AllCards[card1Idx] = this.AllCards[card2Idx];
-        this.AllCards[card2Idx] = tmp;
-    }
-}
-```
-或許其實洗牌不需要互換那麼多次，整副牌的順序就會夠亂了?
-
 __```Deal```方法__
 
-發牌的方法```this.Deal``` pass by reference輸入一個玩家陣列，發兩張牌給每位玩家。每個Deck instance都會用一個int ```this.lastGivenCardIdx```記錄自己```this.AllCards```陣列發到第幾張牌了，避免一張牌在不同次發牌間重複出現。
+發牌的方法```this.Deal``` pass by reference輸入一個玩家陣列，發兩張牌給每位玩家。每個Deck instance都會用一個int ```this.lastGivenCardIdx```記錄自己```this.AllCards```陣列發到第幾張牌了，避免一張牌在不同次發牌間重複出現。發牌時，一律從洗好的牌組抽出最上面的一張牌發給玩家，從```this.AllCards```陣列第0張牌發到最後一張。
 
 ```C#
 public void Deal(ref Player[] _players, int nCardsEachPerson = 2)
@@ -138,7 +118,7 @@ public void Deal(ref Player[] _players, int nCardsEachPerson = 2)
 }
 ```
 
-這個發牌的方法在牌發完的時候會產生index out of range exception，玩家人數或每個人拿到的排數量太多時會出問題。
+這個發牌的方法在牌發完的時候會產生index out of range exception，玩家人數或每個人拿到的牌數量太多時會出問題。
 
 ### __自定義Player class__
 
@@ -146,7 +126,9 @@ public void Deal(ref Player[] _players, int nCardsEachPerson = 2)
 
 __心得__
 
-C#確實比C++好寫很多。唯一比較想抱怨的，是它不太讓我們把物件存在stack上，而且所有物件都需要一個個初始化。像是我的```Player```陣列：
+C#確實比C++好寫很多。有了accessor的設計跟簡易的getter, setter，讀寫class內容的程式碼變得很簡單。
+
+唯一比較想抱怨的，是C#不太讓我們把物件存在stack上，而且所有物件都需要一個個初始化。像是我的```Player```陣列：
 ```C#
 Player players = new Player[3];
 ```
@@ -161,7 +143,7 @@ foreach(Player p in players){
 
 必須用傳統的for loop，寫成這樣:
 ```C#
-for(int i = 0; i < players.GetLength(0); i++){
+for(int i = 0; i < players.Count(); i++){
     players[i] = new Player();
 }
 ```
@@ -212,6 +194,10 @@ for(int i = 0; i < 3; i++){
 ![xml comment working](IMG/Q6-xml%20comment%20working.png)
 
 但是有點疑惑的是，它只有顯示出```<summery></summery>```的內容，其他像```<para name></para name>```裡的，都沒有顯示出來。不知道我是哪裡做錯了，還是有什麼vscode套件的問題。
+
+### __Break point__
+
+過去只知道break point可以讓程式執行到那裏就停下來，不知道還有conditional breakpoint這種東西。過去曾經遇到一個問題，走訪陣列的迴圈走到1000次的第894次時，總是發生runtime error。有conditional breakpoint，就可以在第893次的時候停下來，開始用step into功能單步執行，這樣更方便。
 
 ### __心得__
 
