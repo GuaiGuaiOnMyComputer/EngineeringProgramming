@@ -17,7 +17,7 @@ __說明C++/C#語言異同點__
 > |讀寫速率|快|慢|
 > |自動管理空間|是|否|
 > 
-> 在C++，存在heap記憶體的物件，使用完了需要手動用```delete```關鍵字清除，像是這樣
+> 在C++，使用new關鍵字可以指定把物件存在heap。存在heap記憶體的物件，使用完了需要手動用```delete```關鍵字清除，像是這樣
 > ```C++
 > int* myInt_ptr = new int; // allocate an int on heap
 > *myInt_ptr = 100;
