@@ -7,7 +7,8 @@
 
 __說明C++/C#語言異同點__
 
-1. C#的class object預設存在heap，C++預設存在stack選擇
+1. Memory management
+> C#的class object預設存在heap，C++預設存在stack
 > 
 > |   |stack|heap|
 > |---|:---:|:---:|
