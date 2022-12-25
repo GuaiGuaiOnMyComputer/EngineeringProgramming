@@ -384,6 +384,156 @@ code {
 </tr>
 </tbody>
 </table>
+<h2 id="q1">Q1</h2>
+<p><strong>說明C++/C#語言異同點</strong></p>
+<ol>
+<li>C#的class object預設存在heap，C++預設存在stack選擇</li>
+</ol>
+<blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">stack</th>
+<th style="text-align:center">heap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>空間大小</td>
+<td style="text-align:center">小</td>
+<td style="text-align:center">大</td>
+</tr>
+<tr>
+<td>是否連續</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">否</td>
+</tr>
+<tr>
+<td>讀寫速率</td>
+<td style="text-align:center">快</td>
+<td style="text-align:center">慢</td>
+</tr>
+<tr>
+<td>自動管理空間</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">否</td>
+</tr>
+</tbody>
+</table>
+<p>在C++，存在heap記憶體的物件，使用完了需要手動用<code>delete</code>關鍵字清除，像是這樣</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span>* myInt_ptr = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>; <span class="hljs-comment">// allocate an int on heap</span>
+*myInt_ptr = <span class="hljs-number">100</span>;
+<span class="hljs-keyword">delete</span> myInt_ptr <span class="hljs-comment">// manually freeing memory on heap</span>
+</div></code></pre>
+<p>或是用smart pointer讓compiler知道何時使用完畢，在哪裡可以自動call destructor。像是這樣:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">int</span>* foo(){
+  std::make_shared&lt;<span class="hljs-keyword">int</span>&gt; myInt_ptr = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>;
+  *myInt_ptr = <span class="hljs-number">0</span>;
+  <span class="hljs-keyword">return</span> myInt_ptr; <span class="hljs-comment">// return an int smart pointer</span>
+  <span class="hljs-comment">// if no other pointer in other scope holds reference to this int</span>
+  <span class="hljs-comment">// smart pointer will call automatically free the memory</span>
+}
+</div></code></pre>
+<p>如果在C++沒有用這兩種方法清除heap記憶體空間，會發生memory leak。電腦的記憶體一直被佔據，所有可用空間都被占滿後很可能會當機顯示windows blue screen of death
+<img src="IMG/Q1-bsod.jpeg" alt=""></p>
+<p>然而，C#有garbage collector的設計。有許多runtime support機制可以隨時檢查哪個物件或記憶體區段已經失去所有reference，自動銷毀沒有reference的物件。</p>
+<p>若有需要，C#也可以用<code>fixed</code>搭配<code>unsafe</code>關鍵字在一個scope以內宣告某個物件是神聖不可侵犯的，避免garbage collector銷毀失去reference但其實還需要用到的物件。</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">unsafe</span>{
+    <span class="hljs-keyword">fixed</span>(<span class="hljs-keyword">int</span>* myInt_ptr = <span class="hljs-number">0b1010010</span>) <span class="hljs-comment">// garbage collector will not free muyInt_ptr</span>
+    {
+        *myInt_ptr = <span class="hljs-number">0</span>; <span class="hljs-comment">// write 0 to memory location 0b1010010</span>
+    }
+}
+</div></code></pre>
+</blockquote>
+<ol start="2">
+<li>Runtime support</li>
+</ol>
+<blockquote>
+<p>C#程式需要大量的runtime support，連結外部的<code>dll</code>才可以正常運作。然而C++幾乎把所有運作必要的內容在compile time都囊括進exe檔了。</p>
+<p>因此，C++比C#更適合用於單晶片控制器、嵌入式系統等效能有限，無法支援太多runtime support機制的電腦。</p>
+</blockquote>
+<ol start="3">
+<li>Cross Platform</li>
+</ol>
+<blockquote>
+<p>C++是單純的compiled language，而C#同時是compiled language也是interpreted language。</p>
+<p>C++的compiler會直接把sorce code轉成CPU可以讀取的machine code。C#的compiler會把sorce code先轉成intermediate representation(IR)，到了runtime才把IR用interpreter執行，或是用just-in-time compiler再次編譯成machine code。</p>
+<p>因此，C#比C++更適合做跨平台開發。分送C#的IR給目標電腦，無論該電腦作業系統為何，只要有需要的runtime support就可以把IR轉換成最適合該電腦的machine code執行。C++卻需要在compile time決定輸出的machine code要給哪種作業系統使用。只能為每個作業系統compile出專屬該作業系統的machine code，或是直接分送sorce code到目標電腦去compile成它的machine code，變成open sorce程式。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th style="text-align:center">C++</th>
+<th style="text-align:center">C#</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>memory management</td>
+<td style="text-align:center">高自定性但手動</td>
+<td style="text-align:center">受限制而自動管理</td>
+</tr>
+<tr>
+<td>runtime support</td>
+<td style="text-align:center">幾乎不需要</td>
+<td style="text-align:center">大量需要</td>
+</tr>
+<tr>
+<td>cross platform</td>
+<td style="text-align:center">困難</td>
+<td style="text-align:center">容易</td>
+</tr>
+</tbody>
+</table>
+<h2 id="q2-tuple%E7%9A%84%E6%84%8F%E7%BE%A9">Q2 Tuple的意義</h2>
+<blockquote>
+<p>C#的value tuple有點像是Python的tuple，可以用簡單的<code>()</code>符號打包多個變數，讓函式一次回傳多個數值。一個C#的tuple例子是這樣:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// C# calling a function retruning 2 ints in a tuple</span>
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>{
+    (<span class="hljs-keyword">int</span> Min, <span class="hljs-keyword">int</span> Max) = FindMinMax(); <span class="hljs-comment">// receive and deconstruct a returned tuple </span>
+}
+<span class="hljs-keyword">static</span> (<span class="hljs-keyword">int</span> min, <span class="hljs-keyword">int</span> max) FindMinMax(){
+    <span class="hljs-keyword">int</span>[] arr = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]{ <span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">21</span>, <span class="hljs-number">22</span> };
+    <span class="hljs-keyword">return</span> (arr.Min(), arr.Max()); <span class="hljs-comment">// creating a tuple with () and return</span>
+}
+</div></code></pre>
+<p>而Python的例子是這樣:</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Python calling a function returning 2 ints in a tuple</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">FindMinMax</span><span class="hljs-params">()</span> -&gt; tuple:</span>
+   my_list = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">21</span>, <span class="hljs-number">22</span>]
+   <span class="hljs-keyword">return</span> (my_list.min(), my_list.max()) <span class="hljs-comment"># packaging a tuple</span>
+
+(Min, Max) = FindMinMax() <span class="hljs-comment"># unpackaging a tuple</span>
+</div></code></pre>
+<p>但是不一樣的地方在於，Python的Tuple可以被index索引，也可以被迴圈走訪；C#的tuple沒有這兩個功能。</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># Python indexing into tuples and iterating with loops</span>
+my_tup = (<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">6</span>, <span class="hljs-number">11</span>, <span class="hljs-number">92</span>)
+print(my_tup[<span class="hljs-number">4</span>]) <span class="hljs-comment"># prints 6</span>
+<span class="hljs-keyword">for</span> val <span class="hljs-keyword">in</span> my_tup:
+   print(val) <span class="hljs-comment"># prints everything in the tuple</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">// C# indexing tuple with [] does not work</span>
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>{
+  <span class="hljs-keyword">var</span> myTup = (<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">4</span>);
+  Console.WriteLine(myTup[<span class="hljs-number">2</span>]); <span class="hljs-comment">// error: cannot apply indexing [] to type (int, int, int)</span>
+}
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">// C# iterating tuple with foreach loop does not work</span>
+<span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+{
+    <span class="hljs-keyword">var</span> myTup = (<span class="hljs-number">2</span>, <span class="hljs-number">0</span>, <span class="hljs-number">4</span>);
+   <span class="hljs-comment">// error: type (int, int, int) does not contain extension definition or instance for GetEnumerator method</span>
+    <span class="hljs-keyword">foreach</span>(<span class="hljs-keyword">var</span> val <span class="hljs-keyword">in</span> myTup){ 
+        Console.WriteLine(val);
+    }
+}
+</div></code></pre>
+<p>看錯誤訊息內容，似乎是可以為<code>(int, int, int)</code>定義一個<code>GetEnumerator</code> method，讓這個foreach loop可以用? 可能需要另外寫<code>public System.Enumerator overwrite GetEnumerator::(int, int, int)</code>之類的method。</p>
+<p>C#的tuple也有點像是C++的struct，但是幫你省去了需要定義struct的困擾。C++的tuple宣告起來有點麻煩，程式碼不如C#簡潔。總之，讓函式回傳多個數值應該是C# Tuple的主要用途。可能我寫C#的時候，會選擇像C++一樣設計帶有output variable參數的函式，達到函式回傳多值的效果。</p>
+</blockquote>
 <h2 id="q3a">Q3A</h2>
 <p><a href="Q3/Q3A.cs">sorce code</a> and <a href="https://replit.com/@b10831020/HW6-Q3A#main.cs">replit</a></p>
 <p><strong>終端機輸出</strong></p>
@@ -397,7 +547,7 @@ code {
 </ol>
 <p><strong>心得</strong></p>
 <p>計算歐式距離需要開根號，耗費較多計算資源，應盡可能降低開根號次數。若要計算每一個點與其他6個點之間的距離，須至少開C(7,2)次根號。但是可以確定最大距離一定發生在四個邊界點之間，只需要計算四個邊界點兩兩之間的距離，開C(4,2)次根號就夠了。若題目加入更多點的座標，不會增加開根號次數。</p>
-<p>尋找四個邊界點所需的時間會隨題目的點數增加而線性上升，比起指數型上升是相當大的改善。</p>
+<p>尋找四個邊界點所需的時間會隨題目的點數增加線性上升，比起指數型上升是相當大的改善。</p>
 <p>或許這個題目還有更好的解法，進一步減少計算成本，目前這是我想到最好的做法。</p>
 <h2 id="q3b">Q3B</h2>
 <p><a href="Q3/Q3B.cs">sorce code</a> and <a href="https://replit.com/@b10831020/HW6-Q3B#main.cs">replit</a></p>
@@ -454,16 +604,22 @@ Console.WriteLine(<span class="hljs-string">$"<span class="hljs-subst">{c.Number
 <pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Deal</span>(<span class="hljs-params"><span class="hljs-keyword">ref</span> Player[] _players, <span class="hljs-keyword">int</span> nCardsEachPerson = <span class="hljs-number">2</span></span>)</span>
 {
     Card[] cardsGivenToAPlayer = <span class="hljs-keyword">new</span> Card[nCardsEachPerson];
+    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.shuffledFlag){
+        <span class="hljs-comment">// each deck of card must be shuffled before deal</span>
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> CardsNotShuffledException(); 
+    }
     <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; _players.GetLength(<span class="hljs-number">0</span>); i++) {
         <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; nCardsEachPerson; j++){
-            cardsGivenToAPlayer[j] = <span class="hljs-keyword">this</span>.AllCards[<span class="hljs-keyword">this</span>.lastGivenCardIdx];
-            <span class="hljs-keyword">this</span>.lastGivenCardIdx++; <span class="hljs-comment">// keeps track of which card in array this.AllCards has been given out</span>
+            cardsGivenToAPlayer[j] = AllCards[lastGivenCardIdx];
+            lastGivenCardIdx++;
         }
         _players[i].ReceiveCards(cardsGivenToAPlayer);
     }
 }
 </div></code></pre>
 <p>這個發牌的方法在牌發完的時候會產生index out of range exception，玩家人數或每個人拿到的牌數量太多時會出問題。</p>
+<p>另外，自定義了<code>CardsNotShuffledException</code>。若程式還沒有call <code>this.Shuffle()</code>方法洗牌，就call <code>this.Deal</code>發牌，會丟出一個自定義的exception。</p>
+<p><img src="IMG/Q5-Cards not shuffled exception.png" alt=""></p>
 <h3 id="%E8%87%AA%E5%AE%9A%E7%BE%A9player-class"><strong>自定義Player class</strong></h3>
 <p>每個Player instance只有一個attribute，是<code>List&lt;Card&gt;</code>，代表該玩家的手牌。除此之外，Player class也定義了一些method，例如<code>ReceiveCard</code>、<code>ShowCard</code>等等，代表玩家可能做的事。還有一個static method <code>AllPlayersShowCards</code>，輸入一個玩家陣列，顯示所有玩家的手牌。</p>
 <p><strong>心得</strong></p>

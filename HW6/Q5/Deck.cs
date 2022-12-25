@@ -53,20 +53,41 @@ namespace Q5
             Console.Write(sb.ToString());
         }
         /// <summary>
-        /// Give cards to each player. Cards given to a player will not reapper in future deals for a single instance of deck. This function should be called after the deck has been shuffled
+        /// Give cards to each player. Cards given to a player will not reapper in future deals for a single instance of deck. This function should be called after the deck has been shuffled, otherwise a CardsNotShuffledException will be thrown
         /// </summary>
         /// <param name="_players">The array containing player instances</param>
         /// <param name="nCardsEachPerson">Number of cards each player should get each draw</param>
         public void Deal(ref Player[] _players, int nCardsEachPerson = 2)
         {
             Card[] cardsGivenToAPlayer = new Card[nCardsEachPerson];
+            if (!this.shuffledFlag){
+                throw new CardsNotShuffledException();
+            }
             for (int i = 0; i < _players.GetLength(0); i++) {
                 for (int j = 0; j < nCardsEachPerson; j++){
-                    cardsGivenToAPlayer[j] = this.AllCards[this.lastGivenCardIdx];
-                    this.lastGivenCardIdx++;
+                    cardsGivenToAPlayer[j] = AllCards[lastGivenCardIdx];
+                    lastGivenCardIdx++;
+                }
+                if(lastGivenCardIdx > this.AllCards.Length - 1){
+                    throw new NoMoreCardsException();
                 }
                 _players[i].ReceiveCards(cardsGivenToAPlayer);
             }
+        }
+    }
+
+    public class CardsNotShuffledException : Exception
+    {
+        public CardsNotShuffledException()
+            :base("葛格忘了洗牌喔")
+        {
+        }
+    }
+    public class NoMoreCardsException : Exception
+    {
+        public NoMoreCardsException()
+            : base("牌都發完啦~~沒牌啦~~玩家拿太多啦~~太多玩家啦~")
+        {
         }
     }
 }

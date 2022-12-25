@@ -8,7 +8,13 @@ namespace Q5
         {
             Console.WriteLine("Studnet ID: B10831020");
             Player[] players; // initalized in method PlayersEnter
-            PlayersEnter(out players, 3);
+            if(args.Length == 1){
+                Console.WriteLine($"{args[0]} players will join the game");
+                PlayersEnter(out players, Convert.ToInt32(args[0]));
+            }else{
+                Console.WriteLine("The default number of player is 5, you can specify number of players as command line argument");
+                PlayersEnter(out players);
+            }
             Deck aDeckOfCards = new Deck();
             aDeckOfCards.Shuffle();
             Console.WriteLine("");
@@ -38,7 +44,7 @@ namespace Q5
         /// </summary>
         /// <param name="_allPlayers">The array where the player instances will be stored</param>
         /// <param name="_nPlayers">Number of players in a game</param>
-        static void PlayersEnter(out Player[] _allPlayers, int _nPlayers = 3)
+        static void PlayersEnter(out Player[] _allPlayers, int _nPlayers = 5)
         {
             _allPlayers = new Player[_nPlayers];
             for (int i = 0; i < _nPlayers; i++){
