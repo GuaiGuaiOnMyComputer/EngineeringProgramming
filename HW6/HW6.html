@@ -227,79 +227,96 @@ pre code {
 </style>
 
 <style>
-/* Tomorrow Theme */
-/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
-/* Original theme - https://github.com/chriskempson/tomorrow-theme */
-
-/* Tomorrow Comment */
-.hljs-comment,
-.hljs-quote {
-	color: #8e908c;
-}
-
-/* Tomorrow Red */
-.hljs-variable,
-.hljs-template-variable,
-.hljs-tag,
-.hljs-name,
-.hljs-selector-id,
-.hljs-selector-class,
-.hljs-regexp,
-.hljs-deletion {
-	color: #c82829;
-}
-
-/* Tomorrow Orange */
-.hljs-number,
-.hljs-built_in,
-.hljs-builtin-name,
-.hljs-literal,
-.hljs-type,
-.hljs-params,
-.hljs-meta,
-.hljs-link {
-	color: #f5871f;
-}
-
-/* Tomorrow Yellow */
-.hljs-attribute {
-	color: #eab700;
-}
-
-/* Tomorrow Green */
-.hljs-string,
-.hljs-symbol,
-.hljs-bullet,
-.hljs-addition {
-	color: #718c00;
-}
-
-/* Tomorrow Blue */
-.hljs-title,
-.hljs-section {
-	color: #4271ae;
-}
-
-/* Tomorrow Purple */
-.hljs-keyword,
-.hljs-selector-tag {
-	color: #8959a8;
-}
+/*
+Description: Foundation 4 docs style for highlight.js
+Author: Dan Allen <dan.j.allen@gmail.com>
+Website: http://foundation.zurb.com/docs/
+Version: 1.0
+Date: 2013-04-02
+*/
 
 .hljs {
-	display: block;
-	overflow-x: auto;
-	color: #4d4d4c;
-	padding: 0.5em;
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #eee;
+  color: black;
+}
+
+.hljs-link,
+.hljs-emphasis,
+.hljs-attribute,
+.hljs-addition {
+  color: #070;
 }
 
 .hljs-emphasis {
-	font-style: italic;
+  font-style: italic;
+}
+
+.hljs-strong,
+.hljs-string,
+.hljs-deletion {
+  color: #d14;
 }
 
 .hljs-strong {
-	font-weight: bold;
+  font-weight: bold;
 }
+
+.hljs-quote,
+.hljs-comment {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-section,
+.hljs-title {
+  color: #900;
+}
+
+.hljs-class .hljs-title,
+.hljs-type {
+  color: #458;
+}
+
+.hljs-variable,
+.hljs-template-variable {
+  color: #336699;
+}
+
+.hljs-bullet {
+  color: #997700;
+}
+
+.hljs-meta {
+  color: #3344bb;
+}
+
+.hljs-code,
+.hljs-number,
+.hljs-literal,
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #099;
+}
+
+.hljs-regexp {
+  background-color: #fff0ff;
+  color: #880088;
+}
+
+.hljs-symbol {
+  color: #990073;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class {
+  color: #007700;
+}
+
 </style>
 
 <style>
@@ -380,16 +397,17 @@ code {
 <td style="text-align:center">四機械四乙</td>
 <td style="text-align:center">吳宇昕</td>
 <td style="text-align:center">B10831020</td>
-<td style="text-align:center">12/20/2022</td>
+<td style="text-align:center">12/30/2022</td>
 </tr>
 </tbody>
 </table>
 <h2 id="q1">Q1</h2>
 <p><strong>說明C++/C#語言異同點</strong></p>
 <ol>
-<li>C#的class object預設存在heap，C++預設存在stack選擇</li>
+<li>Memory management</li>
 </ol>
 <blockquote>
+<p>C#的class object預設存在heap，C++預設存在stack</p>
 <table>
 <thead>
 <tr>
@@ -421,7 +439,7 @@ code {
 </tr>
 </tbody>
 </table>
-<p>在C++，存在heap記憶體的物件，使用完了需要手動用<code>delete</code>關鍵字清除，像是這樣</p>
+<p>在C++，使用new關鍵字可以指定把物件存在heap。存在heap記憶體的物件，使用完了需要手動用<code>delete</code>關鍵字清除，像是這樣</p>
 <pre class="hljs"><code><div><span class="hljs-keyword">int</span>* myInt_ptr = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>; <span class="hljs-comment">// allocate an int on heap</span>
 *myInt_ptr = <span class="hljs-number">100</span>;
 <span class="hljs-keyword">delete</span> myInt_ptr <span class="hljs-comment">// manually freeing memory on heap</span>
@@ -489,7 +507,6 @@ code {
 </tbody>
 </table>
 <h2 id="q2-tuple%E7%9A%84%E6%84%8F%E7%BE%A9">Q2 Tuple的意義</h2>
-<blockquote>
 <p>C#的value tuple有點像是Python的tuple，可以用簡單的<code>()</code>符號打包多個變數，讓函式一次回傳多個數值。一個C#的tuple例子是這樣:</p>
 <pre class="hljs"><code><div><span class="hljs-comment">// C# calling a function retruning 2 ints in a tuple</span>
 <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>{
@@ -533,7 +550,6 @@ print(my_tup[<span class="hljs-number">4</span>]) <span class="hljs-comment"># p
 </div></code></pre>
 <p>看錯誤訊息內容，似乎是可以為<code>(int, int, int)</code>定義一個<code>GetEnumerator</code> method，讓這個foreach loop可以用? 可能需要另外寫<code>public System.Enumerator overwrite GetEnumerator::(int, int, int)</code>之類的method。</p>
 <p>C#的tuple也有點像是C++的struct，但是幫你省去了需要定義struct的困擾。C++的tuple宣告起來有點麻煩，程式碼不如C#簡潔。總之，讓函式回傳多個數值應該是C# Tuple的主要用途。可能我寫C#的時候，會選擇像C++一樣設計帶有output variable參數的函式，達到函式回傳多值的效果。</p>
-</blockquote>
 <h2 id="q3a">Q3A</h2>
 <p><a href="Q3/Q3A.cs">sorce code</a> and <a href="https://replit.com/@b10831020/HW6-Q3A#main.cs">replit</a></p>
 <p><strong>終端機輸出</strong></p>
@@ -557,6 +573,61 @@ print(my_tup[<span class="hljs-number">4</span>]) <span class="hljs-comment"># p
 <p>C#有個很好用的關鍵字<code>readonly</code>，讓一個class attribute的值經初始化後便改為唯讀，不可變更。這比C++的<code>const</code>關鍵字好用，因為一個const member沒辦法初始化賦值。
 C#好像不讓我們把的class member設為const，若要一個class member值固定不變，必須用readonly。因此這題我把學生的成績設為<code>readonly int[,]</code>，放在<code>class Program</code>裡面。</p>
 <p><img src="IMG/Q3B-Scores.png" alt="readonly member"></p>
+<h2 id="q3c">Q3C</h2>
+<p><a href="Q3/Q3C.cs">sorce code</a> and <a href="https://replit.com/join/uuhofbddye-b10831020">replit</a></p>
+<p><strong>終端機輸出</strong></p>
+<p><img src="IMG/Q3C-terminal output.png" alt="terminal output"></p>
+<p><strong>心得</strong></p>
+<p>老師有提到建議不要用tuple裝陣列，因為tuple是value type，把裝了陣列的tuple傳進傳出method時，會複製整個陣列到另一個method裡面。不過我有個疑問:</p>
+<p>雖然tuple是value type，但是array是reference type。如果把陣列裝進tuple，應該是裝一個指往存在heap記憶體的陣列pointer，而不是陣列本身。因此，把這樣的tuple傳進傳出一個函式時，並不會複製整個陣列，只是複製它的pointer。</p>
+<p>為測試裝array的tuple在傳進一個method時會不會發生copying，以下做個實驗:</p>
+<ol>
+<li>在<code>Main</code>方法創建兩個array，<code>double[] foo</code>以及<code>int[] bar</code>，並裝進<code>Tuple&lt;double[], int[]&gt; t</code></li>
+<li>把 <code>t </code>傳進method <code>ModifyTup</code>，並在method裡修改陣列值</li>
+<li>檢查method call結束後回到 <code>Main</code>，兩個陣列是否保持被修改的樣子。若兩陣列保持被修改後的值，表示tuple打包array傳進method並不會複製array本身，而是複製array的reference。</li>
+</ol>
+<p><a href="Q3/TestReferenceCopy.cs"><strong>測試用的程式碼</strong></a></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">using</span> System;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">TestCopying</span>;
+
+<span class="hljs-keyword">class</span> <span class="hljs-title">Program</span>
+{
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">Main</span>(<span class="hljs-params"><span class="hljs-keyword">string</span>[] args</span>)</span>
+    {
+        <span class="hljs-keyword">double</span> [] foo = <span class="hljs-keyword">new</span> <span class="hljs-keyword">double</span>[<span class="hljs-number">100</span>]; <span class="hljs-comment">// create an instance of array called foo initialized to 0</span>
+        <span class="hljs-keyword">int</span>[] bar = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[<span class="hljs-number">100</span>];        <span class="hljs-comment">// create an instance of array called bar initialized to 0</span>
+        <span class="hljs-keyword">var</span> t = Tuple.Create&lt;<span class="hljs-keyword">double</span>[], <span class="hljs-keyword">int</span>[]&gt;(foo, bar); <span class="hljs-comment">// package foo and bar into tuple t</span>
+        
+        <span class="hljs-comment">// see if f and g is copyed when the tuple is passed into another method</span>
+        <span class="hljs-comment">// this methond modifies both arrays in the tuple passed in</span>
+        <span class="hljs-comment">// if the foo and bar stays modified after the method call, the arrays are not copied when passed into the method</span>
+        ModifyTup(t);
+
+        <span class="hljs-comment">// see if Foo instances created in a method and packaged into a tuple is copyed when the tuple is returned</span>
+        Console.ReadKey();
+    }
+    <span class="hljs-function"><span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">ModifyTup</span>(<span class="hljs-params">Tuple&lt;<span class="hljs-keyword">double</span>[], <span class="hljs-keyword">int</span>[]&gt; _t</span>)</span>
+    {
+        <span class="hljs-comment">// modifying the arrays</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i++){
+            _t.Item1[i] = <span class="hljs-number">3.33</span>;
+            _t.Item2[i] = <span class="hljs-number">6</span>;
+        }
+    }
+
+}
+</div></code></pre>
+<p>用vscode在method call前插入中斷點，看到兩個陣列的初始值都是0</p>
+<p><img src="IMG/Q3C-test array copying.png" alt="initial value of arrays"></p>
+<p>Step into method call，兩個陣列被打包進local variable <code>_t</code> 的Item1與Item2</p>
+<p><img src="IMG/Q3C-about to modify arra.png" alt="about to modify arrays"></p>
+<p>陣列修改完兩個陣列，把Item1陣列所有值從0改為3.33，並把Item2改為6</p>
+<p><img src="IMG/Q3C-array modified.png" alt="array modified"></p>
+<p>Method call結束，回到Main。<code>foo</code>與<code>bar</code>都保持method修改後的樣子</p>
+<p><img src="IMG/Q3C-array remains modified.png" alt="array remains modified"></p>
+<p>這樣看來，tuple雖然是value type，但是當它包裝array，是包裝array的reference(pointer)。因此，C#把這樣的tuple傳進一個method應該不會使CPU需要複製整個陣列值，只需要複製陣列的reference。</p>
+<p>C#所有的自定義class跟array都是預設存在heap上的reference type，應該把class instance打包進tuple傳進method也不需要複製整個class instance，只需要複製它的reference。不過若是把struct這種value type裝進Tuple傳進method，應該就需要複製整個struct instance。</p>
 <h2 id="q5">Q5</h2>
 <p>sorce code <a href="Q5/main.cs">main.cs</a>  <a href="Q5/Deck.cs">Deck.cs</a>  <a href="Q5/card.cs">Card.cs</a> <a href="Q5/Player.cs">Player.cs</a> and <a href="https://replit.com/@b10831020/HW6-Q5#main.cs">replit</a></p>
 <p>三份cs檔分別包含<code>class Program</code>、<code>class Deck</code>、<code>class card</code>及<code>class Player</code>，皆屬於<code>namespace Q5</code></p>

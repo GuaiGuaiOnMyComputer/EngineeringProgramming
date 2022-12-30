@@ -1,7 +1,7 @@
 # HW6 
  |  班級   | 姓名 |  學號   |   日期   |
  |   :---: | :---:|  :---:  |:---: |
- |四機械四乙|吳宇昕|B10831020|12/20/2022|
+ |四機械四乙|吳宇昕|B10831020|12/30/2022|
 
 ## Q1
 
@@ -65,55 +65,55 @@ __說明C++/C#語言異同點__
 |cross platform|困難|容易|
 
 ## Q2 Tuple的意義
-> C#的value tuple有點像是Python的tuple，可以用簡單的```()```符號打包多個變數，讓函式一次回傳多個數值。一個C#的tuple例子是這樣:
-> ```C#
-> // C# calling a function retruning 2 ints in a tuple
-> static void Main(string[] args){
->     (int Min, int Max) = FindMinMax(); // receive and deconstruct a returned tuple 
-> }
-> static (int min, int max) FindMinMax(){
->     int[] arr = new int[]{ 1, 2, 4, 5, 21, 22 };
->     return (arr.Min(), arr.Max()); // creating a tuple with () and return
-> }
-> ```
-> 而Python的例子是這樣:
-> ```Python
-> # Python calling a function returning 2 ints in a tuple
-> def FindMinMax() -> tuple:
->    my_list = [1, 2, 4, 5, 21, 22]
->    return (my_list.min(), my_list.max()) # packaging a tuple
-> 
-> (Min, Max) = FindMinMax() # unpackaging a tuple
-> ```
-> 但是不一樣的地方在於，Python的Tuple可以被index索引，也可以被迴圈走訪；C#的tuple沒有這兩個功能。
-> ```Python
-> # Python indexing into tuples and iterating with loops
-> my_tup = (1, 2, 3, 2, 6, 11, 92)
-> print(my_tup[4]) # prints 6
-> for val in my_tup:
->    print(val) # prints everything in the tuple
-> ```
-> ```C#
-> // C# indexing tuple with [] does not work
-> static void Main(string[] args){
->   var myTup = (2, 0, 4);
->   Console.WriteLine(myTup[2]); // error: cannot apply indexing [] to type (int, int, int)
-> }
-> ```
-> ```C#
-> // C# iterating tuple with foreach loop does not work
-> static void Main(string[] args)
-> {
->     var myTup = (2, 0, 4);
->    // error: type (int, int, int) does not contain extension definition or instance for GetEnumerator method
->     foreach(var val in myTup){ 
->         Console.WriteLine(val);
->     }
-> }
-> ```
-> 看錯誤訊息內容，似乎是可以為```(int, int, int)```定義一個```GetEnumerator``` method，讓這個foreach loop可以用? 可能需要另外寫```public System.Enumerator overwrite GetEnumerator::(int, int, int)```之類的method。
-> 
-> C#的tuple也有點像是C++的struct，但是幫你省去了需要定義struct的困擾。C++的tuple宣告起來有點麻煩，程式碼不如C#簡潔。總之，讓函式回傳多個數值應該是C# Tuple的主要用途。可能我寫C#的時候，會選擇像C++一樣設計帶有output variable參數的函式，達到函式回傳多值的效果。
+ C#的value tuple有點像是Python的tuple，可以用簡單的```()```符號打包多個變數，讓函式一次回傳多個數值。一個C#的tuple例子是這樣:
+ ```C#
+ // C# calling a function retruning 2 ints in a tuple
+ static void Main(string[] args){
+     (int Min, int Max) = FindMinMax(); // receive and deconstruct a returned tuple 
+ }
+ static (int min, int max) FindMinMax(){
+     int[] arr = new int[]{ 1, 2, 4, 5, 21, 22 };
+     return (arr.Min(), arr.Max()); // creating a tuple with () and return
+ }
+ ```
+ 而Python的例子是這樣:
+ ```Python
+ # Python calling a function returning 2 ints in a tuple
+ def FindMinMax() -> tuple:
+    my_list = [1, 2, 4, 5, 21, 22]
+    return (my_list.min(), my_list.max()) # packaging a tuple
+ 
+ (Min, Max) = FindMinMax() # unpackaging a tuple
+ ```
+ 但是不一樣的地方在於，Python的Tuple可以被index索引，也可以被迴圈走訪；C#的tuple沒有這兩個功能。
+ ```Python
+ # Python indexing into tuples and iterating with loops
+ my_tup = (1, 2, 3, 2, 6, 11, 92)
+ print(my_tup[4]) # prints 6
+ for val in my_tup:
+    print(val) # prints everything in the tuple
+ ```
+ ```C#
+ // C# indexing tuple with [] does not work
+ static void Main(string[] args){
+   var myTup = (2, 0, 4);
+   Console.WriteLine(myTup[2]); // error: cannot apply indexing [] to type (int, int, int)
+ }
+ ```
+ ```C#
+ // C# iterating tuple with foreach loop does not work
+ static void Main(string[] args)
+ {
+     var myTup = (2, 0, 4);
+    // error: type (int, int, int) does not contain extension definition or instance for GetEnumerator method
+     foreach(var val in myTup){ 
+         Console.WriteLine(val);
+     }
+ }
+ ```
+ 看錯誤訊息內容，似乎是可以為```(int, int, int)```定義一個```GetEnumerator``` method，讓這個foreach loop可以用? 可能需要另外寫```public System.Enumerator overwrite GetEnumerator::(int, int, int)```之類的method。
+ 
+ C#的tuple也有點像是C++的struct，但是幫你省去了需要定義struct的困擾。C++的tuple宣告起來有點麻煩，程式碼不如C#簡潔。總之，讓函式回傳多個數值應該是C# Tuple的主要用途。可能我寫C#的時候，會選擇像C++一樣設計帶有output variable參數的函式，達到函式回傳多值的效果。
 
 ## Q3A
 
@@ -153,6 +153,80 @@ C#有個很好用的關鍵字```readonly```，讓一個class attribute的值經�
 C#好像不讓我們把的class member設為const，若要一個class member值固定不變，必須用readonly。因此這題我把學生的成績設為```readonly int[,]```，放在```class Program```裡面。
 
 ![readonly member](IMG/Q3B-Scores.png)
+
+## Q3C
+
+[sorce code](Q3/Q3C.cs) and [replit](https://replit.com/join/uuhofbddye-b10831020)
+
+__終端機輸出__
+
+![terminal output](IMG/Q3C-terminal%20output.png)
+
+__心得__
+
+老師有提到建議不要用tuple裝陣列，因為tuple是value type，把裝了陣列的tuple傳進傳出method時，會複製整個陣列到另一個method裡面。不過我有個疑問:
+
+雖然tuple是value type，但是array是reference type。如果把陣列裝進tuple，應該是裝一個指往存在heap記憶體的陣列pointer，而不是陣列本身。因此，把這樣的tuple傳進傳出一個函式時，並不會複製整個陣列，只是複製它的pointer。
+
+為測試裝array的tuple在傳進一個method時會不會發生copying，以下做個實驗:
+ 1. 在```Main```方法創建兩個array，```double[] foo```以及```int[] bar```，並裝進```Tuple<double[], int[]> t```
+ 2. 把 ```t ```傳進method ```ModifyTup```，並在method裡修改陣列值
+ 3. 檢查method call結束後回到 ```Main```，兩個陣列是否保持被修改的樣子。若兩陣列保持被修改後的值，表示tuple打包array傳進method並不會複製array本身，而是複製array的reference。
+ 
+
+ [__測試用的程式碼__](Q3/TestReferenceCopy.cs)
+ ```C#
+ using System;
+ 
+ namespace TestCopying;
+ 
+ class Program
+ {
+     static void Main(string[] args)
+     {
+         double [] foo = new double[100]; // create an instance of array called foo initialized to 0
+         int[] bar = new int[100];        // create an instance of array called bar initialized to 0
+         var t = Tuple.Create<double[], int[]>(foo, bar); // package foo and bar into tuple t
+         
+         // see if f and g is copyed when the tuple is passed into another method
+         // this methond modifies both arrays in the tuple passed in
+         // if the foo and bar stays modified after the method call, the arrays are not copied when passed into the method
+         ModifyTup(t);
+ 
+         // see if Foo instances created in a method and packaged into a tuple is copyed when the tuple is returned
+         Console.ReadKey();
+     }
+     static void ModifyTup(Tuple<double[], int[]> _t)
+     {
+         // modifying the arrays
+         for (int i = 0; i < 100; i++){
+             _t.Item1[i] = 3.33;
+             _t.Item2[i] = 6;
+         }
+     }
+ 
+ }
+ ```
+用vscode在method call前插入中斷點，看到兩個陣列的初始值都是0
+
+![initial value of arrays](IMG/Q3C-test%20array%20copying.png)
+
+Step into method call，兩個陣列被打包進local variable ```_t``` 的Item1與Item2
+
+![about to modify arrays](IMG/Q3C-about%20to%20modify%20arra.png)
+
+陣列修改完兩個陣列，把Item1陣列所有值從0改為3.33，並把Item2改為6
+
+![array modified](IMG/Q3C-array%20modified.png)
+
+Method call結束，回到Main。```foo```與```bar```都保持method修改後的樣子
+
+![array remains modified](IMG/Q3C-array%20remains%20modified.png)
+
+這樣看來，tuple雖然是value type，但是當它包裝array，是包裝array的reference(pointer)。因此，C#把這樣的tuple傳進一個method應該不會使CPU需要複製整個陣列值，只需要複製陣列的reference。
+
+C#所有的自定義class跟array都是預設存在heap上的reference type，應該把class instance打包進tuple傳進method也不需要複製整個class instance，只需要複製它的reference。不過若是把struct這種value type裝進Tuple傳進method，應該就需要複製整個struct instance。
+
 
 ## Q5
 

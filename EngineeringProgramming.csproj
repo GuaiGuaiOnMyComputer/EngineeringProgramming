@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <StartupObject>Q5.Program</StartupObject>
+    <StartupObject>Q3C.Program</StartupObject>
     <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
 
